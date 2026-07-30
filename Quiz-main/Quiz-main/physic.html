@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Physics Quiz - CanQuiz</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #1f1c2c, #928dab);
+            color: #fff;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #ffdd57;
+        }
+
+        .quiz-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .question {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-left: 4px solid #ffdd57;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .question p {
+            margin-bottom: 10px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .question label {
+            display: block;
+            margin: 6px 0;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            display: block;
+            margin: 30px auto 10px;
+            background-color: #ffdd57;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #ffe57f;
+        }
+
+        #result {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-top: 20px;
+            font-weight: bold;
+            color: #a0ffb0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Physics Quiz</h1>
+    <div class="quiz-container">
+        <form id="quizForm">
+            <!-- Questions 1 to 20 -->
+            <div class="question">
+                <p>1. What is the unit of force?</p>
+                <label><input type="radio" name="q1" value="a"> Newton</label>
+                <label><input type="radio" name="q1" value="b"> Pascal</label>
+                <label><input type="radio" name="q1" value="c"> Joule</label>
+            </div>
+
+            <div class="question">
+                <p>2. What is the speed of light in vacuum?</p>
+                <label><input type="radio" name="q2" value="a"> 3 × 10⁸ m/s</label>
+                <label><input type="radio" name="q2" value="b"> 3 × 10⁶ m/s</label>
+                <label><input type="radio" name="q2" value="c"> 3 × 10⁵ km/h</label>
+            </div>
+
+            <div class="question">
+                <p>3. Who discovered the law of universal gravitation?</p>
+                <label><input type="radio" name="q3" value="a"> Galileo</label>
+                <label><input type="radio" name="q3" value="b"> Newton</label>
+                <label><input type="radio" name="q3" value="c"> Einstein</label>
+            </div>
+
+            <div class="question">
+                <p>4. What does E=mc² relate?</p>
+                <label><input type="radio" name="q4" value="a"> Energy and mass</label>
+                <label><input type="radio" name="q4" value="b"> Electricity and motion</label>
+                <label><input type="radio" name="q4" value="c"> Energy and charge</label>
+            </div>
+
+            <div class="question">
+                <p>5. What is the SI unit of power?</p>
+                <label><input type="radio" name="q5" value="a"> Volt</label>
+                <label><input type="radio" name="q5" value="b"> Watt</label>
+                <label><input type="radio" name="q5" value="c"> Ampere</label>
+            </div>
+
+            <div class="question">
+                <p>6. What is the formula for acceleration?</p>
+                <label><input type="radio" name="q6" value="a"> v/t</label>
+                <label><input type="radio" name="q6" value="b"> m/s</label>
+                <label><input type="radio" name="q6" value="c"> s/t</label>
+            </div>
+
+            <div class="question">
+                <p>7. What is gravity on Earth?</p>
+                <label><input type="radio" name="q7" value="a"> 9.8 m/s²</label>
+                <label><input type="radio" name="q7" value="b"> 9.8 km/h</label>
+                <label><input type="radio" name="q7" value="c"> 10 m/s</label>
+            </div>
+
+            <div class="question">
+                <p>8. What is Ohm’s Law?</p>
+                <label><input type="radio" name="q8" value="a"> V = IR</label>
+                <label><input type="radio" name="q8" value="b"> P = IV</label>
+                <label><input type="radio" name="q8" value="c"> E = mc²</label>
+            </div>
+
+            <div class="question">
+                <p>9. What is the unit of electric current?</p>
+                <label><input type="radio" name="q9" value="a"> Volt</label>
+                <label><input type="radio" name="q9" value="b"> Ampere</label>
+                <label><input type="radio" name="q9" value="c"> Ohm</label>
+            </div>
+
+            <div class="question">
+                <p>10. What device converts mechanical energy into electrical energy?</p>
+                <label><input type="radio" name="q10" value="a"> Generator</label>
+                <label><input type="radio" name="q10" value="b"> Motor</label>
+                <label><input type="radio" name="q10" value="c"> Transformer</label>
+            </div>
+
+            <div class="question">
+                <p>11. What does a prism do to light?</p>
+                <label><input type="radio" name="q11" value="a"> Reflects it</label>
+                <label><input type="radio" name="q11" value="b"> Absorbs it</label>
+                <label><input type="radio" name="q11" value="c"> Splits it into colors</label>
+            </div>
+
+            <div class="question">
+                <p>12. Which law says "For every action, there is an equal and opposite reaction"?</p>
+                <label><input type="radio" name="q12" value="a"> Newton's 2nd law</label>
+                <label><input type="radio" name="q12" value="b"> Newton's 3rd law</label>
+                <label><input type="radio" name="q12" value="c"> Newton's 1st law</label>
+            </div>
+
+            <div class="question">
+                <p>13. What is kinetic energy?</p>
+                <label><input type="radio" name="q13" value="a"> Energy of motion</label>
+                <label><input type="radio" name="q13" value="b"> Stored energy</label>
+                <label><input type="radio" name="q13" value="c"> Electrical energy</label>
+            </div>
+
+            <div class="question">
+                <p>14. What is a conductor?</p>
+                <label><input type="radio" name="q14" value="a"> Blocks electricity</label>
+                <label><input type="radio" name="q14" value="b"> Allows electric flow</label>
+                <label><input type="radio" name="q14" value="c"> Reflects light</label>
+            </div>
+
+            <div class="question">
+                <p>15. What is the symbol for frequency?</p>
+                <label><input type="radio" name="q15" value="a"> f</label>
+                <label><input type="radio" name="q15" value="b"> v</label>
+                <label><input type="radio" name="q15" value="c"> λ</label>
+            </div>
+
+            <div class="question">
+                <p>16. What is the nature of sound?</p>
+                <label><input type="radio" name="q16" value="a"> Transverse</label>
+                <label><input type="radio" name="q16" value="b"> Longitudinal</label>
+                <label><input type="radio" name="q16" value="c"> Rotational</label>
+            </div>
+
+            <div class="question">
+                <p>17. What is the primary source of energy for Earth?</p>
+                <label><input type="radio" name="q17" value="a"> Moon</label>
+                <label><input type="radio" name="q17" value="b"> Sun</label>
+                <label><input type="radio" name="q17" value="c"> Stars</label>
+            </div>
+
+            <div class="question">
+                <p>18. What type of lens converges light?</p>
+                <label><input type="radio" name="q18" value="a"> Convex</label>
+                <label><input type="radio" name="q18" value="b"> Concave</label>
+                <label><input type="radio" name="q18" value="c"> Flat</label>
+            </div>
+
+            <div class="question">
+                <p>19. What is the unit of frequency?</p>
+                <label><input type="radio" name="q19" value="a"> Hz</label>
+                <label><input type="radio" name="q19" value="b"> J</label>
+                <label><input type="radio" name="q19" value="c"> N</label>
+            </div>
+
+            <div class="question">
+                <p>20. What is voltage?</p>
+                <label><input type="radio" name="q20" value="a"> Energy per charge</label>
+                <label><input type="radio" name="q20" value="b"> Charge per energy</label>
+                <label><input type="radio" name="q20" value="c"> Resistance</label>
+            </div>
+
+            <button type="button" class="submit-btn" onclick="checkAnswers()">Submit</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            q1: "a", q2: "a", q3: "b", q4: "a", q5: "b",
+            q6: "a", q7: "a", q8: "a", q9: "b", q10: "a",
+            q11: "c", q12: "b", q13: "a", q14: "b", q15: "a",
+            q16: "b", q17: "b", q18: "a", q19: "a", q20: "a"
+        };
+
+        function checkAnswers() {
+            let score = 0;
+            for (let i = 1; i <= 20; i++) {
+                const q = document.querySelector(`input[name="q${i}"]:checked`);
+                if (q && q.value === correctAnswers[`q${i}`]) {
+                    score++;
+                }
+            }
+            document.getElementById("result").innerText = `You got ${score}/20 correct!`;
+        }
+    </script>
+</body>
+
+</html>

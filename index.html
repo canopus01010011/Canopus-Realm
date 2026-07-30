@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canopus Realm — One Hub. Endless Creations.</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <canvas id="starfield"></canvas>
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <div class="logo" onclick="scrollToSection('home')">
+                <span class="logo-mark"></span>
+                <span>Canopus Realm</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
+                <li><a href="#games" class="nav-link" data-section="games">Games</a></li>
+                <li><a href="#utilities" class="nav-link" data-section="utilities">Utilities</a></li>
+                <li><a href="#personal" class="nav-link" data-section="personal">Personal</a></li>
+                <li><a href="#occasions" class="nav-link" data-section="occasions">Special Days</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="icon-btn" id="searchToggle" aria-label="Search projects"><i
+                        class="fas fa-search"></i></button>
+                <li id="user-menu-placeholder" style="list-style:none;"></li>
+                <div class="hamburger" id="hamburger">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search the realm... try 'calc' or 'quiz'"
+                autocomplete="off">
+            <div class="search-results" id="searchResults"></div>
+            <p class="search-hint">Press Esc to close</p>
+        </div>
+    </div>
+
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <ul class="auth-tabs">
+                <li><button class="auth-tab-btn active" data-tab="login">Login</button></li>
+                <li><button class="auth-tab-btn" data-tab="signup">Sign Up</button></li>
+            </ul>
+            <div id="login-tab" class="auth-tab-content active">
+                <form id="login-form">
+                    <h2>Welcome back</h2>
+                    <input type="email" placeholder="Email" required>
+                    <input type="password" placeholder="Password" required>
+                    <button type="submit" class="auth-btn">Enter the Realm</button>
+                    <p class="auth-toggle">Don't have an account? <a href="#" onclick="switchTab('signup')">Sign up</a>
+                    </p>
+                </form>
+            </div>
+            <div id="signup-tab" class="auth-tab-content">
+                <form id="signup-form">
+                    <h2>Create your account</h2>
+                    <input type="text" placeholder="Full Name" required>
+                    <input type="email" placeholder="Email" required>
+                    <input type="password" placeholder="Password" required>
+                    <input type="password" placeholder="Confirm Password" required>
+                    <button type="submit" class="auth-btn">Create account</button>
+                    <p class="auth-toggle">Already have an account? <a href="#" onclick="switchTab('login')">Log in</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="user-dropdown" class="user-dropdown">
+        <div class="user-info">
+            <div class="user-avatar"><i class="fas fa-user-circle"></i></div>
+            <div>
+                <p id="username-display">User</p>
+                <p id="useremail-display" class="small-text">email@example.com</p>
+            </div>
+        </div>
+        <hr>
+        <a href="#" onclick="goToUserProfile()"><i class="fas fa-user"></i> Profile</a>
+        <a href="#" onclick="goToUserSettings()"><i class="fas fa-cog"></i> Settings</a>
+        <hr>
+        <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+    <section id="home" class="hero">
+        <div class="planet"></div>
+        <div class="planet-ring"></div>
+        <span class="eyebrow">interactive web experiences</span>
+        <h1>CANOPUS<br>REALM</h1>
+        <p class="hero-sub">One hub, endless creations — explore a growing collection of games,
+            tools, and small worlds I've built and shipped, one project at a time.</p>
+
+        <div class="hero-stats">
+            <div class="stat"><span class="stat-num" data-count="14">0</span><span class="stat-label">Projects</span>
+            </div>
+            <div class="stat"><span class="stat-num" data-count="8">0</span><span class="stat-label">Technologies</span>
+            </div>
+            <div class="stat"><span class="stat-num" data-count="500" data-suffix="+">0</span><span
+                    class="stat-label">Commits</span></div>
+        </div>
+
+        <div class="cta-row">
+            <button class="cta-btn" onclick="scrollToSection('games')">Explore the Realm</button>
+            <button class="cta-ghost" id="heroSearchBtn">Search projects</button>
+        </div>
+
+        <div class="scroll-cue"><span class="line"></span>scroll</div>
+    </section>
+
+    <div class="filter-bar">
+        <div class="filter-pills" id="filterPills">
+            <span class="filter-pill active" data-filter="all">All</span>
+            <span class="filter-pill" data-filter="games">Games</span>
+            <span class="filter-pill" data-filter="utilities">Utilities</span>
+            <span class="filter-pill" data-filter="personal">Personal</span>
+            <span class="filter-pill" data-filter="occasions">Special Days</span>
+        </div>
+    </div>
+
+    <div class="featured-wrap">
+        <div class="featured-card" id="featuredCard">
+            <div>
+                <span class="featured-eyebrow">Featured</span>
+                <h3 id="featuredTitle">Anime Tracker</h3>
+                <p id="featuredDesc">My largest anime management application — track, rate, and discuss every series you
+                    watch.</p>
+                <div class="featured-tags" id="featuredTags"></div>
+                <button class="featured-launch" id="featuredLaunch">Launch project</button>
+            </div>
+            <div class="featured-visual" id="featuredVisual"><i class="fas fa-film"></i></div>
+        </div>
+        <div class="featured-dots" id="featuredDots"></div>
+    </div>
+
+    <!-- Games -->
+    <section id="games" class="world" data-world="games">
+        <div class="world-header">
+            <h2 class="world-title"><span class="world-glyph">🎮</span> Games</h2>
+            <span class="world-sub"> fun games to play and enjoy</span>
+        </div>
+        <div class="projects-grid" data-grid="games">
+            <div class="project-card" data-name="Anime Tracker" data-tags="html css js firebase"
+                onclick="openProject('Anime-Tracker-main')">
+                <div class="project-visual"><i class="fas fa-film"></i></div>
+                <h3>Anime Tracker</h3>
+                <p>Track, rate, and discuss your favorite anime.</p>
+                <div class="project-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span
+                        class="tag">JS</span><span class="tag">Firebase</span></div>
+                <div class="launch-row"><span class="rating">★★★★☆</span><span class="launch-btn">Launch <i
+                            class="fas fa-arrow-right"></i></span></div>
+            </div>
+            <div class="project-card" data-name="Rock Paper Scissors" data-tags="html css js game"
+                onclick="openProject('ROCK-PAPER-SCISSOR02-main')">
+                <div class="project-visual"><i class="fas fa-hand-fist"></i></div>
+                <h3>Rock Paper Scissors</h3>
+                <p>Classic game with a bot player and competition mode.</p>
+                <div class="project-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span
+                        class="tag">JS</span></div>
+                <div class="launch-row"><span class="rating">★★★★☆</span><span class="launch-btn">Launch <i
+                            class="fas fa-arrow-right"></i></span></div>
+            </div>
+            <div class="project-card" data-name="Tic Tac Toe" data-tags="html css js multiplayer"
+                onclick="openProject('Tic-Tac-Toe-website-version--main')">
+                <div class="project-visual"><i class="fas fa-square"></i></div>
+                <h3>Tic Tac Toe</h3>
+                <p>Strategic 3x3 game with a competitive multiplayer mode.</p>
+                <div class="project-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span
+                        class="tag">JS</span></div>
+                <div class="launch-row"><span class="rating">★★★☆☆</span><span class="launch-btn">Launch <i
+                            class="fas fa-arrow-right"></i></span></div>
+            </div>
+            <div class="project-card" data-name="Quiz Master" data-tags="html css js quiz trivia"
+                onclick="openProject('Quiz-main')">
+                <div class="project-visual"><i class="fas fa-brain"></i></div>
+                <h3>Quiz Master</h3>
+                <p>Test your knowledge across categories with live scoring.</p>
+                <div class="project-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span
+                        class="tag">JS</span></div>
+                <div class="launch-row"><span class="rating">★★★★☆</span><span class="launch-btn">Launch <i
+                            class="fas fa-arrow-right"></i></span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Utilities -->
+    <section id="utilities" class="world" data-world="utilities">
+        <div class="world-header">
+            <h2 class="world-title"><span class="world-glyph">🧰</span> Utilities</h2>
+            <span class="world-sub"> handy tools for daily tasks</span>
+        </div>
+        <div class="projects-grid" data-grid="utilities">
+            <div class="project-card" data-name="Calculator" data-tags="html css js scientific"
+                onclick="openProject('Calculator-main')">
+                <div class="project-visual"><i class="fas fa-calculator"></i></div>
+                <h3>Calculator</h3>
+                <p>Advanced calculator with a scientific mode and history.</p>
+                <div class="project-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span
+                        class="tag">JS</span></div>
+                <div class="launch-row"><span class="rating">★★★★★</span><span class="launch-btn">Launch <i
+                            class="fas fa-arrow-right"></i></span></div>
+            </div>
+            <div class="project-card" data-name="Currency Converter" data-tags="html css js api rates"
+                onclick="openProject('Currency-Converter-main')">
+                <div class="project-visual"><i class="fas fa-exchange-alt"></i></div>
+                <h3>Currency Converter</h3>
+                <p>Convert currencies with real-time and historical rates.</p>
+                <div class="project-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span
+                        class="tag">API</span></div>
+                <div class="launch-row"><span class="rating">★★★★☆</span><span class="launch-btn">Launch <i
+                            class="fas fa-arrow-right"></i></span></div>
+            </div>
+            <div class="project-card" data-name="Weather" data-tags="html css js weather forecast"
+                onclick="openProject('weather-main')">
+                <div class="project-visual"><i class="fas fa-cloud-sun"></i></div>
+                <h3>Weather</h3>
+                <p>Real-time weather information with forecasts.</p>
+                <div class="project-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span
+                        class="tag">API</span></div>
+                <div class="launch-row"><span class="rating">★★★★☆</span><span class="launch-btn">Launch <i
+                            class="fas fa-arrow-right"></i></span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personal -->
+    <section id="personal" class="world" data-world="personal">
+        <div class="world-header">
+            <h2 class="world-title"><span class="world-glyph">💚</span> Personal</h2>
+            <span class="world-sub"> organize, move, and unwind</span>
+        </div>
+        <div class="projects-grid" data-grid="personal">
+            <div class="project-card" data-name="Fitness Tracker" data-tags="html css js analytics dashboard"
+                onclick="openProject('Fitness-Tracker-Dashboard-main')">
+                <div class="project-visual"><i class="fas fa-heartbeat"></i></div>
+                <h3>Fitness Tracker</h3>
+                <p>Track fitness goals and progress with analytics.</p>
+                <div class="project-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span
+                        class="tag">JS</span></div>
+                <div class="launch-row"><span class="rating">★★★★☆</span><span class="launch-btn">Launch <i
+                            class="fas fa-arrow-right"></i></span></div>
+            </div>
+            <div class="project-card" data-name="Note Web" data-tags="html css js notes folders"
+                onclick="openProject('Note-Web-main')">
+                <div class="project-visual"><i class="fas fa-sticky-note"></i></div>
+                <h3>Note Web</h3>
+                <p>Create and organize notes with a folder system.</p>
+                <div class="project-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span
+                        class="tag">JS</span></div>
+                <div class="launch-row"><span class="rating">★★★★☆</span><span class="launch-btn">Launch <i
+                            class="fas fa-arrow-right"></i></span></div>
+            </div>
+            <div class="project-card" data-name="To-Do List" data-tags="html css js calendar reminders"
+                onclick="openProject('To-Do-List-main')">
+                <div class="project-visual"><i class="fas fa-check-square"></i></div>
+                <h3>To-Do List</h3>
+                <p>Manage tasks with a calendar view and reminders.</p>
+                <div class="project-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span
+                        class="tag">JS</span></div>
+                <div class="launch-row"><span class="rating">★★★☆☆</span><span class="launch-btn">Launch <i
+                            class="fas fa-arrow-right"></i></span></div>
+            </div>
+            <div class="project-card" data-name="Epic Music Player" data-tags="html css js playlist audio"
+                onclick="openProject('Epic-Music-Player-main')">
+                <div class="project-visual"><i class="fas fa-compact-disc"></i></div>
+                <h3>Music Player</h3>
+                <p>Listen to your favorite tracks with a playlist view.</p>
+                <div class="project-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span
+                        class="tag">JS</span></div>
+                <div class="launch-row"><span class="rating">★★★★☆</span><span class="launch-btn">Launch <i
+                            class="fas fa-arrow-right"></i></span></div>
+            </div>
+            <div class="project-card" data-name="Epic Page" data-tags="html css js content hub"
+                onclick="openProject('Epic-Page-main')">
+                <div class="project-visual"><i class="fas fa-music"></i></div>
+                <h3>Epic Page</h3>
+                <p>A content hub for entertainment and inspiration.</p>
+                <div class="project-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span
+                        class="tag">JS</span></div>
+                <div class="launch-row"><span class="rating">★★★☆☆</span><span class="launch-btn">Launch <i
+                            class="fas fa-arrow-right"></i></span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Special Days -->
+    <section id="occasions" class="world" data-world="occasions">
+        <div class="world-header">
+            <h2 class="world-title"><span class="world-glyph">🎉</span> Special Days</h2>
+            <span class="world-sub"> small websites made for a moment</span>
+        </div>
+        <div class="projects-grid" data-grid="occasions">
+            <div class="project-card" data-name="Valentine" data-tags="html css js love confession"
+                onclick="openProject('ValentineLOL-main')">
+                <div class="project-visual"><i class="fas fa-heart"></i></div>
+                <h3>Valentine</h3>
+                <p>A small website for asking someone out.</p>
+                <div class="project-tags"><span class="tag">Love</span><span class="tag">Confession</span></div>
+                <div class="launch-row"><span class="rating">★★★★★</span><span class="launch-btn">Launch <i
+                            class="fas fa-arrow-right"></i></span></div>
+            </div>
+            <div class="project-card" data-name="Eid Sa3id" data-tags="html css js eid celebration"
+                onclick="openProject('Eid-main')">
+                <div class="project-visual"><i class="fas fa-star-and-crescent"></i></div>
+                <h3>Eid Sa3id</h3>
+                <p>A simple website for celebrating Eid.</p>
+                <div class="project-tags"><span class="tag">Eid</span><span class="tag">Celebration</span></div>
+                <div class="launch-row"><span class="rating">★★★★☆</span><span class="launch-btn">Launch <i
+                            class="fas fa-arrow-right"></i></span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-logo">Canopus Realm</div>
+        <p class="footer-credit">Created by Souheil</p>
+        <div class="footer-links">
+            <a href="https://github.com/canopus01010011" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://www.linkedin.com/in/souheil-guellil-55b59a290" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="mailto:souheilsouhil1@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+        </div>
+    </footer>
+
+    <!-- Project Modal -->
+    <div id="project-modal" class="modal">
+        <div class="project-modal-content">
+            <span class="close-modal" onclick="closeProjectModal()">&times;</span>
+            <div class="project-loader">
+                <p>Entering world...</p>
+                <div class="spinner"></div>
+            </div>
+            <iframe id="project-iframe" src="" style="display:none;"></iframe>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore-compat.js"></script>
+
+    <script src="firebase-config.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Celebrities Quiz</title>
+<style>
+    body {
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(to right, #1c1c1c, #2d2d2d);
+  color: #fff;
+  padding: 40px;
+  margin: 0;
+}
+
+.quiz-container {
+  max-width: 800px;
+  margin: auto;
+  background: #2c2c2c;
+  border-radius: 16px;
+  padding: 30px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+}
+
+.quiz-container h1 {
+  text-align: center;
+  color: #00bcd4;
+  margin-bottom: 30px;
+}
+
+.question-block {
+  background-color: #3b3b3b;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: 0.3s;
+}
+
+.question-block:hover {
+  background-color: #444;
+}
+
+label {
+  display: block;
+  margin: 8px 0;
+  cursor: pointer;
+}
+
+button {
+  display: block;
+  margin: 30px auto;
+  padding: 12px 28px;
+  background-color: #00bcd4;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #0097a7;
+}
+
+#result {
+  text-align: center;
+  font-size: 22px;
+  margin-top: 20px;
+  color: #ffc107;
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="quiz-container">
+        <h1>Celebrities Quiz</h1>
+        <form id="quizForm">
+            <div class="question-block">
+                <p>1. Who played Iron Man in the Marvel movies?</p>
+                <label><input type="radio" name="q1" value="a" /> Chris Hemsworth</label>
+                <label><input type="radio" name="q1" value="b" /> Robert Downey Jr.</label>
+                <label><input type="radio" name="q1" value="c" /> Chris Evans</label>
+            </div>
+
+            <div class="question-block">
+                <p>2. Who is known as the “King of Pop”?</p>
+                <label><input type="radio" name="q2" value="a" /> Elvis Presley</label>
+                <label><input type="radio" name="q2" value="b" /> Justin Bieber</label>
+                <label><input type="radio" name="q2" value="c" /> Michael Jackson</label>
+            </div>
+
+            <div class="question-block">
+                <p>3. Who starred in the movie "Titanic" as Jack?</p>
+                <label><input type="radio" name="q3" value="a" /> Brad Pitt</label>
+                <label><input type="radio" name="q3" value="b" /> Leonardo DiCaprio</label>
+                <label><input type="radio" name="q3" value="c" /> Tom Cruise</label>
+            </div>
+
+            <div class="question-block">
+                <p>4. Who is the youngest self-made billionaire?</p>
+                <label><input type="radio" name="q4" value="a" /> Kylie Jenner</label>
+                <label><input type="radio" name="q4" value="b" /> Rihanna</label>
+                <label><input type="radio" name="q4" value="c" /> Taylor Swift</label>
+            </div>
+
+            <div class="question-block">
+                <p>5. Who directed the movie "Inception"?</p>
+                <label><input type="radio" name="q5" value="a" /> Quentin Tarantino</label>
+                <label><input type="radio" name="q5" value="b" /> Christopher Nolan</label>
+                <label><input type="radio" name="q5" value="c" /> James Cameron</label>
+            </div>
+
+            <div class="question-block">
+                <p>6. Which celebrity owns the beauty brand Fenty?</p>
+                <label><input type="radio" name="q6" value="a" /> Selena Gomez</label>
+                <label><input type="radio" name="q6" value="b" /> Rihanna</label>
+                <label><input type="radio" name="q6" value="c" /> Beyoncé</label>
+            </div>
+
+            <div class="question-block">
+                <p>7. Who played Hermione in Harry Potter?</p>
+                <label><input type="radio" name="q7" value="a" /> Emma Stone</label>
+                <label><input type="radio" name="q7" value="b" /> Emma Watson</label>
+                <label><input type="radio" name="q7" value="c" /> Natalie Portman</label>
+            </div>
+
+            <div class="question-block">
+                <p>8. Who is the lead singer of Coldplay?</p>
+                <label><input type="radio" name="q8" value="a" /> Chris Martin</label>
+                <label><input type="radio" name="q8" value="b" /> Adam Levine</label>
+                <label><input type="radio" name="q8" value="c" /> Ed Sheeran</label>
+            </div>
+
+            <div class="question-block">
+                <p>9. Which actor played Deadpool?</p>
+                <label><input type="radio" name="q9" value="a" /> Ryan Reynolds</label>
+                <label><input type="radio" name="q9" value="b" /> Hugh Jackman</label>
+                <label><input type="radio" name="q9" value="c" /> Chris Pratt</label>
+            </div>
+
+            <div class="question-block">
+                <p>10. Who hosted "The Ellen DeGeneres Show"?</p>
+                <label><input type="radio" name="q10" value="a" /> Oprah Winfrey</label>
+                <label><input type="radio" name="q10" value="b" /> Ellen DeGeneres</label>
+                <label><input type="radio" name="q10" value="c" /> Jimmy Fallon</label>
+            </div>
+
+            <div class="question-block">
+                <p>11. Which celebrity is famous for the song "Shake It Off"?</p>
+                <label><input type="radio" name="q11" value="a" /> Katy Perry</label>
+                <label><input type="radio" name="q11" value="b" /> Taylor Swift</label>
+                <label><input type="radio" name="q11" value="c" /> Ariana Grande</label>
+            </div>
+
+            <div class="question-block">
+                <p>12. Who played Wolverine in the X-Men series?</p>
+                <label><input type="radio" name="q12" value="a" /> Hugh Jackman</label>
+                <label><input type="radio" name="q12" value="b" /> Ben Affleck</label>
+                <label><input type="radio" name="q12" value="c" /> Tom Hardy</label>
+            </div>
+
+            <div class="question-block">
+                <p>13. Who is the main actor in the John Wick series?</p>
+                <label><input type="radio" name="q13" value="a" /> Keanu Reeves</label>
+                <label><input type="radio" name="q13" value="b" /> Jason Statham</label>
+                <label><input type="radio" name="q13" value="c" /> Bruce Willis</label>
+            </div>
+
+            <div class="question-block">
+                <p>14. Who played the Joker in "The Dark Knight"?</p>
+                <label><input type="radio" name="q14" value="a" /> Jared Leto</label>
+                <label><input type="radio" name="q14" value="b" /> Joaquin Phoenix</label>
+                <label><input type="radio" name="q14" value="c" /> Heath Ledger</label>
+            </div>
+
+            <div class="question-block">
+                <p>15. Who sang "Blinding Lights"?</p>
+                <label><input type="radio" name="q15" value="a" /> The Weeknd</label>
+                <label><input type="radio" name="q15" value="b" /> Drake</label>
+                <label><input type="radio" name="q15" value="c" /> Post Malone</label>
+            </div>
+
+            <div class="question-block">
+                <p>16. Who is married to Beyoncé?</p>
+                <label><input type="radio" name="q16" value="a" /> Jay-Z</label>
+                <label><input type="radio" name="q16" value="b" /> Kanye West</label>
+                <label><input type="radio" name="q16" value="c" /> Usher</label>
+            </div>
+
+            <div class="question-block">
+                <p>17. Who starred as Thor in Marvel movies?</p>
+                <label><input type="radio" name="q17" value="a" /> Tom Hiddleston</label>
+                <label><input type="radio" name="q17" value="b" /> Chris Hemsworth</label>
+                <label><input type="radio" name="q17" value="c" /> Henry Cavill</label>
+            </div>
+
+            <div class="question-block">
+                <p>18. Who directed "Avatar"?</p>
+                <label><input type="radio" name="q18" value="a" /> James Cameron</label>
+                <label><input type="radio" name="q18" value="b" /> Peter Jackson</label>
+                <label><input type="radio" name="q18" value="c" /> Steven Spielberg</label>
+            </div>
+
+            <div class="question-block">
+                <p>19. Which singer was part of One Direction?</p>
+                <label><input type="radio" name="q19" value="a" /> Shawn Mendes</label>
+                <label><input type="radio" name="q19" value="b" /> Harry Styles</label>
+                <label><input type="radio" name="q19" value="c" /> Charlie Puth</label>
+            </div>
+
+            <div class="question-block">
+                <p>20. Who is the host of "The Tonight Show"?</p>
+                <label><input type="radio" name="q20" value="a" /> Jimmy Fallon</label>
+                <label><input type="radio" name="q20" value="b" /> Jimmy Kimmel</label>
+                <label><input type="radio" name="q20" value="c" /> Trevor Noah</label>
+            </div>
+
+            <button type="button" onclick="checkAnswers()">Submit</button>
+            <div id="result"></div>
+        </form>
+    </div>
+
+    <script>
+        function checkAnswers() {
+            const answers = {
+                q1: "b", q2: "c", q3: "b", q4: "a", q5: "b",
+                q6: "b", q7: "b", q8: "a", q9: "a", q10: "b",
+                q11: "b", q12: "a", q13: "a", q14: "c", q15: "a",
+                q16: "a", q17: "b", q18: "a", q19: "b", q20: "a"
+            };
+
+            let score = 0;
+            for (let q in answers) {
+                const selected = document.querySelector(`input[name="${q}"]:checked`);
+                if (selected && selected.value === answers[q]) {
+                    score++;
+                }
+            }
+
+            const result = document.getElementById("result");
+            result.innerHTML = `<h2>Your score is ${score} / 20</h2>`;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eid Mubarak</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            overflow: hidden;
+            font-family: Segoe UI, sans-serif;
+            background: radial-gradient(circle at top, #0f2027, #203a43, #000814);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 70px;
+            letter-spacing: 3px;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px gold, 0 0 20px gold;
+            }
+
+            to {
+                text-shadow: 0 0 25px #ffd700, 0 0 60px #ffd700;
+            }
+        }
+
+        .subtitle {
+            opacity: 0;
+            animation: fadeUp 2s ease forwards;
+            animation-delay: 1s;
+        }
+
+        @keyframes fadeUp {
+            from {
+                transform: translateY(40px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .moon {
+            position: absolute;
+            top: 80px;
+            right: 120px;
+            width: 120px;
+            height: 120px;
+            background: #fff8dc;
+            border-radius: 50%;
+            box-shadow: 0 0 40px #fff5b5;
+        }
+
+        .moon::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 30px;
+            width: 120px;
+            height: 120px;
+            background: #0f2027;
+            border-radius: 50%;
+        }
+
+        .lantern {
+            position: absolute;
+            bottom: -100px;
+            width: 30px;
+            height: 50px;
+            background: gold;
+            border-radius: 6px;
+            box-shadow: 0 0 20px gold;
+            animation: float 10s linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+
+            100% {
+                transform: translateY(-120vh);
+            }
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            animation: twinkle 2s infinite;
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 0.2;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0.2;
+            }
+        }
+
+        button {
+            margin-top: 30px;
+            padding: 14px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 30px;
+            background: gold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px gold;
+        }
+        @keyframes floatSweet{
+0%{
+transform:translateY(0) rotate(0deg);
+}
+100%{
+transform:translateY(-120vh) rotate(360deg);
+}
+}
+    </style>
+
+</head>
+
+<body>
+
+    <div class="moon"></div>
+
+    <h1>Eid Mubarak</h1>
+    <p class="subtitle">Wishing you joy, peace and celebration</p>
+
+    <button onclick="celebrate()">Celebrate 🎆</button>
+<audio id="eidMusic" autoplay loop>
+    <source src="eid-song.mp3" type="audio/mpeg">
+</audio>
+    <script>
+
+        for (let i = 0; i < 80; i++) {
+            let star = document.createElement("div");
+            star.className = "star";
+            star.style.top = Math.random() * 100 + "vh";
+            star.style.left = Math.random() * 100 + "vw";
+            star.style.animationDelay = Math.random() * 2 + "s";
+            document.body.appendChild(star);
+        }
+
+        setInterval(() => {
+            let lantern = document.createElement("div");
+            lantern.className = "lantern";
+            lantern.style.left = Math.random() * 100 + "vw";
+            lantern.style.animationDuration = 8 + Math.random() * 6 + "s";
+            document.body.appendChild(lantern);
+
+            setTimeout(() => lantern.remove(), 12000);
+        }, 1200);
+
+      function celebrate() {
+
+            const colors = ["#ff4d4d", "#ffd700", "#00eaff", "#ff66ff", "#7fff00", "#ff8c00"];
+
+            for (let i = 0; i < 25; i++) {
+
+                let x = Math.random() * window.innerWidth;
+                let y = Math.random() * window.innerHeight;
+                let color = colors[Math.floor(Math.random() * colors.length)];
+
+                for (let j = 0; j < 30; j++) {
+                    let spark = document.createElement("div");
+
+                    spark.style.position = "absolute";
+                    spark.style.width = "5px";
+                    spark.style.height = "5px";
+                    spark.style.borderRadius = "50%";
+                    spark.style.background = color;
+                    spark.style.left = x + "px";
+                    spark.style.top = y + "px";
+
+                    document.body.appendChild(spark);
+
+                    spark.animate([
+                        { transform: "translate(0,0)", opacity: 1 },
+                        { transform: `translate(${Math.random() * 300 - 150}px,${Math.random() * 300 - 150}px)`, opacity: 0 }
+                    ], {
+                        duration: 1500
+                    });
+
+                    setTimeout(() => spark.remove(), 1500);
+                }
+
+            }
+
+        }
+        document.addEventListener("click", () => {
+                document.getElementById("eidMusic").play();
+            });
+
+            const sweets = [
+                    "images/img1.png",
+                    "images/img2.png",
+                    "images/img3.png",
+                    "images/img4.png"
+                ];
+
+                setInterval(() => {
+
+                    let sweet = document.createElement("img");
+
+                    sweet.src = sweets[Math.floor(Math.random() * sweets.length)];
+                    sweet.style.position = "absolute";
+                    sweet.style.bottom = "-120px";
+                    sweet.style.width = "60px";
+                    sweet.style.filter = "drop-shadow(0 0 15px gold)";
+                    sweet.style.left = Math.random() * 100 + "vw";
+
+                    sweet.style.animation = "floatSweet 12s linear";
+
+                    document.body.appendChild(sweet);
+
+                    setTimeout(() => sweet.remove(), 12000);
+
+                }, 1500);
+    </script>
+
+</body>
+
+</html>

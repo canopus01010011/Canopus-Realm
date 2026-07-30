@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Mode Selector -->
+        <div class="mode-selector">
+            <button class="mode-btn active" data-mode="basic">
+                <i class="fas fa-calculator"></i> Basic
+            </button>
+            <button class="mode-btn" data-mode="scientific">
+                <i class="fas fa-flask"></i> Scientific
+            </button>
+            <button class="mode-btn" data-mode="quiz">
+                <i class="fas fa-brain"></i> Math Quiz
+            </button>
+            <button class="mode-btn" data-mode="history">
+                <i class="fas fa-history"></i> History
+            </button>
+        </div>
+
+        <!-- BASIC MODE -->
+        <div class="mode-content active" id="basic-mode">
+            <div class="calculator">
+                <div class="display">
+                    <input type="text" id="display" class="calc-display" readonly>
+                </div>
+                
+                <div class="buttons-grid">
+                    <!-- Row 1 -->
+                    <button class="btn btn-function" onclick="clearDisplay()">AC</button>
+                    <button class="btn btn-function" onclick="deleteLast()"><i class="fas fa-backspace"></i></button>
+                    <button class="btn btn-function" onclick="appendOperator('%')">%</button>
+                    <button class="btn btn-operator" onclick="appendOperator('÷')">÷</button>
+
+                    <!-- Row 2 -->
+                    <button class="btn" onclick="appendNumber('7')">7</button>
+                    <button class="btn" onclick="appendNumber('8')">8</button>
+                    <button class="btn" onclick="appendNumber('9')">9</button>
+                    <button class="btn btn-operator" onclick="appendOperator('×')">×</button>
+
+                    <!-- Row 3 -->
+                    <button class="btn" onclick="appendNumber('4')">4</button>
+                    <button class="btn" onclick="appendNumber('5')">5</button>
+                    <button class="btn" onclick="appendNumber('6')">6</button>
+                    <button class="btn btn-operator" onclick="appendOperator('-')">-</button>
+
+                    <!-- Row 4 -->
+                    <button class="btn" onclick="appendNumber('1')">1</button>
+                    <button class="btn" onclick="appendNumber('2')">2</button>
+                    <button class="btn" onclick="appendNumber('3')">3</button>
+                    <button class="btn btn-operator" onclick="appendOperator('+')">+</button>
+
+                    <!-- Row 5 -->
+                    <button class="btn btn-zero" onclick="appendNumber('0')">0</button>
+                    <button class="btn" onclick="appendNumber('.')">.</button>
+                    <button class="btn btn-equals" onclick="calculate()">=</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCIENTIFIC MODE -->
+        <div class="mode-content" id="scientific-mode">
+            <div class="calculator scientific-calc">
+                <div class="display">
+                    <input type="text" id="sci-display" class="calc-display" readonly>
+                </div>
+                
+                <div class="buttons-grid">
+                    <!-- Row 1 - Functions -->
+                    <button class="btn btn-function" onclick="sciClearDisplay()">AC</button>
+                    <button class="btn btn-function" onclick="sciDeleteLast()"><i class="fas fa-backspace"></i></button>
+                    <button class="btn btn-function" onclick="sciAppendValue('Math.sin')">sin</button>
+                    <button class="btn btn-function" onclick="sciAppendValue('Math.cos')">cos</button>
+
+                    <!-- Row 2 -->
+                    <button class="btn" onclick="sciAppendNumber('7')">7</button>
+                    <button class="btn" onclick="sciAppendNumber('8')">8</button>
+                    <button class="btn" onclick="sciAppendNumber('9')">9</button>
+                    <button class="btn btn-operator" onclick="sciAppendOperator('÷')">÷</button>
+
+                    <!-- Row 3 -->
+                    <button class="btn btn-function" onclick="sciAppendValue('Math.tan')">tan</button>
+                    <button class="btn btn-function" onclick="sciAppendValue('Math.sqrt')">√</button>
+                    <button class="btn btn-function" onclick="sciAppendOperator('^')">^</button>
+                    <button class="btn btn-function" onclick="sciAppendValue('Math.log')">log</button>
+
+                    <!-- Row 4 -->
+                    <button class="btn" onclick="sciAppendNumber('4')">4</button>
+                    <button class="btn" onclick="sciAppendNumber('5')">5</button>
+                    <button class="btn" onclick="sciAppendNumber('6')">6</button>
+                    <button class="btn btn-operator" onclick="sciAppendOperator('×')">×</button>
+
+                    <!-- Row 5 -->
+                    <button class="btn btn-function" onclick="sciAppendValue('Math.PI')">π</button>
+                    <button class="btn btn-function" onclick="sciAppendValue('Math.E')">e</button>
+                    <button class="btn btn-function" onclick="sciAppendValue('Math.factorial')">x!</button>
+                    <button class="btn btn-function" onclick="sciAppendOperator('%')">%</button>
+
+                    <!-- Row 6 -->
+                    <button class="btn" onclick="sciAppendNumber('1')">1</button>
+                    <button class="btn" onclick="sciAppendNumber('2')">2</button>
+                    <button class="btn" onclick="sciAppendNumber('3')">3</button>
+                    <button class="btn btn-operator" onclick="sciAppendOperator('-')">-</button>
+
+                    <!-- Row 7 -->
+                    <button class="btn" onclick="sciAppendNumber('0')">0</button>
+                    <button class="btn" onclick="sciAppendNumber('.')">.</button>
+                    <button class="btn btn-equals" onclick="sciCalculate()">=</button>
+                    <button class="btn btn-operator" onclick="sciAppendOperator('+')">+</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MATH QUIZ MODE -->
+        <div class="mode-content" id="quiz-mode">
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <h2>Math Challenge Quiz</h2>
+                    <div class="quiz-stats">
+                        <span>Score: <strong id="quiz-score">0</strong></span>
+                        <span>Questions: <span id="quiz-count">0</span>/10</span>
+                    </div>
+                </div>
+
+                <div id="quiz-content" class="quiz-content">
+                    <div class="question-box">
+                        <p id="question-text" class="question">2 + 3 = ?</p>
+                        <input type="number" id="answer-input" class="answer-input" placeholder="Enter your answer">
+                        <button class="btn btn-equals" onclick="submitAnswer()">Submit Answer</button>
+                    </div>
+                </div>
+
+                <div id="quiz-complete" class="quiz-complete" style="display: none;">
+                    <h2>Quiz Complete!</h2>
+                    <p class="final-score">Your Score: <strong id="final-score">0</strong>/10</p>
+                    <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
+                </div>
+
+                <div id="feedback" class="feedback"></div>
+            </div>
+        </div>
+
+        <!-- HISTORY MODE -->
+        <div class="mode-content" id="history-mode">
+            <div class="history-container">
+                <div class="history-header">
+                    <h2><i class="fas fa-history"></i> Calculation History</h2>
+                    <button class="btn btn-small btn-danger" onclick="clearHistory()">Clear History</button>
+                </div>
+                <div id="history-list" class="history-list">
+                    <p class="empty-message">No history yet. Start calculating!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

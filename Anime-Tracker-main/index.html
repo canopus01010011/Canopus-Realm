@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canopus — Track, Rate & Review Anime</title>
+    <meta name="description"
+        content="Search anime, rate what you've watched, and read reviews from the community — powered by Canopus." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <!-- ============= NAVBAR ============= -->
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <span class="logo-mark"></span>
+                <span>Canopus</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#trending-section" class="nav-link active">Trending</a></li>
+                <li><a href="#top-rated-section" class="nav-link">Top Rated</a></li>
+                <li><a href="#search-section" class="nav-link">Search</a></li>
+                <li><a href="#my-list-section" class="nav-link">My List</a></li>
+            </ul>
+            <div class="nav-actions">
+                <span id="user-menu-placeholder"></span>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============= HERO ============= -->
+    <header class="hero">
+        <div class="planet"></div>
+        <div class="planet-ring"></div>
+        <p class="eyebrow">Discover · Rate · Discuss</p>
+        <h1>Every series has<br>a rating for a reason.</h1>
+        <p class="hero-sub">Search thousands of anime, log what you've watched, and leave a rating and review the next
+            person will actually read.</p>
+
+        <div class="hero-stats">
+            <div class="stat">
+                <span class="stat-num">20K+</span>
+                <span class="stat-label">Titles indexed</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num">5★</span>
+                <span class="stat-label">Rating scale</span>
+            </div>
+            <div class="stat">
+                <span class="stat-num">Live</span>
+                <span class="stat-label">Community reviews</span>
+            </div>
+        </div>
+
+        <div class="cta-row">
+            <button class="cta-btn" id="hero-search-btn">Start searching</button>
+            <button class="cta-ghost" id="hero-signup-btn">Create an account</button>
+        </div>
+
+        <div class="scroll-cue"><span class="line"></span>Scroll</div>
+    </header>
+
+    <!-- ============= SEARCH / FILTER BAR ============= -->
+    <section id="search-section" class="filter-bar-wrap">
+        <div class="filter-bar">
+            <div class="search-box-inline">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="Search anime by title…" autocomplete="off" />
+            </div>
+            <select id="genre-select" class="genre-select">
+                <option value="">All genres</option>
+                <option value="1">Action</option>
+                <option value="4">Comedy</option>
+                <option value="8">Drama</option>
+                <option value="10">Fantasy</option>
+                <option value="14">Horror</option>
+                <option value="22">Romance</option>
+                <option value="24">Sci-Fi</option>
+                <option value="30">School</option>
+                <option value="37">Supernatural</option>
+            </select>
+        </div>
+    </section>
+
+    <!-- ============= TRENDING ============= -->
+    <section id="trending-section" class="world" data-world="games">
+        <div class="world-header">
+            <div>
+                <h2 class="world-title"><span class="world-glyph">🔥</span> Trending now</h2>
+                <p class="world-sub">// what's airing and popular this season</p>
+            </div>
+        </div>
+        <div id="trending-container" class="projects-grid anime-grid"></div>
+    </section>
+
+    <!-- ============= TOP RATED ============= -->
+    <section id="top-rated-section" class="world" data-world="personal">
+        <div class="world-header">
+            <div>
+                <h2 class="world-title"><span class="world-glyph">⭐</span> Top rated</h2>
+                <p class="world-sub">// most loved by the community</p>
+            </div>
+        </div>
+        <div id="top-rated-container" class="projects-grid anime-grid"></div>
+    </section>
+
+    <!-- ============= SEARCH RESULTS ============= -->
+    <section class="world" data-world="utilities">
+        <div class="world-header">
+            <div>
+                <h2 class="world-title" id="results-title"><span class="world-glyph">🔎</span> Search results</h2>
+                <p class="world-sub">// type a title or pick a genre above</p>
+            </div>
+        </div>
+        <div id="loading" class="loading" style="display:none;">
+            <div class="spinner"></div>
+            <p>Loading anime…</p>
+        </div>
+        <div id="anime-list" class="projects-grid anime-grid"></div>
+        <div class="load-more-wrap">
+            <button id="load-more-btn" class="cta-ghost" style="display:none;">Load more</button>
+        </div>
+    </section>
+
+    <!-- ============= MY LIST (hidden until login) ============= -->
+    <section id="my-list-section" class="world" data-world="occasions" style="display:none;">
+        <div class="world-header">
+            <div>
+                <h2 class="world-title"><span class="world-glyph">🔖</span> My list</h2>
+                <p class="world-sub">// what you're watching, tracked</p>
+            </div>
+            <div class="filter-pills">
+                <button class="filter-btn filter-pill active" data-filter="all">All</button>
+                <button class="filter-btn filter-pill" data-filter="watching">Watching</button>
+                <button class="filter-btn filter-pill" data-filter="completed">Completed</button>
+                <button class="filter-btn filter-pill" data-filter="on-hold">On Hold</button>
+                <button class="filter-btn filter-pill" data-filter="plan-to-watch">Plan to Watch</button>
+            </div>
+        </div>
+        <div id="my-list" class="projects-grid anime-grid"></div>
+    </section>
+
+    <!-- ============= AUTH MODAL ============= -->
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <ul class="auth-tabs">
+                <li><button class="auth-tab-btn active" data-tab="login" type="button">Login</button></li>
+                <li><button class="auth-tab-btn" data-tab="signup" type="button">Sign Up</button></li>
+            </ul>
+
+            <div id="login-tab" class="auth-tab-content active">
+                <form id="login-form" novalidate>
+                    <h2>Welcome back</h2>
+                    <input type="email" placeholder="Email" required autocomplete="email">
+                    <input type="password" placeholder="Password" required autocomplete="current-password">
+                    <button type="submit" class="auth-btn">Log in</button>
+                </form>
+            </div>
+
+            <div id="signup-tab" class="auth-tab-content">
+                <form id="signup-form" novalidate>
+                    <h2>Create your account</h2>
+                    <input type="text" placeholder="Display name" required autocomplete="name">
+                    <input type="email" placeholder="Email" required autocomplete="email">
+                    <input type="password" placeholder="Password (8+ characters)" required autocomplete="new-password"
+                        minlength="8">
+                    <input type="password" placeholder="Confirm password" required autocomplete="new-password"
+                        minlength="8">
+                    <button type="submit" class="auth-btn">Sign up</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============= ANIME DETAIL MODAL ============= -->
+    <div id="anime-detail-modal" class="modal">
+        <div class="modal-content anime-detail-content">
+            <span class="close-modal">&times;</span>
+            <div class="anime-detail-grid">
+                <div class="anime-detail-poster">
+                    <img id="detail-poster" src="" alt="poster">
+                </div>
+                <div class="anime-detail-info">
+                    <h1 id="detail-title"></h1>
+                    <p id="detail-synopsis"></p>
+
+                    <div class="detail-stats">
+                        <div class="stat">
+                            <span class="stat-label">MAL Score</span>
+                            <span id="detail-rating" class="stat-value"></span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Episodes</span>
+                            <span id="detail-episodes" class="stat-value"></span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Status</span>
+                            <span id="detail-status" class="stat-value"></span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Year</span>
+                            <span id="detail-year" class="stat-value"></span>
+                        </div>
+                    </div>
+
+                    <div class="community-rating">
+                        <i class="fas fa-star"></i>
+                        <span id="community-rating-value">—</span>
+                        <span id="community-rating-count" class="muted-text">No ratings yet</span>
+                    </div>
+
+                    <div class="watch-status">
+                        <h3>Your watch status</h3>
+                        <select id="watch-status-select" class="status-select">
+                            <option value="">Select status</option>
+                            <option value="watching">Watching</option>
+                            <option value="completed">Completed</option>
+                            <option value="on-hold">On Hold</option>
+                            <option value="plan-to-watch">Plan to Watch</option>
+                            <option value="dropped">Dropped</option>
+                        </select>
+                        <button class="btn btn-primary" id="save-anime-btn" type="button" onclick="saveToMyList()">
+                            <i class="fas fa-bookmark"></i> Save to my list
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rate & Review -->
+            <div class="reviews-section">
+                <h3>Rate &amp; review</h3>
+
+                <div id="review-login-gate" class="review-login-gate">
+                    <p>Log in to rate this anime and leave a review.</p>
+                    <button class="cta-ghost" type="button" onclick="openAuthModal()">Log in / Sign up</button>
+                </div>
+
+                <form id="review-form" class="review-form" style="display:none;">
+                    <div class="star-rating" id="user-rating">
+                        <i class="fas fa-star" data-rating="1"></i>
+                        <i class="fas fa-star" data-rating="2"></i>
+                        <i class="fas fa-star" data-rating="3"></i>
+                        <i class="fas fa-star" data-rating="4"></i>
+                        <i class="fas fa-star" data-rating="5"></i>
+                    </div>
+                    <textarea id="review-text" placeholder="What did you think? (optional)" maxlength="500"></textarea>
+                    <button type="submit" id="submit-review-btn" class="btn btn-primary">Post rating &amp;
+                        review</button>
+                </form>
+
+                <h3 class="reviews-list-heading">Community reviews</h3>
+                <div id="reviews-list" class="reviews-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============= USER DROPDOWN ============= -->
+    <div id="user-dropdown" class="user-dropdown">
+        <div class="user-info">
+            <div class="user-avatar"><i class="fas fa-user-circle"></i></div>
+            <div>
+                <p id="username-display">User</p>
+                <p id="useremail-display" class="small-text">email@example.com</p>
+            </div>
+        </div>
+        <hr>
+        <a href="#" onclick="goToUserProfile(); return false;"><i class="fas fa-user"></i> Profile</a>
+        <a href="#" onclick="goToUserSettings(); return false;"><i class="fas fa-cog"></i> Settings</a>
+        <hr>
+        <a href="#" onclick="logout(); return false;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+    <!-- ============= FOOTER ============= -->
+    <footer class="footer">
+        <div class="footer-logo">Canopus</div>
+        <p class="footer-credit">Anime discovery, ratings and reviews — data via the Jikan (MyAnimeList) API.</p>
+        <div class="footer-links">
+            <a href="#trending-section">Trending</a>
+            <a href="#top-rated-section">Top Rated</a>
+            <a href="#search-section">Search</a>
+            <a href="#my-list-section">My List</a>
+        </div>
+        <p class="footer-version">canopusanimetracker.com</p>
+    </footer>
+
+    <!-- Firebase (compat SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+    <!-- Firebase config: copy firebase-config.example.js to firebase-config.js and fill in your project values -->
+    <script src="firebase-config.js"></script>
+
+    <script src="script.js"></script>
+    <script>
+        // hamburger + scroll chrome + smooth anchors
+        const navbar = document.getElementById('navbar');
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 40);
+        });
+        hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => navMenu.classList.remove('active'));
+        });
+        document.getElementById('hero-search-btn').addEventListener('click', () => {
+            document.getElementById('search-section').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('search-input').focus();
+        });
+        document.getElementById('hero-signup-btn').addEventListener('click', () => {
+            openAuthModal();
+            document.querySelector('.auth-tab-btn[data-tab="signup"]').click();
+        });
+    </script>
+</body>
+
+</html>

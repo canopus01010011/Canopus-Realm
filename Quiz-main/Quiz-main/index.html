@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CanQuiz</title>
+    <style>* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
+  flex-direction: column;
+  color: white;
+}
+
+.intro {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.intro h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.intro p {
+  font-size: 1.2rem;
+  color: #ccc;
+}
+
+.subjects {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1000px;
+  width: 100%;
+}
+
+.subjects a {
+  text-decoration: none;
+}
+
+.subject-card {
+  padding: 30px;
+  border-radius: 15px;
+  text-align: center;
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-size: cover;
+  background-position: center;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.subject-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.5);
+  filter: brightness(1.1);
+}
+
+.math {
+  background: url(Download\ Free\ Vectors\,\ Images\,\ Photos\ &\ Videos\ _\ Vecteezy.jpg) no-repeat center/cover;
+}
+
+.history {
+  background: url(download\ \(17\).jpg) no-repeat center/cover;
+}
+
+.geography {
+  background: url(download\ \(18\).jpg) no-repeat center/cover;
+}
+
+.physics {
+  background: url(Why\ is\ Albert\ Einstein\ so\ Famous_.jpg) no-repeat center/cover;
+}
+
+.astronomy {
+  background: url(download\ \(20\).jpg) no-repeat center/cover;
+}
+
+.medicine {
+  background: url(download\ \(19\).jpg) no-repeat center/cover;
+}
+
+.sports {
+  background: url(SPORTS\ BACKGROUNDS\ _\ Baseball\ Stadium\ Photoshop\ and\ Canva\ Backgrounds\ and\ Overlays.jpg) no-repeat center/cover;
+}
+
+.celebrities {
+  background: url(AOFOTO\ 8x6ft\ Red\ Carpet\ Backdrop\ Movie\ Night\ Stage\ Lighting\ Photography\ Background\ Celebrity\ Event\ Party\ Premiere\ Banner\ Photo\ Studio\ Props\ Kid\ Adult\ Artistic\ Portrait\ Activity\ Decoration\ Wallpaper.jpg) no-repeat center/cover;
+}
+
+.culture {
+  background: url(download\ \(21\).jpg) no-repeat center/cover;
+}
+
+@media (max-width: 900px) {
+  .subjects {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .subjects {
+    grid-template-columns: 1fr;
+  }
+}
+
+</style>
+</head>
+<body>
+    <div class="intro">
+        <h1>Welcome to CanQuiz</h1>
+        <p>Choose a subject and test your knowledge!</p>
+    </div>
+
+    <div class="subjects">
+        <a href="Math.html">
+            <div class="subject-card math">Math</div>
+        </a>
+        <a href="history.html">
+            <div class="subject-card history">History</div>
+        </a>
+        <a href="geography.html">
+            <div class="subject-card geography">Geography</div>
+        </a>
+
+        <a href="physic.html">
+            <div class="subject-card physics">Physics</div>
+        </a>
+        <a href="astronomy.html">
+            <div class="subject-card astronomy">Astronomy</div>
+        </a>
+        <a href="medicin.html">
+            <div class="subject-card medicine">Medicine</div>
+        </a>
+
+        <a href="sport.html">
+            <div class="subject-card sports">Sports</div>
+        </a>
+        <a href="celebrities.html">
+            <div class="subject-card celebrities">Celebrities</div>
+        </a>
+        <a href="culture.html">
+            <div class="subject-card culture">Culture</div>
+        </a>
+    </div>
+</body>
+
+
+</html>

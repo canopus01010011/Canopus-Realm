@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>🏋️‍♂️ Ultimate Fitness Tracker</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>🏆 Fitness Tracker Dashboard</header>
+
+    <div class="container">
+        <div class="form-section">
+            <h2>Log Today's Activity</h2>
+            <label for="date">Date</label>
+            <input type="date" id="date" />
+
+            <label for="steps">Steps</label>
+            <input type="number" id="steps" placeholder="Enter steps walked" />
+
+            <label for="calories">Calories Burned</label>
+            <input type="number" id="calories" placeholder="Enter calories burned" />
+
+            <label for="water">Water Intake (liters)</label>
+            <input type="number" step="0.1" id="water" placeholder="Enter water intake" />
+
+            <label for="sleep">Sleep Hours</label>
+            <input type="number" step="0.1" id="sleep" placeholder="Enter sleep hours" />
+
+            <button onclick="addEntry()">Add Entry</button>
+        </div>
+
+        <div class="stats-section">
+            <h2>Recent Stats</h2>
+            <ul id="statsList"></ul>
+        </div>
+
+        <div class="chart-section" id="chart-container">
+            <h2>Progress Chart</h2>
+            <canvas id="progressChart"></canvas>
+        </div>
+    </div>
+
+    <script src="script.js">
+    </script>
+</body>
+
+</html>

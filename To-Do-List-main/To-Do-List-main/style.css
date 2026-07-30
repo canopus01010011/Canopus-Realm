@@ -1,0 +1,182 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(-45deg, #1f0036, #3a0ca3, #7209b7, #4361ee, #4cc9f0);
+    background-size: 600% 600%;
+    animation: animatedGradient 15s ease infinite;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Background animation keyframes */
+@keyframes animatedGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    25% {
+        background-position: 50% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    75% {
+        background-position: 50% 100%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.app-container {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    animation: fadeIn 1s ease;
+}
+
+h1 {
+    margin-bottom: 25px;
+    font-size: 36px;
+    color: #ffd700;
+}
+
+.input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    background: #222;
+    color: #fff;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+#add-task {
+    background: #ffd700;
+    color: #000;
+}
+
+#add-task:hover {
+    background: #ffea00;
+}
+
+#clear-all {
+    background: #ff4444;
+}
+
+#clear-all:hover {
+    background: #ff2222;
+}
+
+/* Task list */
+#task-list {
+    list-style: none;
+    padding: 0;
+}
+
+#task-list li {
+    background: rgba(255, 255, 255, 0.05);
+    margin: 10px 0;
+    padding: 12px 16px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: 0.3s ease;
+    word-break: break-word;
+}
+
+#task-list li.completed {
+    text-decoration: line-through;
+    opacity: 0.5;
+    color: #aaa;
+}
+
+.task-buttons button {
+    background: transparent;
+    border: none;
+    color: #ffd700;
+    font-size: 18px;
+    margin-left: 8px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.task-buttons button:hover {
+    color: #fff;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.task-date {
+    margin-top: 20px;
+    font-size: 22px;
+    color: #ffd700;
+    border-bottom: 1px solid #333;
+    padding-bottom: 5px;
+}
+
+input[type="date"] {
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    background: #222;
+    color: #fff;
+    flex: 1;
+    cursor: pointer;
+}
+
+/* For Webkit (Chrome/Edge/Safari) custom date picker icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+    padding-left: 5px;
+}
+
+/* Remove default arrow in Firefox */
+input[type="date"]::-moz-calendar-picker-indicator {
+    filter: invert(1);
+}

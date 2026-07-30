@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Culture Quiz</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #42275a, #734b6d);
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        form {
+            max-width: 900px;
+            margin: auto;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 10px #000;
+        }
+
+        .question {
+            margin-bottom: 25px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .question h3 {
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            margin-left: 15px;
+            margin-bottom: 5px;
+            cursor: pointer;
+        }
+
+        button {
+            display: block;
+            margin: 30px auto 10px;
+            padding: 10px 30px;
+            background: #ff9800;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #e68900;
+        }
+
+        #score {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Culture Quiz</h1>
+    <form id="quizForm">
+        <div class="question">
+            <h3>1. Which country is famous for flamenco dancing?</h3>
+            <label><input type="radio" name="q1" value="a"> Spain</label>
+            <label><input type="radio" name="q1" value="b"> France</label>
+            <label><input type="radio" name="q1" value="c"> Italy</label>
+        </div>
+
+        <div class="question">
+            <h3>2. What is the traditional dress of Japan called?</h3>
+            <label><input type="radio" name="q2" value="a"> Kimono</label>
+            <label><input type="radio" name="q2" value="b"> Hanbok</label>
+            <label><input type="radio" name="q2" value="c"> Sari</label>
+        </div>
+
+        <div class="question">
+            <h3>3. The Day of the Dead is celebrated in which country?</h3>
+            <label><input type="radio" name="q3" value="a"> Argentina</label>
+            <label><input type="radio" name="q3" value="b"> Mexico</label>
+            <label><input type="radio" name="q3" value="c"> Brazil</label>
+        </div>
+
+        <div class="question">
+            <h3>4. Which festival involves throwing colored powders?</h3>
+            <label><input type="radio" name="q4" value="a"> Diwali</label>
+            <label><input type="radio" name="q4" value="b"> Holi</label>
+            <label><input type="radio" name="q4" value="c"> Ramadan</label>
+        </div>
+
+        <div class="question">
+            <h3>5. What is the main religion in Thailand?</h3>
+            <label><input type="radio" name="q5" value="a"> Hinduism</label>
+            <label><input type="radio" name="q5" value="b"> Buddhism</label>
+            <label><input type="radio" name="q5" value="c"> Islam</label>
+        </div>
+
+        <div class="question">
+            <h3>6. Which country is known for its Carnival in Rio?</h3>
+            <label><input type="radio" name="q6" value="a"> Brazil</label>
+            <label><input type="radio" name="q6" value="b"> Portugal</label>
+            <label><input type="radio" name="q6" value="c"> Peru</label>
+        </div>
+
+        <div class="question">
+            <h3>7. What is the traditional instrument of Scotland?</h3>
+            <label><input type="radio" name="q7" value="a"> Banjo</label>
+            <label><input type="radio" name="q7" value="b"> Bagpipes</label>
+            <label><input type="radio" name="q7" value="c"> Guitar</label>
+        </div>
+
+        <div class="question">
+            <h3>8. What is the popular dance in Argentina?</h3>
+            <label><input type="radio" name="q8" value="a"> Tango</label>
+            <label><input type="radio" name="q8" value="b"> Samba</label>
+            <label><input type="radio" name="q8" value="c"> Salsa</label>
+        </div>
+
+        <div class="question">
+            <h3>9. Which country is famous for origami?</h3>
+            <label><input type="radio" name="q9" value="a"> Korea</label>
+            <label><input type="radio" name="q9" value="b"> Japan</label>
+            <label><input type="radio" name="q9" value="c"> China</label>
+        </div>
+
+        <div class="question">
+            <h3>10. What is the sacred book of Islam?</h3>
+            <label><input type="radio" name="q10" value="a"> Torah</label>
+            <label><input type="radio" name="q10" value="b"> Quran</label>
+            <label><input type="radio" name="q10" value="c"> Bible</label>
+        </div>
+
+        <!-- Questions 11–20 -->
+        <div class="question">
+            <h3>11. Which culture celebrates the Lunar New Year?</h3><label><input type="radio" name="q11" value="a">
+                Chinese</label><label><input type="radio" name="q11" value="b"> Indian</label><label><input type="radio"
+                    name="q11" value="c"> Russian</label>
+        </div>
+        <div class="question">
+            <h3>12. The Eiffel Tower is in which country?</h3><label><input type="radio" name="q12" value="a">
+                Italy</label><label><input type="radio" name="q12" value="b"> France</label><label><input type="radio"
+                    name="q12" value="c"> Germany</label>
+        </div>
+        <div class="question">
+            <h3>13. What does the red dot on Indian women’s forehead signify?</h3><label><input type="radio" name="q13"
+                    value="a"> Tradition</label><label><input type="radio" name="q13" value="b">
+                Marriage</label><label><input type="radio" name="q13" value="c"> Wealth</label>
+        </div>
+        <div class="question">
+            <h3>14. What is the native language of Brazil?</h3><label><input type="radio" name="q14" value="a">
+                Spanish</label><label><input type="radio" name="q14" value="b"> Portuguese</label><label><input
+                    type="radio" name="q14" value="c"> French</label>
+        </div>
+        <div class="question">
+            <h3>15. What is the Japanese tea ceremony called?</h3><label><input type="radio" name="q15" value="a">
+                Sado</label><label><input type="radio" name="q15" value="b"> Cha-no-yu</label><label><input type="radio"
+                    name="q15" value="c"> Both</label>
+        </div>
+        <div class="question">
+            <h3>16. Mardi Gras is celebrated in which US city?</h3><label><input type="radio" name="q16" value="a">
+                Miami</label><label><input type="radio" name="q16" value="b"> New Orleans</label><label><input
+                    type="radio" name="q16" value="c"> Chicago</label>
+        </div>
+        <div class="question">
+            <h3>17. What is the major religion in Israel?</h3><label><input type="radio" name="q17" value="a">
+                Christianity</label><label><input type="radio" name="q17" value="b"> Judaism</label><label><input
+                    type="radio" name="q17" value="c"> Islam</label>
+        </div>
+        <div class="question">
+            <h3>18. The Maori people are native to which country?</h3><label><input type="radio" name="q18" value="a">
+                Australia</label><label><input type="radio" name="q18" value="b"> New Zealand</label><label><input
+                    type="radio" name="q18" value="c"> Fiji</label>
+        </div>
+        <div class="question">
+            <h3>19. What is the traditional Russian doll called?</h3><label><input type="radio" name="q19" value="a">
+                Babushka</label><label><input type="radio" name="q19" value="b"> Matryoshka</label><label><input
+                    type="radio" name="q19" value="c"> Balalaika</label>
+        </div>
+        <div class="question">
+            <h3>20. What is the primary religion in Saudi Arabia?</h3><label><input type="radio" name="q20" value="a">
+                Islam</label><label><input type="radio" name="q20" value="b"> Christianity</label><label><input
+                    type="radio" name="q20" value="c"> Judaism</label>
+        </div>
+
+        <button type="button" onclick="checkAnswers()">Submit Answers</button>
+        <div id="score"></div>
+    </form>
+
+    <script>
+        const correctAnswers = ['a', 'a', 'b', 'b', 'b', 'a', 'b', 'a', 'b', 'b', 'a', 'b', 'b', 'b', 'c', 'b', 'b', 'b', 'b', 'a'];
+
+        function checkAnswers() {
+            let score = 0;
+            for (let i = 1; i <= 20; i++) {
+                const q = document.querySelector(`input[name="q${i}"]:checked`);
+                if (q && q.value === correctAnswers[i - 1]) {
+                    score++;
+                }
+            }
+            document.getElementById("score").innerText = `Your Score: ${score}/20`;
+        }
+    </script>
+</body>
+
+</html>

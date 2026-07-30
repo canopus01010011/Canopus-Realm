@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>🌦 Weather App</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #ffffff;
+        }
+
+        .weather-app {
+            background-color: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .weather-app:hover {
+            transform: scale(1.02);
+        }
+
+        .weather-app h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .input-section {
+            margin-bottom: 25px;
+        }
+
+        .input-section input {
+            width: 70%;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 10px;
+            outline: none;
+            font-size: 16px;
+        }
+
+        .input-section button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 10px;
+            margin-left: 10px;
+            cursor: pointer;
+            background-color: #00c6ff;
+            color: #fff;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .input-section button:hover {
+            background-color: #0072ff;
+        }
+
+        .weather-result {
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .weather-result h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .weather-result p {
+            margin: 8px 0;
+            font-size: 1.1rem;
+            color: #d0e6ff;
+        }
+
+        .icon {
+            width: 80px;
+            height: 80px;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="weather-app">
+        <h1>🌤 Simple Weather App</h1>
+        <div class="input-section">
+            <input type="text" id="cityInput" placeholder="Enter city name" />
+            <button onclick="getWeather()">Get Weather</button>
+        </div>
+        <div id="weather-result" class="weather-result">
+            <img id="weather-icon" class="icon" style="display: none;" />
+            <div id="weather-info"></div>
+        </div>
+    </div>
+
+    <script>
+        async function getWeather() {
+            const city = document.getElementById("cityInput").value.trim();
+            const apiKey = "221fb67a0cf82d7fd70964d35a23c57b";
+            const resultDiv = document.getElementById("weather-info");
+            const iconImg = document.getElementById("weather-icon");
+
+            if (!city) {
+                resultDiv.innerHTML = "⚠️ Please enter a city.";
+                iconImg.style.display = "none";
+                return;
+            }
+
+            resultDiv.innerHTML = "Loading...";
+            iconImg.style.display = "none";
+
+            try {
+                const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${apiKey}&units=metric`;
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (response.ok) {
+                    const name = data.name;
+                    const temp = data.main.temp;
+                    const desc = data.weather[0].description;
+                    const iconCode = data.weather[0].icon;
+                    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
+                    iconImg.src = iconUrl;
+                    iconImg.style.display = "block";
+
+                    resultDiv.innerHTML = `
+            ✅ Weather in <strong>${name}</strong><br>
+            🌡 Temperature: <strong>${temp}°C</strong><br>
+            🌤 Condition: <strong>${desc}</strong>
+          `;
+                } else {
+                    resultDiv.innerHTML = `❌ Error: ${data.message}`;
+                }
+            } catch (err) {
+                resultDiv.innerHTML = "⚠️ Failed to fetch data.";
+                console.error(err);
+            }
+        }
+    </script>
+</body>
+
+</html>

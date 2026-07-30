@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Math Quiz - CanQuiz</title>
+    <style>
+   /* Global settings */
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+    color: #ffffff;
+    padding: 60px 20px;
+}
+
+/* Title styling */
+h1 {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 3rem;
+    color: #00e5ff;
+    text-shadow: 0 0 10px #00e5ff88;
+}
+
+/* Form wrapper */
+.quiz-container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+/* Ordered list reset */
+form ol {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 35px;
+}
+
+/* Individual question */
+form li {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
+    transition: 0.3s ease;
+    backdrop-filter: blur(6px);
+}
+
+form li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px rgba(0, 229, 255, 0.3);
+}
+
+/* Question text */
+form li::before {
+    content: counter(item) ". ";
+    counter-increment: item;
+    font-weight: bold;
+    color: #00e5ff;
+    margin-right: 5px;
+}
+
+form li p,
+form li {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* Options */
+.options label {
+    display: block;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin: 10px 0;
+    background-color: rgba(255, 255, 255, 0.03);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.options input[type="radio"] {
+    margin-right: 12px;
+    transform: scale(1.2);
+    accent-color: #00e5ff;
+}
+
+.options label:hover {
+    background-color: rgba(0, 229, 255, 0.1);
+    color: #00e5ff;
+}
+
+/* Submit button */
+button[type="submit"] {
+    display: block;
+    margin: 60px auto 0;
+    padding: 14px 36px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #000;
+    background-color: #00e5ff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #00c2d6;
+    transform: scale(1.05);
+}
+
+/* Result display */
+#result {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #00ffae;
+    padding: 20px;
+}
+
+</style>
+</head>
+
+<body>
+    <div class="quiz-container">
+        <h1>🧮 Math Quiz</h1>
+        <form id="quiz-form">
+            <ol>
+                <li>
+                    What is 5 + 7?
+                    <div class="options">
+                        <label><input type="radio" name="q1" value="a"> 10</label>
+                        <label><input type="radio" name="q1" value="b"> 12</label>
+                        <label><input type="radio" name="q1" value="c"> 13</label>
+                    </div>
+                </li>
+                <li>
+                    What is 9 × 3?
+                    <div class="options">
+                        <label><input type="radio" name="q2" value="a"> 27</label>
+                        <label><input type="radio" name="q2" value="b"> 18</label>
+                        <label><input type="radio" name="q2" value="c"> 21</label>
+                    </div>
+                </li>
+                <li>
+                    What is the square root of 49?
+                    <div class="options">
+                        <label><input type="radio" name="q3" value="a"> 7</label>
+                        <label><input type="radio" name="q3" value="b"> 6</label>
+                        <label><input type="radio" name="q3" value="c"> 8</label>
+                    </div>
+                </li>
+                <li>
+                    15 divided by 3 is?
+                    <div class="options">
+                        <label><input type="radio" name="q4" value="a"> 5</label>
+                        <label><input type="radio" name="q4" value="b"> 3</label>
+                        <label><input type="radio" name="q4" value="c"> 4</label>
+                    </div>
+                </li>
+                <li>
+                    What is 11 + 22?
+                    <div class="options">
+                        <label><input type="radio" name="q5" value="a"> 33</label>
+                        <label><input type="radio" name="q5" value="b"> 34</label>
+                        <label><input type="radio" name="q5" value="c"> 32</label>
+                    </div>
+                </li>
+                <li>
+                    What is 100 - 76?
+                    <div class="options">
+                        <label><input type="radio" name="q6" value="a"> 26</label>
+                        <label><input type="radio" name="q6" value="b"> 24</label>
+                        <label><input type="radio" name="q6" value="c"> 28</label>
+                    </div>
+                </li>
+                <li>
+                    What is 6 × 7?
+                    <div class="options">
+                        <label><input type="radio" name="q7" value="a"> 42</label>
+                        <label><input type="radio" name="q7" value="b"> 36</label>
+                        <label><input type="radio" name="q7" value="c"> 48</label>
+                    </div>
+                </li>
+                <li>
+                    What is 10²?
+                    <div class="options">
+                        <label><input type="radio" name="q8" value="a"> 100</label>
+                        <label><input type="radio" name="q8" value="b"> 20</label>
+                        <label><input type="radio" name="q8" value="c"> 50</label>
+                    </div>
+                </li>
+                <li>
+                    What comes next in the sequence: 2, 4, 8, 16, ?
+                    <div class="options">
+                        <label><input type="radio" name="q9" value="a"> 20</label>
+                        <label><input type="radio" name="q9" value="b"> 32</label>
+                        <label><input type="radio" name="q9" value="c"> 24</label>
+                    </div>
+                </li>
+                <li>
+                    What is 1/2 + 1/2?
+                    <div class="options">
+                        <label><input type="radio" name="q10" value="a"> 1</label>
+                        <label><input type="radio" name="q10" value="b"> 2</label>
+                        <label><input type="radio" name="q10" value="c"> 0</label>
+                    </div>
+                </li>
+                <li>
+                    What is the perimeter of a square with side 4?
+                    <div class="options">
+                        <label><input type="radio" name="q11" value="a"> 16</label>
+                        <label><input type="radio" name="q11" value="b"> 8</label>
+                        <label><input type="radio" name="q11" value="c"> 12</label>
+                    </div>
+                </li>
+                <li>
+                    How many degrees in a right angle?
+                    <div class="options">
+                        <label><input type="radio" name="q12" value="a"> 90</label>
+                        <label><input type="radio" name="q12" value="b"> 60</label>
+                        <label><input type="radio" name="q12" value="c"> 180</label>
+                    </div>
+                </li>
+                <li>
+                    What is the value of π (pi) approximately?
+                    <div class="options">
+                        <label><input type="radio" name="q13" value="a"> 3.14</label>
+                        <label><input type="radio" name="q13" value="b"> 2.72</label>
+                        <label><input type="radio" name="q13" value="c"> 1.62</label>
+                    </div>
+                </li>
+                <li>
+                    Solve: 3(2 + 4)
+                    <div class="options">
+                        <label><input type="radio" name="q14" value="a"> 18</label>
+                        <label><input type="radio" name="q14" value="b"> 12</label>
+                        <label><input type="radio" name="q14" value="c"> 21</label>
+                    </div>
+                </li>
+                <li>
+                    What is 0 × 100?
+                    <div class="options">
+                        <label><input type="radio" name="q15" value="a"> 0</label>
+                        <label><input type="radio" name="q15" value="b"> 100</label>
+                        <label><input type="radio" name="q15" value="c"> 1</label>
+                    </div>
+                </li>
+                <li>
+                    What is 3²?
+                    <div class="options">
+                        <label><input type="radio" name="q16" value="a"> 9</label>
+                        <label><input type="radio" name="q16" value="b"> 6</label>
+                        <label><input type="radio" name="q16" value="c"> 12</label>
+                    </div>
+                </li>
+                <li>
+                    What is the opposite of addition?
+                    <div class="options">
+                        <label><input type="radio" name="q17" value="a"> Subtraction</label>
+                        <label><input type="radio" name="q17" value="b"> Multiplication</label>
+                        <label><input type="radio" name="q17" value="c"> Division</label>
+                    </div>
+                </li>
+                <li>
+                    What is 8 × 8?
+                    <div class="options">
+                        <label><input type="radio" name="q18" value="a"> 64</label>
+                        <label><input type="radio" name="q18" value="b"> 56</label>
+                        <label><input type="radio" name="q18" value="c"> 72</label>
+                    </div>
+                </li>
+                <li>
+                    What is 20% of 100?
+                    <div class="options">
+                        <label><input type="radio" name="q19" value="a"> 20</label>
+                        <label><input type="radio" name="q19" value="b"> 10</label>
+                        <label><input type="radio" name="q19" value="c"> 25</label>
+                    </div>
+                </li>
+                <li>
+                    What is 1 + 2 × 3?
+                    <div class="options">
+                        <label><input type="radio" name="q20" value="a"> 7</label>
+                        <label><input type="radio" name="q20" value="b"> 9</label>
+                        <label><input type="radio" name="q20" value="c"> 6</label>
+                    </div>
+                </li>
+            </ol>
+
+            <button type="submit">Submit Answers</button>
+        </form>
+
+        <div id="result" class="result-box"></div>
+    </div>
+
+    <script>
+        document.getElementById('quiz-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const correctAnswers = {
+                q1: 'b', q2: 'a', q3: 'a', q4: 'a', q5: 'a',
+                q6: 'b', q7: 'a', q8: 'a', q9: 'b', q10: 'a',
+                q11: 'a', q12: 'a', q13: 'a', q14: 'b', q15: 'a',
+                q16: 'a', q17: 'a', q18: 'a', q19: 'a', q20: 'a'
+            };
+
+            let score = 0;
+            for (let key in correctAnswers) {
+                const answer = document.querySelector(`input[name="${key}"]:checked`);
+                if (answer && answer.value === correctAnswers[key]) {
+                    score++;
+                }
+            }
+
+            const resultBox = document.getElementById('result');
+            resultBox.innerHTML = `You scored <strong>${score}/20</strong>`;
+        });
+    </script>
+</body>
+
+</html>

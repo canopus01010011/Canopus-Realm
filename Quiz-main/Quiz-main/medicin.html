@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medicine Quiz</title>
+    <style>
+        body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #c9d6ff, #e2e2e2);
+  padding: 30px;
+}
+
+.quiz-container {
+  max-width: 900px;
+  margin: auto;
+  background-color: white;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #1f4f66;
+}
+
+.question-block {
+  margin-bottom: 25px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #f8f8f8;
+  border-left: 5px solid #5c9ead;
+}
+
+.question-block p {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  padding-left: 10px;
+}
+
+button {
+  display: block;
+  margin: 30px auto;
+  padding: 12px 30px;
+  font-size: 18px;
+  border: none;
+  background-color: #1f4f66;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #163f52;
+}
+
+#score {
+  text-align: center;
+  font-size: 20px;
+  margin-top: 20px;
+  font-weight: bold;
+  color: #2e7d32;
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="quiz-container">
+        <h1>🩺 Medicine Quiz</h1>
+        <form id="quizForm">
+            <div class="question-block">
+                <p>1. What is the largest organ in the human body?</p>
+                <label><input type="radio" name="q1" value="Skin"> Skin</label>
+                <label><input type="radio" name="q1" value="Liver"> Liver</label>
+                <label><input type="radio" name="q1" value="Heart"> Heart</label>
+            </div>
+
+            <div class="question-block">
+                <p>2. What does MRI stand for?</p>
+                <label><input type="radio" name="q2" value="Magnetic Resonance Imaging"> Magnetic Resonance
+                    Imaging</label>
+                <label><input type="radio" name="q2" value="Muscle Radiograph Instrument"> Muscle Radiograph
+                    Instrument</label>
+                <label><input type="radio" name="q2" value="Motion Reactivity Interface"> Motion Reactivity
+                    Interface</label>
+            </div>
+
+            <div class="question-block">
+                <p>3. What blood type is known as the universal donor?</p>
+                <label><input type="radio" name="q3" value="O Negative"> O Negative</label>
+                <label><input type="radio" name="q3" value="AB Positive"> AB Positive</label>
+                <label><input type="radio" name="q3" value="A Negative"> A Negative</label>
+            </div>
+
+            <div class="question-block">
+                <p>4. What vitamin is produced when skin is exposed to sunlight?</p>
+                <label><input type="radio" name="q4" value="Vitamin D"> Vitamin D</label>
+                <label><input type="radio" name="q4" value="Vitamin C"> Vitamin C</label>
+                <label><input type="radio" name="q4" value="Vitamin B"> Vitamin B</label>
+            </div>
+
+            <div class="question-block">
+                <p>5. Which organ is responsible for filtering blood?</p>
+                <label><input type="radio" name="q5" value="Kidneys"> Kidneys</label>
+                <label><input type="radio" name="q5" value="Lungs"> Lungs</label>
+                <label><input type="radio" name="q5" value="Stomach"> Stomach</label>
+            </div>
+
+            <div class="question-block">
+                <p>6. What is the normal human body temperature in Celsius?</p>
+                <label><input type="radio" name="q6" value="37"> 37</label>
+                <label><input type="radio" name="q6" value="39"> 39</label>
+                <label><input type="radio" name="q6" value="35"> 35</label>
+            </div>
+
+            <div class="question-block">
+                <p>7. What part of the cell contains genetic material?</p>
+                <label><input type="radio" name="q7" value="Nucleus"> Nucleus</label>
+                <label><input type="radio" name="q7" value="Mitochondria"> Mitochondria</label>
+                <label><input type="radio" name="q7" value="Ribosome"> Ribosome</label>
+            </div>
+
+            <div class="question-block">
+                <p>8. What is the main function of red blood cells?</p>
+                <label><input type="radio" name="q8" value="Carry oxygen"> Carry oxygen</label>
+                <label><input type="radio" name="q8" value="Fight infection"> Fight infection</label>
+                <label><input type="radio" name="q8" value="Clot blood"> Clot blood</label>
+            </div>
+
+            <div class="question-block">
+                <p>9. What is insulin used to treat?</p>
+                <label><input type="radio" name="q9" value="Diabetes"> Diabetes</label>
+                <label><input type="radio" name="q9" value="Asthma"> Asthma</label>
+                <label><input type="radio" name="q9" value="Cancer"> Cancer</label>
+            </div>
+
+            <div class="question-block">
+                <p>10. What do antibiotics treat?</p>
+                <label><input type="radio" name="q10" value="Bacterial infections"> Bacterial infections</label>
+                <label><input type="radio" name="q10" value="Viral infections"> Viral infections</label>
+                <label><input type="radio" name="q10" value="Broken bones"> Broken bones</label>
+            </div>
+
+            <div class="question-block">
+                <p>11. What is the function of platelets?</p>
+                <label><input type="radio" name="q11" value="Clot blood"> Clot blood</label>
+                <label><input type="radio" name="q11" value="Carry oxygen"> Carry oxygen</label>
+                <label><input type="radio" name="q11" value="Digest food"> Digest food</label>
+            </div>
+
+            <div class="question-block">
+                <p>12. Which disease affects the lungs and is often caused by smoking?</p>
+                <label><input type="radio" name="q12" value="Lung cancer"> Lung cancer</label>
+                <label><input type="radio" name="q12" value="Diabetes"> Diabetes</label>
+                <label><input type="radio" name="q12" value="Arthritis"> Arthritis</label>
+            </div>
+
+            <div class="question-block">
+                <p>13. What is the term for low blood sugar?</p>
+                <label><input type="radio" name="q13" value="Hypoglycemia"> Hypoglycemia</label>
+                <label><input type="radio" name="q13" value="Hyperglycemia"> Hyperglycemia</label>
+                <label><input type="radio" name="q13" value="Hypertension"> Hypertension</label>
+            </div>
+
+            <div class="question-block">
+                <p>14. What system controls hormones in the body?</p>
+                <label><input type="radio" name="q14" value="Endocrine system"> Endocrine system</label>
+                <label><input type="radio" name="q14" value="Digestive system"> Digestive system</label>
+                <label><input type="radio" name="q14" value="Nervous system"> Nervous system</label>
+            </div>
+
+            <div class="question-block">
+                <p>15. What is the bone in the upper arm called?</p>
+                <label><input type="radio" name="q15" value="Humerus"> Humerus</label>
+                <label><input type="radio" name="q15" value="Femur"> Femur</label>
+                <label><input type="radio" name="q15" value="Ulna"> Ulna</label>
+            </div>
+
+            <div class="question-block">
+                <p>16. What is the term for high blood pressure?</p>
+                <label><input type="radio" name="q16" value="Hypertension"> Hypertension</label>
+                <label><input type="radio" name="q16" value="Hyperglycemia"> Hyperglycemia</label>
+                <label><input type="radio" name="q16" value="Hypoglycemia"> Hypoglycemia</label>
+            </div>
+
+            <div class="question-block">
+                <p>17. What is a common symptom of anemia?</p>
+                <label><input type="radio" name="q17" value="Fatigue"> Fatigue</label>
+                <label><input type="radio" name="q17" value="Coughing"> Coughing</label>
+                <label><input type="radio" name="q17" value="Rash"> Rash</label>
+            </div>
+
+            <div class="question-block">
+                <p>18. Where is the femur located?</p>
+                <label><input type="radio" name="q18" value="Leg"> Leg</label>
+                <label><input type="radio" name="q18" value="Arm"> Arm</label>
+                <label><input type="radio" name="q18" value="Back"> Back</label>
+            </div>
+
+            <div class="question-block">
+                <p>19. What is a stethoscope used for?</p>
+                <label><input type="radio" name="q19" value="Listening to the heart"> Listening to the heart</label>
+                <label><input type="radio" name="q19" value="Measuring temperature"> Measuring temperature</label>
+                <label><input type="radio" name="q19" value="Checking reflexes"> Checking reflexes</label>
+            </div>
+
+            <div class="question-block">
+                <p>20. Which virus causes COVID-19?</p>
+                <label><input type="radio" name="q20" value="SARS-CoV-2"> SARS-CoV-2</label>
+                <label><input type="radio" name="q20" value="HIV"> HIV</label>
+                <label><input type="radio" name="q20" value="Zika"> Zika</label>
+            </div>
+
+            <button type="submit">Submit Quiz</button>
+            <div id="score"></div>
+        </form>
+    </div>
+
+    <script>
+        const answers = {
+            q1: "Skin", q2: "Magnetic Resonance Imaging", q3: "O Negative", q4: "Vitamin D",
+            q5: "Kidneys", q6: "37", q7: "Nucleus", q8: "Carry oxygen", q9: "Diabetes",
+            q10: "Bacterial infections", q11: "Clot blood", q12: "Lung cancer", q13: "Hypoglycemia",
+            q14: "Endocrine system", q15: "Humerus", q16: "Hypertension", q17: "Fatigue",
+            q18: "Leg", q19: "Listening to the heart", q20: "SARS-CoV-2"
+        };
+
+        document.getElementById("quizForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            let score = 0;
+            for (let i = 1; i <= 20; i++) {
+                const q = document.querySelector(`input[name="q${i}"]:checked`);
+                if (q && q.value === answers["q" + i]) {
+                    score++;
+                }
+            }
+            document.getElementById("score").innerHTML = `You got ${score} out of 20 correct!`;
+        });
+    </script>
+</body>
+
+</html>

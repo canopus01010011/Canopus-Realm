@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sport Quiz</title>
+    <style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  color: #fff;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+h1 {
+  text-align: center;
+  font-size: 3em;
+  margin-bottom: 40px;
+  color: #00e0ff;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
+}
+
+form {
+  max-width: 900px;
+  margin: 0 auto;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+}
+
+.question {
+  margin-bottom: 30px;
+  padding: 25px;
+  border-left: 5px solid #00e0ff;
+  border-radius: 12px;
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.question:hover {
+  transform: scale(1.02);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.question p {
+  font-size: 1.2em;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+label {
+  display: block;
+  padding: 8px 0;
+  cursor: pointer;
+  color: #ddd;
+  transition: color 0.2s;
+}
+
+label:hover {
+  color: #fff;
+}
+
+input[type="radio"] {
+  margin-right: 10px;
+}
+
+button {
+  display: block;
+  margin: 40px auto 20px;
+  padding: 14px 40px;
+  font-size: 1.2em;
+  background-color: #00e0ff;
+  color: #0f2027;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: transparent;
+  border: 2px solid #00e0ff;
+  color: #00e0ff;
+}
+
+#score {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 1.6em;
+  font-weight: bold;
+  color: #00ffae;
+  display: none;
+}
+
+</style>
+</head>
+
+<body>
+    <div class="quiz-container">
+        <h1>Sport Quiz</h1>
+        <form id="quizForm">
+            <ol>
+                <li>
+                    What sport uses a shuttlecock?
+                    <br />
+                    <label><input type="radio" name="q1" value="a" /> Tennis</label><br />
+                    <label><input type="radio" name="q1" value="b" /> Badminton</label><br />
+                    <label><input type="radio" name="q1" value="c" /> Volleyball</label>
+                </li>
+
+                <li>
+                    How many players are on a soccer team?
+                    <br />
+                    <label><input type="radio" name="q2" value="a" /> 9</label><br />
+                    <label><input type="radio" name="q2" value="b" /> 10</label><br />
+                    <label><input type="radio" name="q2" value="c" /> 11</label>
+                </li>
+
+                <li>
+                    Who has won the most Olympic gold medals?
+                    <br />
+                    <label><input type="radio" name="q3" value="a" /> Usain Bolt</label><br />
+                    <label><input type="radio" name="q3" value="b" /> Michael Phelps</label><br />
+                    <label><input type="radio" name="q3" value="c" /> Simone Biles</label>
+                </li>
+
+                <li>
+                    What country invented basketball?
+                    <br />
+                    <label><input type="radio" name="q4" value="a" /> USA</label><br />
+                    <label><input type="radio" name="q4" value="b" /> Canada</label><br />
+                    <label><input type="radio" name="q4" value="c" /> UK</label>
+                </li>
+
+                <li>
+                    What is the length of an Olympic swimming pool?
+                    <br />
+                    <label><input type="radio" name="q5" value="a" /> 25m</label><br />
+                    <label><input type="radio" name="q5" value="b" /> 50m</label><br />
+                    <label><input type="radio" name="q5" value="c" /> 100m</label>
+                </li>
+
+                <li>
+                    In which sport is the term "love" used?
+                    <br />
+                    <label><input type="radio" name="q6" value="a" /> Basketball</label><br />
+                    <label><input type="radio" name="q6" value="b" /> Tennis</label><br />
+                    <label><input type="radio" name="q6" value="c" /> Football</label>
+                </li>
+
+                <li>
+                    Which country hosted the 2016 Olympics?
+                    <br />
+                    <label><input type="radio" name="q7" value="a" /> Brazil</label><br />
+                    <label><input type="radio" name="q7" value="b" /> Japan</label><br />
+                    <label><input type="radio" name="q7" value="c" /> UK</label>
+                </li>
+
+                <li>
+                    What sport is Tiger Woods known for?
+                    <br />
+                    <label><input type="radio" name="q8" value="a" /> Golf</label><br />
+                    <label><input type="radio" name="q8" value="b" /> Baseball</label><br />
+                    <label><input type="radio" name="q8" value="c" /> Cricket</label>
+                </li>
+
+                <li>
+                    Which country has won the most FIFA World Cups?
+                    <br />
+                    <label><input type="radio" name="q9" value="a" /> Argentina</label><br />
+                    <label><input type="radio" name="q9" value="b" /> Brazil</label><br />
+                    <label><input type="radio" name="q9" value="c" /> Germany</label>
+                </li>
+
+                <li>
+                    What color flag indicates the end of a Formula 1 race?
+                    <br />
+                    <label><input type="radio" name="q10" value="a" /> Red</label><br />
+                    <label><input type="radio" name="q10" value="b" /> Yellow</label><br />
+                    <label><input type="radio" name="q10" value="c" /> Checkered</label>
+                </li>
+
+                <li>
+                    What is the national sport of Japan?
+                    <br />
+                    <label><input type="radio" name="q11" value="a" /> Judo</label><br />
+                    <label><input type="radio" name="q11" value="b" /> Sumo</label><br />
+                    <label><input type="radio" name="q11" value="c" /> Karate</label>
+                </li>
+
+                <li>
+                    In what sport can you score a birdie?
+                    <br />
+                    <label><input type="radio" name="q12" value="a" /> Tennis</label><br />
+                    <label><input type="radio" name="q12" value="b" /> Golf</label><br />
+                    <label><input type="radio" name="q12" value="c" /> Badminton</label>
+                </li>
+
+                <li>
+                    Who is known as "The King of Football"?
+                    <br />
+                    <label><input type="radio" name="q13" value="a" /> Messi</label><br />
+                    <label><input type="radio" name="q13" value="b" /> Pelé</label><br />
+                    <label><input type="radio" name="q13" value="c" /> Ronaldo</label>
+                </li>
+
+                <li>
+                    What is the term for 3 goals in a soccer match?
+                    <br />
+                    <label><input type="radio" name="q14" value="a" /> Triple</label><br />
+                    <label><input type="radio" name="q14" value="b" /> Hat-trick</label><br />
+                    <label><input type="radio" name="q14" value="c" /> Treble</label>
+                </li>
+
+                <li>
+                    What sport uses a puck?
+                    <br />
+                    <label><input type="radio" name="q15" value="a" /> Ice Hockey</label><br />
+                    <label><input type="radio" name="q15" value="b" /> Rugby</label><br />
+                    <label><input type="radio" name="q15" value="c" /> Cricket</label>
+                </li>
+
+                <li>
+                    How long is a marathon?
+                    <br />
+                    <label><input type="radio" name="q16" value="a" /> 21 km</label><br />
+                    <label><input type="radio" name="q16" value="b" /> 42.2 km</label><br />
+                    <label><input type="radio" name="q16" value="c" /> 10 km</label>
+                </li>
+
+                <li>
+                    What is the highest score in a single basketball shot?
+                    <br />
+                    <label><input type="radio" name="q17" value="a" /> 2 points</label><br />
+                    <label><input type="radio" name="q17" value="b" /> 3 points</label><br />
+                    <label><input type="radio" name="q17" value="c" /> 4 points</label>
+                </li>
+
+                <li>
+                    What do the five rings on the Olympic flag represent?
+                    <br />
+                    <label><input type="radio" name="q18" value="a" /> Sports</label><br />
+                    <label><input type="radio" name="q18" value="b" /> Continents</label><br />
+                    <label><input type="radio" name="q18" value="c" /> Countries</label>
+                </li>
+
+                <li>
+                    What sport is Serena Williams famous for?
+                    <br />
+                    <label><input type="radio" name="q19" value="a" /> Tennis</label><br />
+                    <label><input type="radio" name="q19" value="b" /> Basketball</label><br />
+                    <label><input type="radio" name="q19" value="c" /> Swimming</label>
+                </li>
+
+                <li>
+                    What sport is associated with the Super Bowl?
+                    <br />
+                    <label><input type="radio" name="q20" value="a" /> Rugby</label><br />
+                    <label><input type="radio" name="q20" value="b" /> American Football</label><br />
+                    <label><input type="radio" name="q20" value="c" /> Baseball</label>
+                </li>
+            </ol>
+            <button type="button" onclick="checkAnswers()">Submit</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const answers = {
+            q1: "b",
+            q2: "c",
+            q3: "b",
+            q4: "b",
+            q5: "b",
+            q6: "b",
+            q7: "a",
+            q8: "a",
+            q9: "b",
+            q10: "c",
+            q11: "b",
+            q12: "b",
+            q13: "b",
+            q14: "b",
+            q15: "a",
+            q16: "b",
+            q17: "b",
+            q18: "b",
+            q19: "a",
+            q20: "b"
+        };
+
+        function checkAnswers() {
+            let score = 0;
+            for (let key in answers) {
+                const selected = document.querySelector(`input[name="${key}"]:checked`);
+                if (selected && selected.value === answers[key]) {
+                    score++;
+                }
+            }
+            document.getElementById("result").innerHTML =
+                `<h2>Your score: ${score}/20</h2>`;
+        }
+    </script>
+</body>
+
+</html>

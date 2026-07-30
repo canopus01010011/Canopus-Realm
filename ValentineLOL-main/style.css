@@ -1,0 +1,143 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 25px 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+}
+
+h1 {
+    margin: 15px 0 25px;
+    color: #b30059;
+}
+
+.gif-wrapper {
+    width: 120px;
+    margin: 0 auto;
+    pointer-events: none;
+    user-select: none;
+}
+
+.buttons {
+    position: relative;
+    width: 300px;
+    height: 80px;
+    margin: auto;
+}
+
+button {
+    padding: 15px 35px;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#YesB {
+    background: #ff4d6d;
+    color: white;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    box-shadow: 0 0 15px rgba(255, 77, 109, 0.7);
+}
+
+#YesB:hover {
+    transform: scale(1.2);
+    box-shadow: 0 0 35px rgba(255, 77, 109, 1);
+}
+
+.page {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    padding: 50px;
+    overflow: hidden;
+}
+
+
+
+#NoB {
+    position: absolute;
+    background: #555;
+    color: white;
+    padding: 15px 35px;
+    border-radius: 30px;
+    transition: left 0.15s ease, top 0.15s ease;
+    z-index: 10;
+}
+.hearts span {
+    position: absolute;
+    bottom: -40px;
+    width: 20px;
+    height: 20px;
+    background: red;
+    transform: rotate(-45deg);
+    animation: floatHeart linear forwards;
+    border-radius: 0 50% 50% 0;
+}
+
+.hearts span::before,
+.hearts span::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: red;
+    border-radius: 50%;
+}
+
+.hearts span::before {
+    top: -10px;
+    left: 0;
+}
+
+.hearts span::after {
+    top: 0;
+    left: 10px;
+}
+#gif1 {
+    height: 130px;
+    width: 100px;
+}
+
+#gif2 {
+    height: 100px;
+    width: 100px;
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: rotate(-45deg) translateY(0) scale(0.5);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: rotate(-45deg) translateY(-100vh) scale(1);
+        opacity: 0;
+    }
+}

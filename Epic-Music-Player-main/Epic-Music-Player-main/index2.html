@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>🎵 Epic Music Player</title>
+    <style>
+      body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: linear-gradient(120deg, #0f0c29, #302b63, #24243e);
+  background-size: 400% 400%;
+  animation: gradientFlow 20s ease infinite;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 40px 20px;
+  background-image: url(EpicTheMusical.jpg);
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.music-player {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
+  width: 100%;
+  max-width: 720px;
+  animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 28px;
+  text-shadow: 0 0 5px #00f2ff;
+}
+
+#title {
+  font-size: 18px;
+  margin-bottom: 15px;
+  text-align: center;
+  color: #00f2ff;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.controls button {
+  background-color: #00f2ff;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #000;
+  font-weight: bold;
+  box-shadow: 0 0 12px #00f2ff;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.controls button:hover {
+  background-color: #00cfe0;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #00f2ff;
+}
+
+#progress {
+  width: 100%;
+  appearance: none;
+  height: 8px;
+  border-radius: 5px;
+  background: #555;
+  outline: none;
+  margin-bottom: 25px;
+}
+
+#progress::-webkit-slider-thumb {
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  background: #00f2ff;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 10px #00f2ff;
+  transition: transform 0.2s;
+}
+
+#progress::-webkit-slider-thumb:hover {
+  transform: scale(1.3);
+}
+
+.playlist {
+  max-height: 260px;
+  overflow-y: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 10px;
+}
+
+.song {
+  padding: 10px 12px;
+  margin-bottom: 6px;
+  border-radius: 10px;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.04);
+  transition: background 0.3s, transform 0.2s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.song:hover {
+  background: rgba(0, 242, 255, 0.15);
+  transform: scale(1.02);
+}
+
+.song.active {
+  background: rgba(0, 242, 255, 0.25);
+  box-shadow: 0 0 10px #00f2ff;
+  font-weight: bold;
+}
+
+    </style>
+</head>
+
+<body>
+    <div class="music-player">
+        <h1>🎵 Epic Music Player</h1>
+        <div id="title">🎶 Select a song</div>
+        <audio id="audio" src=""></audio>
+
+        <div class="controls">
+            <button onclick="prevSong()">⏮</button>
+            <button onclick="togglePlay()" id="playPause">▶</button>
+            <button onclick="nextSong()">⏭</button>
+        </div>
+
+        <input type="range" id="progress" value="0" onchange="changeProgress()" />
+
+        <div class="playlist" id="playlist"></div>
+    </div>
+
+    <script>
+        const audio = document.getElementById("audio");
+        const title = document.getElementById("title");
+        const playPauseBtn = document.getElementById("playPause");
+        const progress = document.getElementById("progress");
+        const playlistDiv = document.getElementById("playlist");
+
+        const songs = [
+            "Epic The Musical_01_The Horse and the Infant.mp3",
+            "Epic The Musical_02_Just a Man.mp3",
+            "Epic The Musical_03_Full Speed Ahead.mp3",
+            "Epic The Musical_04_Open Arms.mp3",
+            "Epic The Musical_05_Warrior of the Mind.mp3",
+            "Epic The Musical_06_Polyphemus.mp3",
+            "Epic The Musical_07_Survive.mp3",
+            "Epic The Musical_08_Remember Them.mp3",
+            "Epic The Musical_09_My Goodbye.mp3",
+            "Epic The Musical_10_Storm.mp3",
+            "Epic The Musical_11_Luck Runs Out.mp3",
+            "Epic The Musical_12_Keep Your Friends Close.mp3",
+            "Epic The Musical_13_Ruthlessness.mp3",
+            "Epic The Musical_14_Puppeteer.mp3",
+            "Epic The Musical_15_Wouldn't You Like.mp3",
+            "Epic The Musical_16_Done For.mp3",
+            "Epic The Musical_17_There Are Other Ways.mp3",
+            "Epic The Musical_18_The Underworld.mp3",
+            "Epic The Musical_19_No Longer You.mp3",
+            "Epic The Musical_20_Monster.mp3",
+            "Epic The Musical_21_Suffering.mp3",
+            "Epic The Musical_22_Different Beast.mp3",
+            "Epic The Musical_23_Scylla.mp3",
+            "Epic The Musical_24_Mutiny.mp3",
+            "Epic The Musical_25_Thunder Bringer.mp3",
+            "Epic The Musical_26_Legendary.mp3",
+            "Epic The Musical_27_Little Wolf.mp3",
+            "Epic The Musical_28_We'll Be Fine.mp3",
+            "Epic The Musical_29_Love in Paradise.mp3",
+            "Epic The Musical_30_God Games.mp3"
+        ];
+
+        let currentSong = 0;
+
+        function renderPlaylist() {
+            playlistDiv.innerHTML = "";
+            songs.forEach((song, index) => {
+                const songDiv = document.createElement("div");
+                songDiv.classList.add("song");
+                if (index === currentSong) songDiv.classList.add("active");
+                songDiv.innerText = song;
+                songDiv.onclick = () => {
+                    currentSong = index;
+                    loadSong(currentSong);
+                    playSong();
+                };
+                playlistDiv.appendChild(songDiv);
+            });
+        }
+
+        function updateActiveSong() {
+            document.querySelectorAll(".song").forEach((el, i) => {
+                el.classList.toggle("active", i === currentSong);
+            });
+        }
+
+        function loadSong(index) {
+            audio.src = songs[index];
+            title.innerText = "🎶 " + songs[index];
+            updateActiveSong();
+        }
+
+        function playSong() {
+            audio.play();
+            playPauseBtn.innerText = "⏸";
+        }
+
+        function togglePlay() {
+            if (audio.paused) {
+                playSong();
+            } else {
+                audio.pause();
+                playPauseBtn.innerText = "▶";
+            }
+        }
+
+        function nextSong() {
+            currentSong = (currentSong + 1) % songs.length;
+            loadSong(currentSong);
+            playSong();
+        }
+
+        function prevSong() {
+            currentSong = (currentSong - 1 + songs.length) % songs.length;
+            loadSong(currentSong);
+            playSong();
+        }
+
+        audio.addEventListener("timeupdate", () => {
+            if (audio.duration) {
+                progress.value = (audio.currentTime / audio.duration) * 100;
+            }
+        });
+
+        function changeProgress() {
+            audio.currentTime = (progress.value / 100) * audio.duration;
+        }
+
+        audio.addEventListener("ended", nextSong);
+
+        // Start
+        loadSong(currentSong);
+        renderPlaylist();
+    </script>
+</body>
+
+</html>
