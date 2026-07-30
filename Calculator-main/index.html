@@ -73,51 +73,56 @@
                     <input type="text" id="sci-display" class="calc-display" readonly>
                 </div>
                 
-                <div class="buttons-grid">
-                    <!-- Row 1 - Functions -->
-                    <button class="btn btn-function" onclick="sciClearDisplay()">AC</button>
-                    <button class="btn btn-function" onclick="sciDeleteLast()"><i class="fas fa-backspace"></i></button>
-                    <button class="btn btn-function" onclick="sciAppendValue('Math.sin')">sin</button>
-                    <button class="btn btn-function" onclick="sciAppendValue('Math.cos')">cos</button>
+  <div class="buttons-grid scientific-grid">
 
-                    <!-- Row 2 -->
-                    <button class="btn" onclick="sciAppendNumber('7')">7</button>
-                    <button class="btn" onclick="sciAppendNumber('8')">8</button>
-                    <button class="btn" onclick="sciAppendNumber('9')">9</button>
-                    <button class="btn btn-operator" onclick="sciAppendOperator('÷')">÷</button>
+<button class="btn btn-danger">AC</button>
+<button class="btn btn-danger">⌫</button>
+<button class="btn btn-memory">MC</button>
+<button class="btn btn-memory">MR</button>
+<button class="btn btn-memory">M+</button>
+<button class="btn btn-memory">M-</button>
 
-                    <!-- Row 3 -->
-                    <button class="btn btn-function" onclick="sciAppendValue('Math.tan')">tan</button>
-                    <button class="btn btn-function" onclick="sciAppendValue('Math.sqrt')">√</button>
-                    <button class="btn btn-function" onclick="sciAppendOperator('^')">^</button>
-                    <button class="btn btn-function" onclick="sciAppendValue('Math.log')">log</button>
+<button class="btn btn-science">sin</button>
+<button class="btn btn-science">cos</button>
+<button class="btn btn-science">tan</button>
+<button class="btn btn-science">ln</button>
+<button class="btn btn-science">log</button>
+<button class="btn btn-science">√</button>
 
-                    <!-- Row 4 -->
-                    <button class="btn" onclick="sciAppendNumber('4')">4</button>
-                    <button class="btn" onclick="sciAppendNumber('5')">5</button>
-                    <button class="btn" onclick="sciAppendNumber('6')">6</button>
-                    <button class="btn btn-operator" onclick="sciAppendOperator('×')">×</button>
+<button class="btn btn-science">x²</button>
+<button class="btn btn-science">x³</button>
+<button class="btn btn-science">xʸ</button>
+<button class="btn btn-science">(</button>
+<button class="btn btn-science">)</button>
+<button class="btn btn-science">!</button>
 
-                    <!-- Row 5 -->
-                    <button class="btn btn-function" onclick="sciAppendValue('Math.PI')">π</button>
-                    <button class="btn btn-function" onclick="sciAppendValue('Math.E')">e</button>
-                    <button class="btn btn-function" onclick="sciAppendValue('Math.factorial')">x!</button>
-                    <button class="btn btn-function" onclick="sciAppendOperator('%')">%</button>
+<button class="btn">7</button>
+<button class="btn">8</button>
+<button class="btn">9</button>
+<button class="btn btn-operator">÷</button>
+<button class="btn btn-science">1/x</button>
+<button class="btn btn-science">±</button>
 
-                    <!-- Row 6 -->
-                    <button class="btn" onclick="sciAppendNumber('1')">1</button>
-                    <button class="btn" onclick="sciAppendNumber('2')">2</button>
-                    <button class="btn" onclick="sciAppendNumber('3')">3</button>
-                    <button class="btn btn-operator" onclick="sciAppendOperator('-')">-</button>
+<button class="btn">4</button>
+<button class="btn">5</button>
+<button class="btn">6</button>
+<button class="btn btn-operator">×</button>
+<button class="btn btn-science">π</button>
+<button class="btn btn-science">e</button>
 
-                    <!-- Row 7 -->
-                    <button class="btn" onclick="sciAppendNumber('0')">0</button>
-                    <button class="btn" onclick="sciAppendNumber('.')">.</button>
-                    <button class="btn btn-equals" onclick="sciCalculate()">=</button>
-                    <button class="btn btn-operator" onclick="sciAppendOperator('+')">+</button>
-                </div>
-            </div>
-        </div>
+<button class="btn">1</button>
+<button class="btn">2</button>
+<button class="btn">3</button>
+<button class="btn btn-operator">−</button>
+<button class="btn btn-science">EXP</button>
+<button class="btn btn-science">Ans</button>
+
+<button class="btn btn-zero">0</button>
+<button class="btn">.</button>
+<button class="btn btn-operator">+</button>
+<button class="btn btn-equals">=</button>
+
+</div>
 
         <!-- MATH QUIZ MODE -->
         <div class="mode-content" id="quiz-mode">

@@ -31,6 +31,9 @@
                 <li><a href="#my-list-section" class="nav-link">My List</a></li>
             </ul>
             <div class="nav-actions">
+                <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle theme" type="button">
+                    <i class="fas fa-moon"></i>
+                </button>
                 <span id="user-menu-placeholder"></span>
                 <button class="hamburger" id="hamburger" aria-label="Toggle menu">
                     <span></span><span></span><span></span>
@@ -87,7 +90,7 @@
                 <option value="14">Horror</option>
                 <option value="22">Romance</option>
                 <option value="24">Sci-Fi</option>
-                <option value="30">School</option>
+                <option value="23">School</option>
                 <option value="37">Supernatural</option>
             </select>
         </div>
@@ -127,9 +130,11 @@
             <div class="spinner"></div>
             <p>Loading anime…</p>
         </div>
-        <div id="anime-list" class="projects-grid anime-grid"></div>
+        <div id="anime-list" class="projects-grid anime-grid">
+            <p class="no-results">Type a title or choose a genre to search.</p>
+        </div>
         <div class="load-more-wrap">
-            <button id="load-more-btn" class="cta-ghost" style="display:none;">Load more</button>
+            <button id="load-more-btn" class="cta-ghost" style="display:none;" type="button">Load more</button>
         </div>
     </section>
 
@@ -146,6 +151,7 @@
                 <button class="filter-btn filter-pill" data-filter="completed">Completed</button>
                 <button class="filter-btn filter-pill" data-filter="on-hold">On Hold</button>
                 <button class="filter-btn filter-pill" data-filter="plan-to-watch">Plan to Watch</button>
+                <button class="filter-btn filter-pill" data-filter="dropped">Dropped</button>
             </div>
         </div>
         <div id="my-list" class="projects-grid anime-grid"></div>
@@ -231,7 +237,7 @@
                             <option value="plan-to-watch">Plan to Watch</option>
                             <option value="dropped">Dropped</option>
                         </select>
-                        <button class="btn btn-primary" id="save-anime-btn" type="button" onclick="saveToMyList()">
+                        <button class="btn btn-primary" id="save-anime-btn" type="button">
                             <i class="fas fa-bookmark"></i> Save to my list
                         </button>
                     </div>
@@ -244,7 +250,7 @@
 
                 <div id="review-login-gate" class="review-login-gate">
                     <p>Log in to rate this anime and leave a review.</p>
-                    <button class="cta-ghost" type="button" onclick="openAuthModal()">Log in / Sign up</button>
+                    <button class="cta-ghost" id="review-login-btn" type="button">Log in / Sign up</button>
                 </div>
 
                 <form id="review-form" class="review-form" style="display:none;">
@@ -276,10 +282,10 @@
             </div>
         </div>
         <hr>
-        <a href="#" onclick="goToUserProfile(); return false;"><i class="fas fa-user"></i> Profile</a>
-        <a href="#" onclick="goToUserSettings(); return false;"><i class="fas fa-cog"></i> Settings</a>
+        <a href="#" id="profile-link"><i class="fas fa-user"></i> Profile</a>
+        <a href="#" id="settings-link"><i class="fas fa-cog"></i> Settings</a>
         <hr>
-        <a href="#" onclick="logout(); return false;"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        <a href="#" id="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
 
     <!-- ============= FOOTER ============= -->
@@ -304,27 +310,6 @@
     <script src="firebase-config.js"></script>
 
     <script src="script.js"></script>
-    <script>
-        // hamburger + scroll chrome + smooth anchors
-        const navbar = document.getElementById('navbar');
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
-        window.addEventListener('scroll', () => {
-            navbar.classList.toggle('scrolled', window.scrollY > 40);
-        });
-        hamburger.addEventListener('click', () => navMenu.classList.toggle('active'));
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => navMenu.classList.remove('active'));
-        });
-        document.getElementById('hero-search-btn').addEventListener('click', () => {
-            document.getElementById('search-section').scrollIntoView({ behavior: 'smooth' });
-            document.getElementById('search-input').focus();
-        });
-        document.getElementById('hero-signup-btn').addEventListener('click', () => {
-            openAuthModal();
-            document.querySelector('.auth-tab-btn[data-tab="signup"]').click();
-        });
-    </script>
 </body>
 
 </html>
