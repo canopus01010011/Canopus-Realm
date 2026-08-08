@@ -4,43 +4,566 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Valentine ❤️</title>
-    <link rel="stylesheet" href="style.css">
+
+    <title>Will You Be My Valentine? 💖</title>
+
     <link rel="icon" href="icon.jpg" type="image/jpg">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
+<link
+    href="style.css"
+    rel="stylesheet">
+    <!-- PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <!-- EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 
 <body>
-<div class="page">
+
+    <div class="background-glow glow-one"></div>
+    <div class="background-glow glow-two"></div>
+
     <div class="hearts"></div>
 
-    <div class="card">
+    <main class="page">
 
-        
-        <img src="bears.gif">
+        <!--   === -->
+        <!-- VALENTINE QUESTION -->
+        <!--   === -->
 
-        <h1>Will You Be My Valentine?</h1>
+        <section class="card" id="askCard">
 
-        <div class="buttons">
-            <button id="YesB">YES 💖</button>
+
+            <img src="bears.gif" class="main-gif" alt="Cute bears">
+
+
+            <h1>
+                Will You Be
+                <span>My Valentine?</span>
+            </h1>
+
+            <p class="subtitle">
+                There is only one correct answer...
+            </p>
+
+            <div class="buttons">
+
+                <button id="YesB" class="yes-button">
+                    YES <span>💖</span>
+                </button>
+
+            </div>
+
+        </section>
+
+        <button id="NoB" class="no-button">
+            NO 😈
+        </button>
+
+
+        <!--   === -->
+        <!-- DATE PLANNER -->
+        <!--   === -->
+
+        <div class="planner-overlay" id="plannerOverlay">
+
+            <div class="planner-card">
+
+                <button class="planner-close" id="plannerSkip" aria-label="Skip planner">
+                    ×
+                </button>
+
+                <!-- HEADER -->
+
+                <div class="planner-header">
+
+                    <div class="planner-icon">
+                        💕
+                    </div>
+
+                    <div>
+                        <p class="eyebrow">
+                            OUR LITTLE PLAN
+                        </p>
+
+                        <h2>
+                            Let's Plan Our Date
+                        </h2>
+                    </div>
+
+                </div>
+
+
+                <!-- PROGRESS -->
+
+                <div class="progress-wrapper">
+
+                    <div class="progress-info">
+
+                        <span id="plannerStepLabel">
+                            Step 1 of 10
+                        </span>
+
+                        <span id="plannerPercent">
+                            10%
+                        </span>
+
+                    </div>
+
+                    <div class="planner-progress">
+
+                        <div class="planner-progress-bar" id="plannerProgressBar">
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!--   === -->
+                <!-- STEP 1 -->
+                <!--   === -->
+
+                <section class="planner-step active" data-step="1">
+
+                    <span class="step-number">
+                        01
+                    </span>
+
+                    <h3>
+                        When should our date happen? 📅
+                    </h3>
+
+                    <p class="planner-sub">
+                        Pick the day you've been dreaming about.
+                    </p>
+
+                    <div class="input-grid">
+
+                        <div class="field">
+
+                            <label>
+                                Date
+                            </label>
+
+                            <input type="date" id="dateInput" class="planner-input">
+
+                        </div>
+
+                        <div class="field">
+
+                            <label>
+                                Time
+                            </label>
+
+                            <input type="time" id="timeInput" class="planner-input">
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!--   === -->
+                <!-- STEP 2 -->
+                <!--   === -->
+
+                <section class="planner-step" data-step="2">
+
+                    <span class="step-number">
+                        02
+                    </span>
+
+                    <h3>
+                        Where should we meet? 📍
+                    </h3>
+
+                    <p class="planner-sub">
+                        Tell me where our adventure begins.
+                    </p>
+
+                    <input type="text" id="placeInput" class="planner-input"
+                        placeholder="Restaurant, café, park, home...">
+
+                    <div class="quick-options">
+
+                        <button class="planner-chip" data-target="placeInput" data-value="Surprise me">
+                            🎁 Surprise me
+                        </button>
+
+                        <button class="planner-chip" data-target="placeInput" data-value="A cozy café">
+                            ☕ Cozy café
+                        </button>
+
+                        <button class="planner-chip" data-target="placeInput" data-value="A beautiful restaurant">
+                            🍷 Restaurant
+                        </button>
+
+                        <button class="planner-chip" data-target="placeInput" data-value="A peaceful outdoor place">
+                            🌳 Outdoors
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!--   === -->
+                <!-- STEP 3 -->
+                <!--   === -->
+
+                <section class="planner-step" data-step="3">
+
+                    <span class="step-number">
+                        03
+                    </span>
+
+                    <h3>
+                        What should we eat? 🍽️
+                    </h3>
+
+                    <p class="planner-sub">
+                        Choose your perfect Valentine's meal.
+                    </p>
+
+                    <div class="planner-options" id="foodOptions">
+
+                        <button class="planner-chip selectable" data-group="food" data-value="Italian">
+                            🍝 Italian
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="food" data-value="Sushi">
+                            🍣 Sushi
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="food" data-value="BBQ / Grill">
+                            🍖 BBQ
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="food" data-value="Fast food">
+                            🍔 Fast food
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="food" data-value="Home-cooked">
+                            🍳 Home-cooked
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="food" data-value="Surprise me">
+                            🎁 Surprise me
+                        </button>
+
+                    </div>
+
+                    <input type="text" id="foodCustomInput" class="planner-input"
+                        placeholder="Or tell me exactly what you want...">
+
+                </section>
+
+
+                <!--   === -->
+                <!-- STEP 4 -->
+                <!--   === -->
+
+                <section class="planner-step" data-step="4">
+
+                    <span class="step-number">
+                        04
+                    </span>
+
+                    <h3>
+                        And what about dessert? 🍰
+                    </h3>
+
+                    <div class="planner-options">
+
+                        <button class="planner-chip selectable" data-group="dessert" data-value="Chocolate">
+                            🍫 Chocolate
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="dessert" data-value="Cake">
+                            🎂 Cake
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="dessert" data-value="Ice cream">
+                            🍦 Ice cream
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="dessert" data-value="Strawberries">
+                            🍓 Strawberries
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="dessert" data-value="Anything sweet">
+                            💕 Anything sweet
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!--   === -->
+                <!-- STEP 5 -->
+                <!--   === -->
+
+                <section class="planner-step" data-step="5">
+
+                    <span class="step-number">
+                        05
+                    </span>
+
+                    <h3>
+                        What should we do? 🎬
+                    </h3>
+
+                    <p class="planner-sub">
+                        Pick as many activities as you want.
+                    </p>
+
+                    <div class="planner-options">
+
+                        <button class="planner-chip selectable" data-group="activity" data-value="Movie night">
+                            🎬 Movie
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="activity" data-value="Long walk">
+                            🚶 Long walk
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="activity" data-value="Board games">
+                            🎲 Games
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="activity" data-value="Stargazing">
+                            ✨ Stargazing
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="activity" data-value="Dancing">
+                            💃 Dancing
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="activity" data-value="Photography">
+                            📸 Photos
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="activity" data-value="Just talking">
+                            💕 Just us
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="activity" data-value="Surprise me">
+                            🎁 Surprise me
+                        </button>
+
+                    </div>
+
+                    <input type="text" id="activityCustomInput" class="planner-input"
+                        placeholder="Add another activity...">
+
+                </section>
+
+
+                <!--   === -->
+                <!-- STEP 6 -->
+                <!--   === -->
+
+                <section class="planner-step" data-step="6">
+
+                    <span class="step-number">
+                        06
+                    </span>
+
+                    <h3>
+                        What's the vibe? ✨
+                    </h3>
+
+                    <div class="planner-options">
+
+                        <button class="planner-chip selectable" data-group="vibe" data-value="Romantic">
+                            💖 Romantic
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="vibe" data-value="Cute & cozy">
+                            🧸 Cute & cozy
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="vibe" data-value="Elegant">
+                            🥂 Elegant
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="vibe" data-value="Fun & chaotic">
+                            😂 Fun
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="vibe" data-value="Adventure">
+                            🌌 Adventure
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!--   === -->
+                <!-- STEP 7 -->
+                <!--   === -->
+
+                <section class="planner-step" data-step="7">
+
+                    <span class="step-number">
+                        07
+                    </span>
+
+                    <h3>
+                        How are we getting there? 🚗
+                    </h3>
+
+                    <div class="planner-options">
+
+                        <button class="planner-chip selectable" data-group="transport" data-value="Walking">
+                            🚶 Walking
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="transport" data-value="Car">
+                            🚗 Car
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="transport" data-value="Taxi">
+                            🚕 Taxi
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="transport" data-value="Public transport">
+                            🚌 Public transport
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="transport" data-value="Surprise me">
+                            🎁 Surprise me
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!--   === -->
+                <!-- STEP 8 -->
+                <!--   === -->
+
+                <section class="planner-step" data-step="8">
+
+                    <span class="step-number">
+                        08
+                    </span>
+
+                    <h3>
+                        What should we wear? 👗
+                    </h3>
+
+                    <div class="planner-options">
+
+                        <button class="planner-chip selectable" data-group="dress" data-value="Casual">
+                            👕 Casual
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="dress" data-value="Elegant">
+                            👔 Elegant
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="dress" data-value="Matching colors">
+                            💕 Matching
+                        </button>
+
+                        <button class="planner-chip selectable" data-group="dress" data-value="Anything">
+                            ✨ Anything
+                        </button>
+
+                    </div>
+
+                </section>
+
+
+                <!--   === -->
+                <!-- STEP 9 -->
+                <!--   === -->
+
+                <section class="planner-step" data-step="9">
+
+                    <span class="step-number">
+                        09
+                    </span>
+
+                    <h3>
+                        Leave a little message 💌
+                    </h3>
+
+                    <textarea id="messageInput" class="planner-input planner-textarea"
+                        placeholder="Write something special..."></textarea>
+
+                </section>
+
+
+                <!--   === -->
+                <!-- STEP 10 -->
+                <!--   === -->
+
+                <section class="planner-step" data-step="10">
+
+                    <span class="step-number">
+                        10
+                    </span>
+
+                    <h3>
+                        Our Valentine's plan 💖
+                    </h3>
+
+                    <p class="planner-sub">
+                        Here's everything we planned together.
+                    </p>
+
+                    <div class="plan-preview" id="planPreview">
+                    </div>
+
+                </section>
+
+
+                <!-- NAVIGATION -->
+
+                <div class="planner-nav">
+
+                    <button type="button" class="planner-btn ghost" id="plannerBack">
+                        ← Back
+                    </button>
+
+                    <button type="button" class="planner-btn primary" id="plannerNext">
+                        Next →
+                    </button>
+
+                </div>
+
+                <p class="planner-status" id="plannerStatus">
+                </p>
+
+            </div>
         </div>
-    </div>
-                <button id="NoB">NO 😈</button>
 
-</div>
-<audio id="bgMusic" loop>
-    <source src="song.mp3" type="audio/mpeg">
-</audio>
+    </main>
 
-<script>
-    const music = document.getElementById("bgMusic");
 
-    document.addEventListener("click", () => {
-        if (music.paused) music.play();
-    });
-</script>
+    <!-- MUSIC -->
+
+    <audio id="bgMusic" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
 
     <script src="script.js"></script>
+
 </body>
 
 </html>

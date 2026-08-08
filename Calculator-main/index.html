@@ -72,81 +72,96 @@
                 <div class="display">
                     <input type="text" id="sci-display" class="calc-display" readonly>
                 </div>
-                
-  <div class="buttons-grid scientific-grid">
 
-<button class="btn btn-danger">AC</button>
-<button class="btn btn-danger">⌫</button>
-<button class="btn btn-memory">MC</button>
-<button class="btn btn-memory">MR</button>
-<button class="btn btn-memory">M+</button>
-<button class="btn btn-memory">M-</button>
+                <div class="buttons-grid scientific-grid">
+                    <button class="btn btn-danger" onclick="sciClearDisplay()">AC</button>
+                    <button class="btn btn-danger" onclick="sciDeleteLast()">⌫</button>
+                    <button class="btn btn-memory" onclick="sciMemoryClear()">MC</button>
+                    <button class="btn btn-memory" onclick="sciMemoryRecall()">MR</button>
+                    <button class="btn btn-memory" onclick="sciMemoryAdd()">M+</button>
+                    <button class="btn btn-memory" onclick="sciMemorySubtract()">M-</button>
 
-<button class="btn btn-science">sin</button>
-<button class="btn btn-science">cos</button>
-<button class="btn btn-science">tan</button>
-<button class="btn btn-science">ln</button>
-<button class="btn btn-science">log</button>
-<button class="btn btn-science">√</button>
+                    <button class="btn btn-science" onclick="sciInsert('sin(')">sin</button>
+                    <button class="btn btn-science" onclick="sciInsert('cos(')">cos</button>
+                    <button class="btn btn-science" onclick="sciInsert('tan(')">tan</button>
+                    <button class="btn btn-science" onclick="sciInsert('ln(')">ln</button>
+                    <button class="btn btn-science" onclick="sciInsert('log(')">log</button>
+                    <button class="btn btn-science" onclick="sciInsert('sqrt(')">√</button>
 
-<button class="btn btn-science">x²</button>
-<button class="btn btn-science">x³</button>
-<button class="btn btn-science">xʸ</button>
-<button class="btn btn-science">(</button>
-<button class="btn btn-science">)</button>
-<button class="btn btn-science">!</button>
+                    <button class="btn btn-science" onclick="sciPower(2)">x²</button>
+                    <button class="btn btn-science" onclick="sciPower(3)">x³</button>
+                    <button class="btn btn-science" onclick="sciInsert('^')">xʸ</button>
+                    <button class="btn btn-science" onclick="sciInsert('(')">(</button>
+                    <button class="btn btn-science" onclick="sciInsert(')')">)</button>
+                    <button class="btn btn-science" onclick="sciFactorial()">!</button>
 
-<button class="btn">7</button>
-<button class="btn">8</button>
-<button class="btn">9</button>
-<button class="btn btn-operator">÷</button>
-<button class="btn btn-science">1/x</button>
-<button class="btn btn-science">±</button>
+                    <button class="btn" onclick="sciInsert('7')">7</button>
+                    <button class="btn" onclick="sciInsert('8')">8</button>
+                    <button class="btn" onclick="sciInsert('9')">9</button>
+                    <button class="btn btn-operator" onclick="sciInsert('÷')">÷</button>
+                    <button class="btn btn-science" onclick="sciReciprocal()">1/x</button>
+                    <button class="btn btn-science" onclick="sciToggleSign()">±</button>
 
-<button class="btn">4</button>
-<button class="btn">5</button>
-<button class="btn">6</button>
-<button class="btn btn-operator">×</button>
-<button class="btn btn-science">π</button>
-<button class="btn btn-science">e</button>
+                    <button class="btn" onclick="sciInsert('4')">4</button>
+                    <button class="btn" onclick="sciInsert('5')">5</button>
+                    <button class="btn" onclick="sciInsert('6')">6</button>
+                    <button class="btn btn-operator" onclick="sciInsert('×')">×</button>
+                    <button class="btn btn-science" onclick="sciInsert('pi')">π</button>
+                    <button class="btn btn-science" onclick="sciInsert('e')">e</button>
 
-<button class="btn">1</button>
-<button class="btn">2</button>
-<button class="btn">3</button>
-<button class="btn btn-operator">−</button>
-<button class="btn btn-science">EXP</button>
-<button class="btn btn-science">Ans</button>
+                    <button class="btn" onclick="sciInsert('1')">1</button>
+                    <button class="btn" onclick="sciInsert('2')">2</button>
+                    <button class="btn" onclick="sciInsert('3')">3</button>
+                    <button class="btn btn-operator" onclick="sciInsert('-')">−</button>
+                    <button class="btn btn-science" onclick="sciInsert('exp(')">exp</button>
+                    <button class="btn btn-science" onclick="sciRecallAns()">Ans</button>
 
-<button class="btn btn-zero">0</button>
-<button class="btn">.</button>
-<button class="btn btn-operator">+</button>
-<button class="btn btn-equals">=</button>
-
-</div>
+                    <button class="btn btn-zero" onclick="sciInsert('0')">0</button>
+                    <button class="btn" onclick="sciInsert('.')">.</button>
+                    <button class="btn btn-operator" onclick="sciInsert('+')">+</button>
+                    <button class="btn btn-equals" onclick="sciCalculate()">=</button>
+                </div>
+            </div>
+        </div>
 
         <!-- MATH QUIZ MODE -->
         <div class="mode-content" id="quiz-mode">
             <div class="quiz-container">
                 <div class="quiz-header">
-                    <h2>Math Challenge Quiz</h2>
+                    <div>
+                        <h2>Math Challenge Quiz</h2>
+                        <p class="quiz-description">Practice fast mental math with addition, subtraction, multiplication, and division.</p>
+                    </div>
                     <div class="quiz-stats">
                         <span>Score: <strong id="quiz-score">0</strong></span>
-                        <span>Questions: <span id="quiz-count">0</span>/10</span>
+                        <span>Question: <strong id="quiz-count">1</strong>/10</span>
+                    </div>
+                </div>
+
+                <div class="quiz-progress">
+                    <div class="progress-track">
+                        <div class="progress-fill" id="quiz-progress-fill"></div>
                     </div>
                 </div>
 
                 <div id="quiz-content" class="quiz-content">
                     <div class="question-box">
                         <p id="question-text" class="question">2 + 3 = ?</p>
-                        <input type="number" id="answer-input" class="answer-input" placeholder="Enter your answer">
-                        <button class="btn btn-equals" onclick="submitAnswer()">Submit Answer</button>
+                        <input type="text" id="answer-input" class="answer-input" placeholder="Enter your answer" autocomplete="off">
+                        <div class="quiz-actions">
+                            <button class="btn btn-equals" id="quiz-submit" onclick="submitAnswer()">Submit</button>
+                            <button class="btn btn-primary" id="quiz-next" onclick="nextQuizQuestion()" disabled>Next</button>
+                        </div>
                     </div>
                 </div>
 
                 <div id="quiz-complete" class="quiz-complete" style="display: none;">
                     <h2>Quiz Complete!</h2>
-                    <p class="final-score">Your Score: <strong id="final-score">0</strong>/10</p>
-                    <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
+                    <p class="final-score"><strong id="final-score">0</strong>/10 correct</p>
+                    <p class="quiz-message"></p>
+                    <div class="quiz-actions quiz-complete-actions">
+                        <button class="btn btn-primary" onclick="restartQuiz()">Try Again</button>
+                    </div>
                 </div>
 
                 <div id="feedback" class="feedback"></div>

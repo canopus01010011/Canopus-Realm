@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Songs — Epic: The Musical</title>
+  <meta name="description" content="Listen through all thirty songs of Epic: The Musical, in order, across seven sagas.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="nav-bar">
+      <a class="brand" href="index.html">
+        <svg class="brand-mark" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c99b4a" stroke-width="1.5"><path d="M3 15c2-3 5-3 7 0s5 3 7 0 5-3 7 0" stroke-linecap="round"/><path d="M3 19c2-2.5 5-2.5 7 0s5 2.5 7 0 5-2.5 7 0" stroke-linecap="round" opacity="0.5"/></svg>
+        E<span>pic</span>
+      </a>
+      <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span></button>
+      <ul class="nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="characters.html">Characters</a></li>
+        <li><a href="story.html">Story</a></li>
+        <li><a href="songs.html" aria-current="page">Songs</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <span class="eyebrow">The Full Soundtrack</span>
+      <h1>Press play, sail on</h1>
+      <p>All thirty songs, seven sagas, in the order they were written to be heard.</p>
+      <div class="rule"></div>
+    </section>
+
+    <section class="player-wrap">
+      <audio id="audio" preload="metadata"></audio>
+
+      <div class="player" id="player">
+        <div class="now-playing">
+          <p class="saga-tag" id="sagaTag">Select a song to begin</p>
+          <h2 class="track-title" id="trackTitle">Epic: The Musical</h2>
+        </div>
+
+        <div class="scrub-row">
+          <span class="time" id="curTime">0:00</span>
+          <input type="range" id="progress" value="0" min="0" max="100" step="0.1" aria-label="Seek">
+          <span class="time" id="durTime">0:00</span>
+        </div>
+
+        <div class="controls">
+          <button id="prevBtn" aria-label="Previous song">
+            <svg viewBox="0 0 24 24"><path d="M19 5v14M19 12 6 5v14z" stroke-linejoin="round"/></svg>
+          </button>
+          <button id="playBtn" class="play-btn" aria-label="Play">
+            <svg id="playIcon" viewBox="0 0 24 24"><path d="M7 5l12 7-12 7z" stroke-linejoin="round"/></svg>
+          </button>
+          <button id="nextBtn" aria-label="Next song">
+            <svg viewBox="0 0 24 24"><path d="M5 5v14M5 12l13-7v14z" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+
+        <div class="playlist" id="playlist"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-mark">Epic · The Musical</span>
+      <p class="footer-note">Unofficial fan site, made by a fan for fans. Epic: The Musical and all associated music belong to their respective creators — this project holds no affiliation and claims no ownership.</p>
+      <div class="footer-links">
+        <a href="characters.html">Characters</a>
+        <a href="story.html">Story</a>
+        <a href="about.html">About</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="player.js"></script>
+</body>
+</html>

@@ -4,111 +4,18 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sport Quiz</title>
-    <style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-  color: #fff;
-  padding: 40px 20px;
-  min-height: 100vh;
-}
-
-h1 {
-  text-align: center;
-  font-size: 3em;
-  margin-bottom: 40px;
-  color: #00e0ff;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
-}
-
-form {
-  max-width: 900px;
-  margin: 0 auto;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 40px;
-  border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
-}
-
-.question {
-  margin-bottom: 30px;
-  padding: 25px;
-  border-left: 5px solid #00e0ff;
-  border-radius: 12px;
-  background-color: rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, background 0.3s ease;
-}
-
-.question:hover {
-  transform: scale(1.02);
-  background-color: rgba(255, 255, 255, 0.08);
-}
-
-.question p {
-  font-size: 1.2em;
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-
-label {
-  display: block;
-  padding: 8px 0;
-  cursor: pointer;
-  color: #ddd;
-  transition: color 0.2s;
-}
-
-label:hover {
-  color: #fff;
-}
-
-input[type="radio"] {
-  margin-right: 10px;
-}
-
-button {
-  display: block;
-  margin: 40px auto 20px;
-  padding: 14px 40px;
-  font-size: 1.2em;
-  background-color: #00e0ff;
-  color: #0f2027;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: all 0.3s ease;
-}
-
-button:hover {
-  background-color: transparent;
-  border: 2px solid #00e0ff;
-  color: #00e0ff;
-}
-
-#score {
-  margin-top: 30px;
-  text-align: center;
-  font-size: 1.6em;
-  font-weight: bold;
-  color: #00ffae;
-  display: none;
-}
-
-</style>
+        <title>Sport Quiz</title>
+        <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="quiz-container">
-        <h1>Sport Quiz</h1>
-        <form id="quizForm">
+        <div class="container page-sheet">
+                <div class="quiz-wrapper">
+                        <div class="quiz-title">
+                                <h1>Sport Quiz</h1>
+                                <p class="quiz-description">Quick sports trivia — pick the best answer.</p>
+                        </div>
+                        <form id="quizForm">
             <ol>
                 <li>
                     What sport uses a shuttlecock?
@@ -275,41 +182,14 @@ button:hover {
         <div id="result"></div>
     </div>
 
+    <script src="quiz.js"></script>
     <script>
-        const answers = {
-            q1: "b",
-            q2: "c",
-            q3: "b",
-            q4: "b",
-            q5: "b",
-            q6: "b",
-            q7: "a",
-            q8: "a",
-            q9: "b",
-            q10: "c",
-            q11: "b",
-            q12: "b",
-            q13: "b",
-            q14: "b",
-            q15: "a",
-            q16: "b",
-            q17: "b",
-            q18: "b",
-            q19: "a",
-            q20: "b"
+        window.__correctAnswers = {
+            q1: "b", q2: "c", q3: "b", q4: "b", q5: "b",
+            q6: "b", q7: "a", q8: "a", q9: "b", q10: "c",
+            q11: "b", q12: "b", q13: "b", q14: "b", q15: "a",
+            q16: "b", q17: "b", q18: "b", q19: "a", q20: "b"
         };
-
-        function checkAnswers() {
-            let score = 0;
-            for (let key in answers) {
-                const selected = document.querySelector(`input[name="${key}"]:checked`);
-                if (selected && selected.value === answers[key]) {
-                    score++;
-                }
-            }
-            document.getElementById("result").innerHTML =
-                `<h2>Your score: ${score}/20</h2>`;
-        }
     </script>
 </body>
 

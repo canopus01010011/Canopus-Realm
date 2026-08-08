@@ -17,13 +17,13 @@
 </head>
 
 <body>
-    <!-- ============= NAVBAR ============= -->
+    <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="navbar-container">
-            <div class="logo">
+            <a class="logo" href="index.html">
                 <span class="logo-mark"></span>
                 <span>Canopus</span>
-            </div>
+            </a>
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="#trending-section" class="nav-link active">Trending</a></li>
                 <li><a href="#top-rated-section" class="nav-link">Top Rated</a></li>
@@ -42,7 +42,7 @@
         </div>
     </nav>
 
-    <!-- ============= HERO ============= -->
+    <!-- Hero -->
     <header class="hero">
         <div class="planet"></div>
         <div class="planet-ring"></div>
@@ -74,14 +74,14 @@
         <div class="scroll-cue"><span class="line"></span>Scroll</div>
     </header>
 
-    <!-- ============= SEARCH / FILTER BAR ============= -->
+    <!-- Search / filter bar -->
     <section id="search-section" class="filter-bar-wrap">
         <div class="filter-bar">
             <div class="search-box-inline">
                 <i class="fas fa-search"></i>
                 <input type="text" id="search-input" placeholder="Search anime by title…" autocomplete="off" />
             </div>
-            <select id="genre-select" class="genre-select">
+            <select id="genre-select" class="genre-select" aria-label="Filter by genre">
                 <option value="">All genres</option>
                 <option value="1">Action</option>
                 <option value="4">Comedy</option>
@@ -93,37 +93,43 @@
                 <option value="23">School</option>
                 <option value="37">Supernatural</option>
             </select>
+            <select id="sort-select" class="sort-select" aria-label="Sort results">
+                <option value="popularity:asc">Most popular</option>
+                <option value="score:desc">Highest rated</option>
+                <option value="start_date:desc">Newest</option>
+                <option value="title:asc">Title A–Z</option>
+            </select>
+            <button class="surprise-btn" id="surprise-btn" type="button">
+                <i class="fas fa-dice"></i> Surprise me
+            </button>
         </div>
     </section>
 
-    <!-- ============= TRENDING ============= -->
-    <section id="trending-section" class="world" data-world="games">
+    <!-- Trending -->
+    <section id="trending-section" class="world" data-world="trending">
         <div class="world-header">
             <div>
                 <h2 class="world-title"><span class="world-glyph">🔥</span> Trending now</h2>
-                <p class="world-sub">// what's airing and popular this season</p>
             </div>
         </div>
         <div id="trending-container" class="projects-grid anime-grid"></div>
     </section>
 
-    <!-- ============= TOP RATED ============= -->
-    <section id="top-rated-section" class="world" data-world="personal">
+    <!-- Top rated -->
+    <section id="top-rated-section" class="world" data-world="toprated">
         <div class="world-header">
             <div>
                 <h2 class="world-title"><span class="world-glyph">⭐</span> Top rated</h2>
-                <p class="world-sub">// most loved by the community</p>
             </div>
         </div>
         <div id="top-rated-container" class="projects-grid anime-grid"></div>
     </section>
 
-    <!-- ============= SEARCH RESULTS ============= -->
-    <section class="world" data-world="utilities">
+    <!-- Search results -->
+    <section class="world" data-world="search">
         <div class="world-header">
             <div>
                 <h2 class="world-title" id="results-title"><span class="world-glyph">🔎</span> Search results</h2>
-                <p class="world-sub">// type a title or pick a genre above</p>
             </div>
         </div>
         <div id="loading" class="loading" style="display:none;">
@@ -138,12 +144,11 @@
         </div>
     </section>
 
-    <!-- ============= MY LIST (hidden until login) ============= -->
-    <section id="my-list-section" class="world" data-world="occasions" style="display:none;">
+    <!-- My list (hidden until login) -->
+    <section id="my-list-section" class="world" data-world="mylist" style="display:none;">
         <div class="world-header">
             <div>
                 <h2 class="world-title"><span class="world-glyph">🔖</span> My list</h2>
-                <p class="world-sub">// what you're watching, tracked</p>
             </div>
             <div class="filter-pills">
                 <button class="filter-btn filter-pill active" data-filter="all">All</button>
@@ -157,10 +162,10 @@
         <div id="my-list" class="projects-grid anime-grid"></div>
     </section>
 
-    <!-- ============= AUTH MODAL ============= -->
+    <!-- Auth modal -->
     <div id="auth-modal" class="modal">
         <div class="modal-content">
-            <span class="close-modal">&times;</span>
+            <button type="button" class="close-modal" aria-label="Close">&times;</button>
             <ul class="auth-tabs">
                 <li><button class="auth-tab-btn active" data-tab="login" type="button">Login</button></li>
                 <li><button class="auth-tab-btn" data-tab="signup" type="button">Sign Up</button></li>
@@ -169,31 +174,56 @@
             <div id="login-tab" class="auth-tab-content active">
                 <form id="login-form" novalidate>
                     <h2>Welcome back</h2>
-                    <input type="email" placeholder="Email" required autocomplete="email">
-                    <input type="password" placeholder="Password" required autocomplete="current-password">
-                    <button type="submit" class="auth-btn">Log in</button>
+                    <div class="field-wrap">
+                        <input type="email" placeholder="Email" required autocomplete="email">
+                    </div>
+                    <div class="field-wrap">
+                        <input type="password" placeholder="Password" required autocomplete="current-password">
+                        <button type="button" class="pw-toggle" aria-label="Show password"><i
+                                class="fas fa-eye"></i></button>
+                    </div>
+                    <div class="auth-forgot">
+                        <button type="button" id="forgot-password-btn">Forgot password?</button>
+                    </div>
+                    <button type="submit" class="auth-btn">
+                        <span class="btn-label">Log in</span>
+                        <span class="btn-spinner"></span>
+                    </button>
                 </form>
             </div>
 
             <div id="signup-tab" class="auth-tab-content">
                 <form id="signup-form" novalidate>
                     <h2>Create your account</h2>
-                    <input type="text" placeholder="Display name" required autocomplete="name">
-                    <input type="email" placeholder="Email" required autocomplete="email">
-                    <input type="password" placeholder="Password (8+ characters)" required autocomplete="new-password"
-                        minlength="8">
-                    <input type="password" placeholder="Confirm password" required autocomplete="new-password"
-                        minlength="8">
-                    <button type="submit" class="auth-btn">Sign up</button>
+                    <div class="field-wrap">
+                        <input type="text" placeholder="Display name" required autocomplete="name">
+                    </div>
+                    <div class="field-wrap">
+                        <input type="email" placeholder="Email" required autocomplete="email">
+                    </div>
+                    <div class="field-wrap">
+                        <input type="password" placeholder="Password (8+ characters)" required
+                            autocomplete="new-password" minlength="8">
+                        <button type="button" class="pw-toggle" aria-label="Show password"><i
+                                class="fas fa-eye"></i></button>
+                    </div>
+                    <div class="field-wrap">
+                        <input type="password" placeholder="Confirm password" required autocomplete="new-password"
+                            minlength="8">
+                    </div>
+                    <button type="submit" class="auth-btn">
+                        <span class="btn-label">Sign up</span>
+                        <span class="btn-spinner"></span>
+                    </button>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- ============= ANIME DETAIL MODAL ============= -->
+    <!-- Anime detail modal -->
     <div id="anime-detail-modal" class="modal">
         <div class="modal-content anime-detail-content">
-            <span class="close-modal">&times;</span>
+            <button type="button" class="close-modal" aria-label="Close">&times;</button>
             <div class="anime-detail-grid">
                 <div class="anime-detail-poster">
                     <img id="detail-poster" src="" alt="poster">
@@ -244,7 +274,7 @@
                 </div>
             </div>
 
-            <!-- Rate & Review -->
+            <!-- Rate & review -->
             <div class="reviews-section">
                 <h3>Rate &amp; review</h3>
 
@@ -262,6 +292,7 @@
                         <i class="fas fa-star" data-rating="5"></i>
                     </div>
                     <textarea id="review-text" placeholder="What did you think? (optional)" maxlength="500"></textarea>
+                    <div class="char-count" id="review-char-count">0/500</div>
                     <button type="submit" id="submit-review-btn" class="btn btn-primary">Post rating &amp;
                         review</button>
                 </form>
@@ -272,7 +303,7 @@
         </div>
     </div>
 
-    <!-- ============= USER DROPDOWN ============= -->
+    <!-- User dropdown -->
     <div id="user-dropdown" class="user-dropdown">
         <div class="user-info">
             <div class="user-avatar"><i class="fas fa-user-circle"></i></div>
@@ -282,13 +313,13 @@
             </div>
         </div>
         <hr>
-        <a href="#" id="profile-link"><i class="fas fa-user"></i> Profile</a>
-        <a href="#" id="settings-link"><i class="fas fa-cog"></i> Settings</a>
+        <a href="profile.html" id="profile-link"><i class="fas fa-user"></i> Profile</a>
+        <a href="settings.html" id="settings-link"><i class="fas fa-cog"></i> Settings</a>
         <hr>
         <a href="#" id="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
 
-    <!-- ============= FOOTER ============= -->
+    <!-- Footer -->
     <footer class="footer">
         <div class="footer-logo">Canopus</div>
         <p class="footer-credit">Anime discovery, ratings and reviews — data via the Jikan (MyAnimeList) API.</p>
@@ -298,7 +329,6 @@
             <a href="#search-section">Search</a>
             <a href="#my-list-section">My List</a>
         </div>
-        <p class="footer-version">canopusanimetracker.com</p>
     </footer>
 
     <!-- Firebase (compat SDK) -->

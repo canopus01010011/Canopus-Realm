@@ -1,6 +1,5 @@
-// ============= GLOBAL STATE =============
 const CURRENCIES = [
-    "USD", "EUR", "GBP", "JPY", "CAD", "AUD", "CHF", "CNY", "INR", "MXN",
+    "USD", "DZD", "EUR", "GBP", "JPY", "CAD", "AUD", "CHF", "CNY", "INR", "MXN",
     "BRL", "ZAR", "KRW", "SGD", "HKD", "NZD", "SEK", "NOK", "DKK", "RUB",
     "AED", "SAR", "QAR", "KWD", "BHD", "OMR", "JOD", "ILS", "EGP", "TRY"
 ];
@@ -19,14 +18,16 @@ const navLinks = document.querySelectorAll('.nav-link');
 const tabContents = document.querySelectorAll('.tab-content');
 const loader = document.getElementById('loader');
 
-// ============= INITIALIZATION =============
-document.addEventListener('DOMContentLoaded', () => {
+//   INITIALIZATION  
+document.addEventListener('DOMContentLoaded', async () => {
     initializeCurrencies();
     setupEventListeners();
-    fetchExchangeRates('USD');
+    await fetchExchangeRates('USD');
+    convertCurrency();
     loadHistory();
     loadFavorites();
     setupChartSelects();
+    updateChart();
 });
 
 function initializeCurrencies() {
@@ -54,10 +55,11 @@ function setupEventListeners() {
     });
 
     // Currency conversion events
-    amountEl.addEventListener('input', convertCurrency);
-    fromCurrencyEl.addEventListener('change', () => {
-        fetchExchangeRates(fromCurrencyEl.value);
+    amountEl.addEventListener('input', () => convertCurrency());
+    fromCurrencyEl.addEventListener('change', async () => {
+        await fetchExchangeRates(fromCurrencyEl.value);
         convertCurrency();
+        updateChart();
     });
     toCurrencyEl.addEventListener('change', convertCurrency);
 }
@@ -66,8 +68,10 @@ function switchTab(tabName) {
     navLinks.forEach(link => link.classList.remove('active'));
     tabContents.forEach(content => content.classList.remove('active'));
 
-    document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
-    document.getElementById(tabName + '-tab').classList.add('active');
+    const tabLink = document.querySelector(`[data-tab="${tabName}"]`);
+    if (tabLink) tabLink.classList.add('active');
+    const tabContent = document.getElementById(tabName + '-tab');
+    if (tabContent) tabContent.classList.add('active');
 
     if (tabName === 'chart') {
         setTimeout(() => {
@@ -76,7 +80,7 @@ function switchTab(tabName) {
     }
 }
 
-// ============= EXCHANGE RATES =============
+//   EXCHANGE RATES  
 async function fetchExchangeRates(baseCurrency) {
     try {
         loader.style.display = 'flex';
@@ -87,10 +91,12 @@ async function fetchExchangeRates(baseCurrency) {
         updateExchangeRateDisplay();
         updateLastUpdate();
         loader.style.display = 'none';
+        return data;
     } catch (error) {
         console.error('Error fetching rates:', error);
         resultEl.innerHTML = '<p style="color: #ff006e;">Failed to fetch exchange rates</p>';
         loader.style.display = 'none';
+        return null;
     }
 }
 
@@ -110,8 +116,8 @@ function updateLastUpdate() {
     document.getElementById('last-update').textContent = timeString;
 }
 
-// ============= CONVERSION =============
-function convertCurrency() {
+//   CONVERSION  
+function convertCurrency(saveHistory = false) {
     const amount = parseFloat(amountEl.value) || 0;
     const from = fromCurrencyEl.value;
     const to = toCurrencyEl.value;
@@ -140,14 +146,18 @@ function convertCurrency() {
         </p>
         <p style="color: #b0b0b0; margin-top: 1rem;">Rate: 1 ${from} = ${rate.toFixed(4)} ${to}</p>
     `;
+
+    if (saveHistory) {
+        addToHistory(from, to, amount, converted, rate);
+    }
 }
 
-function swapCurrencies() {
+async function swapCurrencies() {
     const temp = fromCurrencyEl.value;
     fromCurrencyEl.value = toCurrencyEl.value;
     toCurrencyEl.value = temp;
 
-    fetchExchangeRates(fromCurrencyEl.value);
+    await fetchExchangeRates(fromCurrencyEl.value);
     convertCurrency();
 }
 
@@ -156,7 +166,7 @@ function quickConvert(amount) {
     convertCurrency();
 }
 
-// ============= HISTORY =============
+//   HISTORY  
 function addToHistory(from, to, amount, result, rate) {
     const historyItem = {
         from,
@@ -204,12 +214,12 @@ function loadHistory() {
     });
 }
 
-function useFromHistory(index) {
+async function useFromHistory(index) {
     const item = conversionHistory[index];
     amountEl.value = item.amount;
     fromCurrencyEl.value = item.from;
     toCurrencyEl.value = item.to;
-    fetchExchangeRates(item.from);
+    await fetchExchangeRates(item.from);
     convertCurrency();
     switchTab('converter');
 }
@@ -222,7 +232,7 @@ function clearHistory() {
     }
 }
 
-// ============= FAVORITES =============
+//   FAVORITES  
 function addToFavorites() {
     const pair = `${fromCurrencyEl.value}/${toCurrencyEl.value}`;
 
@@ -267,10 +277,10 @@ function loadFavorites() {
     });
 }
 
-function useFavorite(from, to) {
+async function useFavorite(from, to) {
     fromCurrencyEl.value = from;
     toCurrencyEl.value = to;
-    fetchExchangeRates(from);
+    await fetchExchangeRates(from);
     convertCurrency();
     switchTab('converter');
 }
@@ -281,7 +291,7 @@ function removeFavorite(index) {
     loadFavorites();
 }
 
-// ============= CHARTS =============
+//   CHARTS  
 function setupChartSelects() {
     CURRENCIES.forEach(code => {
         let option = document.createElement('option');
@@ -306,7 +316,6 @@ function updateChart() {
 }
 
 function fetchChartData(from, to, period) {
-    // Simulate historical data based on current rate
     const baseRate = exchangeRates[to] || 1;
     const labels = [];
     const data = [];
@@ -316,7 +325,6 @@ function fetchChartData(from, to, period) {
         date.setDate(date.getDate() - i);
         labels.push(date.toLocaleDateString());
 
-        // Simulate random fluctuations
         const fluctuation = (Math.random() - 0.5) * 0.1;
         data.push(baseRate * (1 + fluctuation));
     }
@@ -371,7 +379,7 @@ function renderChart(labels, data, from, to) {
     });
 }
 
-// ============= UTILITIES =============
+//   UTILITIES  
 function showNotification(message) {
     const notification = document.createElement('div');
     notification.style.cssText = `

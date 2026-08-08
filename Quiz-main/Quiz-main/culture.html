@@ -5,77 +5,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Culture Quiz</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(to right, #42275a, #734b6d);
-            color: white;
-            margin: 0;
-            padding: 20px;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 2.5rem;
-        }
-
-        form {
-            max-width: 900px;
-            margin: auto;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 10px #000;
-        }
-
-        .question {
-            margin-bottom: 25px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-        }
-
-        .question h3 {
-            margin-bottom: 10px;
-        }
-
-        label {
-            display: block;
-            margin-left: 15px;
-            margin-bottom: 5px;
-            cursor: pointer;
-        }
-
-        button {
-            display: block;
-            margin: 30px auto 10px;
-            padding: 10px 30px;
-            background: #ff9800;
-            border: none;
-            color: white;
-            font-size: 1.2rem;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        button:hover {
-            background: #e68900;
-        }
-
-        #score {
-            text-align: center;
-            font-size: 1.5rem;
-            margin-top: 20px;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <h1>Culture Quiz</h1>
-    <form id="quizForm">
+    <div class="container page-sheet">
+        <div class="quiz-wrapper">
+            <div class="quiz-title">
+                <h1>Culture Quiz</h1>
+                <p class="quiz-description">World culture questions to broaden your horizons.</p>
+            </div>
+            <form id="quizForm">
         <div class="question">
             <h3>1. Which country is famous for flamenco dancing?</h3>
             <label><input type="radio" name="q1" value="a"> Spain</label>
@@ -202,19 +142,14 @@
         <div id="score"></div>
     </form>
 
+    <script src="quiz.js"></script>
     <script>
-        const correctAnswers = ['a', 'a', 'b', 'b', 'b', 'a', 'b', 'a', 'b', 'b', 'a', 'b', 'b', 'b', 'c', 'b', 'b', 'b', 'b', 'a'];
-
-        function checkAnswers() {
-            let score = 0;
-            for (let i = 1; i <= 20; i++) {
-                const q = document.querySelector(`input[name="q${i}"]:checked`);
-                if (q && q.value === correctAnswers[i - 1]) {
-                    score++;
-                }
-            }
-            document.getElementById("score").innerText = `Your Score: ${score}/20`;
-        }
+        window.__correctAnswers = {
+            q1: 'a', q2: 'a', q3: 'b', q4: 'b', q5: 'b',
+            q6: 'a', q7: 'b', q8: 'a', q9: 'b', q10: 'b',
+            q11: 'a', q12: 'b', q13: 'b', q14: 'b', q15: 'c',
+            q16: 'b', q17: 'b', q18: 'b', q19: 'b', q20: 'a'
+        };
     </script>
 </body>
 

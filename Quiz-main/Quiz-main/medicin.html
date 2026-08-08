@@ -4,80 +4,18 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Medicine Quiz</title>
-    <style>
-        body {
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to right, #c9d6ff, #e2e2e2);
-  padding: 30px;
-}
-
-.quiz-container {
-  max-width: 900px;
-  margin: auto;
-  background-color: white;
-  padding: 40px;
-  border-radius: 16px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.15);
-}
-
-h1 {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #1f4f66;
-}
-
-.question-block {
-  margin-bottom: 25px;
-  padding: 20px;
-  border-radius: 12px;
-  background: #f8f8f8;
-  border-left: 5px solid #5c9ead;
-}
-
-.question-block p {
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-label {
-  display: block;
-  margin-bottom: 8px;
-  padding-left: 10px;
-}
-
-button {
-  display: block;
-  margin: 30px auto;
-  padding: 12px 30px;
-  font-size: 18px;
-  border: none;
-  background-color: #1f4f66;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-button:hover {
-  background-color: #163f52;
-}
-
-#score {
-  text-align: center;
-  font-size: 20px;
-  margin-top: 20px;
-  font-weight: bold;
-  color: #2e7d32;
-}
-
-    </style>
+        <title>Medicine Quiz</title>
+        <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="quiz-container">
-        <h1>🩺 Medicine Quiz</h1>
-        <form id="quizForm">
+        <div class="container page-sheet">
+                <div class="quiz-wrapper">
+                        <div class="quiz-title">
+                                <h1>🩺 Medicine Quiz</h1>
+                                <p class="quiz-description">Short medical knowledge checks for learners.</p>
+                        </div>
+                        <form id="quizForm">
             <div class="question-block">
                 <p>1. What is the largest organ in the human body?</p>
                 <label><input type="radio" name="q1" value="Skin"> Skin</label>

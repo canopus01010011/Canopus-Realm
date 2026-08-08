@@ -1,7 +1,4 @@
-/* ============================================================
-   CANOPUS REALM — Design Tokens
-   Display: Space Grotesk / Body: Manrope / Data-Mono: JetBrains Mono
-   ============================================================ */
+
 :root {
     --void: #05070d;
     --void-deep: #020308;
@@ -72,9 +69,7 @@ a {
     text-decoration: none;
 }
 
-/* ============================================================
-   AMBIENT BACKGROUND — starfield canvas + cursor glow
-   ============================================================ */
+
 #starfield {
     position: fixed;
     inset: 0;
@@ -95,9 +90,7 @@ a {
     will-change: transform;
 }
 
-/* ============================================================
-   NAVBAR
-   ============================================================ */
+      
 .navbar {
     position: fixed;
     top: 0;
@@ -351,9 +344,8 @@ a {
     text-align: center;
 }
 
-/* ============================================================
-   HERO
-   ============================================================ */
+
+
 .hero {
     position: relative;
     min-height: 100vh;
@@ -573,9 +565,7 @@ a {
     }
 }
 
-/* ============================================================
-   CATEGORY FILTER BAR
-   ============================================================ */
+
 .filter-bar {
     position: sticky;
     top: 90px;
@@ -620,9 +610,7 @@ a {
     border-color: rgba(22, 255, 176, 0.4);
 }
 
-/* ============================================================
-   FEATURED PROJECT
-   ============================================================ */
+
 .featured-wrap {
     max-width: 1200px;
     margin: 2rem auto 6rem;
@@ -746,9 +734,7 @@ a {
     border-radius: 4px;
 }
 
-/* ============================================================
-   WORLD SECTIONS
-   ============================================================ */
+
 .world {
     position: relative;
     max-width: 1360px;
@@ -807,9 +793,9 @@ a {
     gap: 1.75rem;
 }
 
-/* ============================================================
+/*       
    PROJECT CARDS
-   ============================================================ */
+          */
 .project-card {
     position: relative;
     background: var(--surface);
@@ -942,7 +928,6 @@ a {
     letter-spacing: 0.05em;
 }
 
-/* per-world card accents */
 .world[data-world="games"] .project-visual,
 .world[data-world="games"] .launch-btn {
     color: var(--cyan);
@@ -994,9 +979,9 @@ a {
     padding: 3rem 0;
 }
 
-/* ============================================================
+/*       
    MODALS (auth + project)
-   ============================================================ */
+          */
 .modal {
     display: none;
     position: fixed;
@@ -1276,9 +1261,9 @@ a {
     }
 }
 
-/* ============================================================
+/*       
    FOOTER
-   ============================================================ */
+          */
 .footer {
     position: relative;
     z-index: 2;
@@ -1328,9 +1313,9 @@ a {
     color: var(--faint);
 }
 
-/* ============================================================
+/*       
    TOASTS
-   ============================================================ */
+          */
 .message {
     position: fixed;
     top: 100px;
@@ -1372,9 +1357,9 @@ a {
     color: white;
 }
 
-/* ============================================================
+/*       
    ACCESSIBILITY / RESPONSIVE
-   ============================================================ */
+          */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -1446,5 +1431,687 @@ input:focus-visible,
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
+    }
+}
+
+
+/*       
+   CANOPUS REALM — UNIVERSAL SHARE MENU
+          */
+
+.canopus-share-menu {
+
+    position: fixed;
+
+    width: min(360px, calc(100vw - 24px));
+
+    padding: 14px;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(18, 25, 42, 0.97),
+            rgba(8, 12, 23, 0.98)
+        );
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.10);
+
+    box-shadow:
+        0 25px 70px
+            rgba(0, 0, 0, 0.55),
+        0 0 45px
+            rgba(111, 88, 255, 0.12);
+
+    backdrop-filter:
+        blur(24px);
+
+    -webkit-backdrop-filter:
+        blur(24px);
+
+    z-index: 99999;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform:
+        translateY(-8px)
+        scale(0.96);
+
+    transform-origin:
+        top center;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease,
+        visibility 0.2s ease;
+
+    color: #f5f7ff;
+
+}
+
+
+.canopus-share-menu.active {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform:
+        translateY(0)
+        scale(1);
+
+}
+
+
+/*  HEADER */
+
+.share-menu-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    margin-bottom: 14px;
+
+}
+
+
+.share-menu-title {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+
+.share-menu-title strong {
+
+    display: block;
+
+    font-family:
+        "Space Grotesk",
+        sans-serif;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    letter-spacing: -0.01em;
+
+}
+
+
+.share-menu-title small {
+
+    display: block;
+
+    margin-top: 2px;
+
+    color:
+        rgba(220, 225, 242, 0.52);
+
+    font-family:
+        "JetBrains Mono",
+        monospace;
+
+    font-size: 9px;
+
+    white-space: nowrap;
+
+    max-width: 230px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+}
+
+
+.share-menu-orbit {
+
+    width: 34px;
+
+    height: 34px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(167, 139, 250, 0.20),
+            rgba(47, 216, 245, 0.10)
+        );
+
+    border:
+        1px solid
+        rgba(167, 139, 250, 0.25);
+
+    color: #bca8ff;
+
+    box-shadow:
+        0 0 20px
+        rgba(167, 139, 250, 0.15);
+
+}
+
+
+.share-menu-close {
+
+    width: 30px;
+
+    height: 30px;
+
+    padding: 0;
+
+    border: 0;
+
+    border-radius: 9px;
+
+    display: grid;
+
+    place-items: center;
+
+    background:
+        rgba(255, 255, 255, 0.05);
+
+    color:
+        rgba(255, 255, 255, 0.55);
+
+    cursor: pointer;
+
+    font-size: 20px;
+
+    line-height: 1;
+
+    transition:
+        0.2s ease;
+
+}
+
+
+.share-menu-close:hover {
+
+    background:
+        rgba(255, 255, 255, 0.10);
+
+    color: #fff;
+
+    transform:
+        rotate(90deg);
+
+}
+
+
+/* SHARE GRID */
+
+.share-menu-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 8px;
+
+}
+
+
+.share-option {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    min-height: 76px;
+
+    padding: 10px 6px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.07);
+
+    border-radius: 15px;
+
+    background:
+        rgba(255, 255, 255, 0.035);
+
+    color:
+        rgba(240, 243, 255, 0.72);
+
+    cursor: pointer;
+
+    font-family:
+        "Manrope",
+        sans-serif;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+
+}
+
+
+.share-option:hover {
+
+    transform:
+        translateY(-3px);
+
+    background:
+        rgba(255, 255, 255, 0.075);
+
+    border-color:
+        rgba(255, 255, 255, 0.14);
+
+    color: #fff;
+
+}
+
+
+.share-option-icon {
+
+    width: 35px;
+
+    height: 35px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 11px;
+
+    font-size: 16px;
+
+    background:
+        rgba(255, 255, 255, 0.06);
+
+}
+
+
+.share-option.whatsapp
+.share-option-icon {
+
+    color: #25d366;
+
+}
+
+
+.share-option.telegram
+.share-option-icon {
+
+    color: #2aabee;
+
+}
+
+
+.share-option.facebook
+.share-option-icon {
+
+    color: #1877f2;
+
+}
+
+
+.share-option.x
+.share-option-icon {
+
+    color: #fff;
+
+}
+
+
+.share-option.email
+.share-option-icon {
+
+    color: #ff9ec1;
+
+}
+
+
+.share-option.native
+.share-option-icon {
+
+    color: #bca8ff;
+
+}
+
+
+/* COPY */
+
+.share-copy-row {
+
+    width: 100%;
+
+    margin-top: 9px;
+
+    padding: 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.07);
+
+    border-radius: 15px;
+
+    background:
+        rgba(255, 255, 255, 0.035);
+
+    color: #fff;
+
+    cursor: pointer;
+
+    text-align: left;
+
+    transition:
+        0.2s ease;
+
+}
+
+
+.share-copy-row:hover {
+
+    background:
+        rgba(255, 255, 255, 0.07);
+
+    border-color:
+        rgba(167, 139, 250, 0.25);
+
+}
+
+
+.copy-left {
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+
+.copy-icon {
+
+    width: 34px;
+
+    height: 34px;
+
+    flex: 0 0 34px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 10px;
+
+    background:
+        rgba(167, 139, 250, 0.12);
+
+    color: #bca8ff;
+
+}
+
+
+.copy-left strong {
+
+    display: block;
+
+    font-size: 11px;
+
+    font-family:
+        "Space Grotesk",
+        sans-serif;
+
+}
+
+
+.copy-left small {
+
+    display: block;
+
+    max-width: 190px;
+
+    margin-top: 2px;
+
+    color:
+        rgba(220, 225, 242, 0.42);
+
+    font-size: 8px;
+
+    font-family:
+        "JetBrains Mono",
+        monospace;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    text-overflow: ellipsis;
+
+}
+
+
+.copy-status {
+
+    padding:
+        5px 8px;
+
+    border-radius: 7px;
+
+    background:
+        rgba(167, 139, 250, 0.10);
+
+    color: #bca8ff;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+}
+
+
+.copy-status.success {
+
+    background:
+        rgba(34, 197, 94, 0.12);
+
+    color: #5ee890;
+
+}
+
+
+/* fOOTER */
+
+.share-menu-footer {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    margin-top: 12px;
+
+    color:
+        rgba(220, 225, 242, 0.28);
+
+    font-family:
+        "JetBrains Mono",
+        monospace;
+
+    font-size: 8px;
+
+}
+
+
+.share-footer-dot {
+
+    width: 5px;
+
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: #a78bfa;
+
+    box-shadow:
+        0 0 8px
+        rgba(167, 139, 250, 0.7);
+
+}
+
+
+@media (max-width: 560px) {
+
+    .canopus-share-menu {
+
+        width:
+            calc(100vw - 24px);
+
+        border-radius: 20px;
+
+        padding: 12px;
+
+    }
+
+    .share-menu-grid {
+
+        gap: 6px;
+
+    }
+
+    .share-option {
+
+        min-height: 70px;
+
+    }
+
+}
+
+/*       
+   CANOPUS REALM — CARD SHARE BUTTON
+          */
+
+.project-card {
+    position: relative;
+}
+
+.share-btn {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 10;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 7px 11px;
+
+    border-radius: 999px;
+
+    border: 1px solid rgba(255, 111, 174, 0.22);
+
+    background:
+        rgba(10, 14, 25, 0.72);
+
+    color: rgba(255, 220, 235, 0.82);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    transform: translateY(-5px);
+
+    transition:
+        opacity 0.25s var(--ease),
+        transform 0.25s var(--ease),
+        background 0.25s ease,
+        border-color 0.25s ease,
+        color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.project-card:hover .share-btn,
+.share-btn:focus-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.world[data-world="occasions"] .share-btn {
+    border-color: rgba(255, 111, 174, 0.28);
+}
+
+.world[data-world="occasions"] .share-btn:hover {
+    background: rgba(255, 111, 174, 0.12);
+    border-color: rgba(255, 111, 174, 0.65);
+    color: #ff9ec1;
+
+    box-shadow:
+        0 0 20px rgba(255, 111, 174, 0.15);
+
+    transform: translateY(-2px);
+}
+
+.share-btn i {
+    font-size: 0.72rem;
+}
+
+.share-btn:active {
+    transform: scale(0.96);
+}
+
+
+@media (hover: none) {
+    .share-btn {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

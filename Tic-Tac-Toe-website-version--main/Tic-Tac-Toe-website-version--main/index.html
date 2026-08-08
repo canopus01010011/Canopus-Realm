@@ -1,255 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tic Tac Toe - Coin Flip Edition</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        body {
-            background: #121212;
-            color: white;
-            text-align: center;
-            margin: 0;
-            padding: 2rem;
-        }
-
-        h1 {
-            margin-bottom: 1rem;
-            color: #facc15;
-        }
-
-        .players {
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-        }
-
-        .players input {
-            padding: 0.5rem;
-            border-radius: 6px;
-            border: none;
-            width: 150px;
-        }
-
-        .players button {
-            padding: 0.5rem 1rem;
-            background: #2563eb;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        .coin {
-            margin: 2rem auto;
-            width: 80px;
-            height: 80px;
-            background: gold;
-            border-radius: 50%;
-            line-height: 80px;
-            font-weight: bold;
-            animation: none;
-        }
-
-        @keyframes flip {
-            0% {
-                transform: rotateY(0);
-            }
-
-            50% {
-                transform: rotateY(180deg);
-            }
-
-            100% {
-                transform: rotateY(360deg);
-            }
-        }
-
-        .game-board {
-            display: grid;
-            grid-template-columns: repeat(3, 100px);
-            gap: 10px;
-            justify-content: center;
-            margin: 2rem auto;
-        }
-
-        .cell {
-            width: 100px;
-            height: 100px;
-            background: #1f2937;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .cell:hover {
-            background: #374151;
-        }
-
-        .X {
-            color: red;
-        }
-
-        .O {
-            color: blue;
-        }
-
-        .scoreboard {
-            margin-top: 1rem;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            font-size: 1.2rem;
-        }
-
-        .winner {
-            margin-top: 1rem;
-            font-size: 1.5rem;
-            color: #22c55e;
-        }
-
-        button#restart {
-            margin-top: 2rem;
-            padding: 0.5rem 1.5rem;
-            background: #10b981;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe - Canopus Realm</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+    <!-- Starfield Background -->
+    <canvas id="starfield"></canvas>
+    
+    <!-- Cursor Glow Effect -->
+    <div class="cursor-glow" id="cursorGlow"></div>
 
-    <h1>Tic Tac Toe - Coin Flip Edition</h1>
-
-    <div class="players">
-        <div>
-            <input id="player1" type="text" placeholder="Player 1 (X)">
+    <!-- Mode Selection -->
+    <div id="modeSelector" class="mode-selector active">
+        <div class="mode-container">
+            <h1 class="mode-title">Tic Tac Toe Arena</h1>
+            <p class="mode-subtitle">Choose your battle mode</p>
+            
+            <div class="mode-buttons">
+                <button class="mode-btn mode-btn-normal" onclick="selectMode('normal')">
+                    <i class="fas fa-chess-pawn"></i>
+                    <span>Normal Mode</span>
+                    <small>1v1 Casual Play</small>
+                </button>
+                <button class="mode-btn mode-btn-competition" onclick="selectMode('competition')">
+                    <i class="fas fa-trophy"></i>
+                    <span>Competition Mode</span>
+                    <small>Tournament Style</small>
+                </button>
+            </div>
         </div>
-        <div>
-            <input id="player2" type="text" placeholder="Player 2 (O)">
-        </div>
-        <button onclick="startGame()">Start</button>
     </div>
 
-    <div class="coin" id="coin">🎲</div>
-    <div class="winner" id="turnInfo"></div>
-
-    <div class="game-board" id="gameBoard"></div>
-
-    <div class="scoreboard">
-        <div id="p1Score">Player 1: 0</div>
-        <div id="p2Score">Player 2: 0</div>
+    <!-- Normal Mode Setup -->
+    <div id="normalSetup" class="setup-panel hidden">
+        <div class="setup-container">
+            <button class="back-btn" onclick="backToMode()"><i class="fas fa-arrow-left"></i> Back</button>
+            <h2>Normal Mode Setup</h2>
+            
+            <div class="setup-form">
+                <div class="form-group">
+                    <label for="normalPlayer1">Player 1 Name</label>
+                    <input type="text" id="normalPlayer1" placeholder="Enter your name..." maxlength="20">
+                </div>
+                <div class="form-group">
+                    <label for="normalPlayer2">Player 2 Name</label>
+                    <input type="text" id="normalPlayer2" placeholder="Enter player 2 name..." maxlength="20">
+                </div>
+            </div>
+            
+            <button class="start-btn" onclick="startNormalMode()">
+                <i class="fas fa-play"></i> Start Game
+            </button>
+        </div>
     </div>
 
-    <button id="restart" onclick="resetBoard()">Restart Game</button>
+    <!-- Competition Mode Setup -->
+    <div id="competitionSetup" class="setup-panel hidden">
+        <div class="setup-container">
+            <button class="back-btn" onclick="backToMode()"><i class="fas fa-arrow-left"></i> Back</button>
+            <h2>Competition Mode Setup</h2>
+            
+            <div class="setup-form">
+                <div class="form-group">
+                    <label for="numPlayers">Number of Players (2-8)</label>
+                    <input type="number" id="numPlayers" min="2" max="8" value="4" onchange="updatePlayerInputs()">
+                </div>
+                <div class="form-group">
+                    <label for="numMatches">Number of Matches (odd number, min 3)</label>
+                    <input type="number" id="numMatches" min="3" step="2" value="3">
+                </div>
 
-    <script>
-        let currentPlayer = 'X';
-        let board = Array(9).fill('');
-        let scores = { X: 0, O: 0 };
-        let playerNames = { X: "Player 1", O: "Player 2" };
+                <div class="player-input-wrapper">
+                    <button class="scroll-btn" id="scrollUp">
+                        <i class="fas fa-chevron-up"></i>
+                    </button>
+                
+                <div id="playerInputsContainer" class="player-inputs">
+                    <!-- Dynamically generated -->
+                </div>
+            <button class="scroll-btn" id="scrollDown">
+                <i class="fas fa-chevron-down"></i>
+            </button>
+            </div>
+            </div>
+            <button class="start-btn" onclick="startCompetitionMode()">
+                <i class="fas fa-crown"></i> Start Tournament
+            </button>
+        </div>
+    </div>
 
-        const gameBoard = document.getElementById("gameBoard");
-        const turnInfo = document.getElementById("turnInfo");
-        const coin = document.getElementById("coin");
+    <!-- Normal Mode Game -->
+    <div id="normalGameContainer" class="game-container hidden">
+        <div class="game-header">
+            <button class="back-btn" onclick="exitGame()"><i class="fas fa-times"></i></button>
+            <h1>Tic Tac Toe</h1>
+            <div class="mode-badge">Normal Mode</div>
+        </div>
 
-        function startGame() {
-            const p1 = document.getElementById("player1").value.trim();
-            const p2 = document.getElementById("player2").value.trim();
-            if (p1) playerNames.X = p1;
-            if (p2) playerNames.O = p2;
+        <div class="normal-game-content">
+            <div class="game-info">
+                <div class="current-turn">
+                    <span id="normalCurrentTurn"></span>
+                </div>
+                <div class="scoreboard">
+                    <div class="score-item" id="score1"></div>
+                    <div class="score-item" id="score2"></div>
+                </div>
+            </div>
 
-            flipCoin();
-        }
+            <div class="game-board" id="normalGameBoard"></div>
 
-        function flipCoin() {
-            coin.style.animation = "flip 1s ease-in-out";
-            coin.innerText = "🎲";
+            <button class="new-round-btn" onclick="resetNormalGame()">
+                <i class="fas fa-redo"></i> New Round
+            </button>
+        </div>
+    </div>
 
-            setTimeout(() => {
-                currentPlayer = Math.random() < 0.5 ? 'X' : 'O';
-                coin.innerText = currentPlayer;
-                turnInfo.innerText = `${playerNames[currentPlayer]}'s turn (${currentPlayer})`;
-                coin.style.animation = "none";
-                initBoard();
-            }, 1000);
-        }
+    <!-- Competition Mode Game -->
+    <div id="competitionGameContainer" class="game-container hidden">
+        <div class="game-header">
+            <button class="back-btn" onclick="exitGame()"><i class="fas fa-times"></i></button>
+            <h1>Tournament Arena</h1>
+            <div class="mode-badge">Competition Mode</div>
+        </div>
 
-        function initBoard() {
-            board = Array(9).fill('');
-            gameBoard.innerHTML = '';
-            for (let i = 0; i < 9; i++) {
-                const cell = document.createElement('div');
-                cell.classList.add('cell');
-                cell.setAttribute('onclick', `makeMove(this, ${i})`);
-                gameBoard.appendChild(cell);
-            }
-        }
+        <div id="competitionGameArea" class="competition-game-content">
+            <div class="tournament-bracket" id="tournamentBracket"></div>
+            
+            <div class="competition-game-area">
+                <div class="match-info">
+                    <h3 id="matchTitle"></h3>
+                    <div class="match-stats">
+                        <span id="matchScore1"></span>
+                        <span class="vs">vs</span>
+                        <span id="matchScore2"></span>
+                    </div>
+                </div>
 
-        function makeMove(cell, index) {
-            if (board[index] !== '') return;
+                <div class="game-board" id="competitionGameBoard"></div>
 
-            board[index] = currentPlayer;
-            cell.innerText = currentPlayer;
-            cell.classList.add(currentPlayer);
+                <div class="match-controls">
+                    <button id="nextRoundBtn" class="next-round-btn hidden" onclick="nextCompetitionRound()">
+                        <i class="fas fa-arrow-right"></i> Next Match
+                    </button>
+                </div>
+            </div>
+        </div>
 
-            if (checkWin()) {
-                turnInfo.innerText = `${playerNames[currentPlayer]} wins! 🎉`;
-                scores[currentPlayer]++;
-                updateScore();
-                disableBoard();
-            } else if (board.every(cell => cell !== '')) {
-                turnInfo.innerText = `It's a draw! 🤝`;
-            } else {
-                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-                turnInfo.innerText = `${playerNames[currentPlayer]}'s turn (${currentPlayer})`;
-            }
-        }
+        <div id="tournamentResults" class="tournament-results hidden">
+            <h2>🏆 Tournament Results</h2>
+            <div id="resultsContent"></div>
+            <button class="start-btn" onclick="backToMode()">
+                <i class="fas fa-home"></i> Return to Menu
+            </button>
+        </div>
+    </div>
 
-        function checkWin() {
-            const wins = [
-                [0, 1, 2], [3, 4, 5], [6, 7, 8],
-                [0, 3, 6], [1, 4, 7], [2, 5, 8],
-                [0, 4, 8], [2, 4, 6]
-            ];
+    <!-- Toast Notifications -->
+    <div id="toast" class="toast"></div>
 
-            return wins.some(combo => {
-                const [a, b, c] = combo;
-                return board[a] === currentPlayer && board[a] === board[b] && board[a] === board[c];
-            });
-        }
-
-        function disableBoard() {
-            const cells = document.querySelectorAll('.cell');
-            cells.forEach(c => c.onclick = null);
-        }
-
-        function resetBoard() {
-            turnInfo.innerText = `${playerNames[currentPlayer]}'s turn (${currentPlayer})`;
-            initBoard();
-        }
-
-        function updateScore() {
-            document.getElementById('p1Score').innerText = `${playerNames.X}: ${scores.X}`;
-            document.getElementById('p2Score').innerText = `${playerNames.O}: ${scores.O}`;
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
-
 </html>
 

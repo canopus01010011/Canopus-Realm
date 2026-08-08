@@ -4,48 +4,305 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>🏋️‍♂️ Ultimate Fitness Tracker</title>
+    <title>Fitness Tracker — Canopus Realm</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <header>🏆 Fitness Tracker Dashboard</header>
+    <canvas id="starfield"></canvas>
+    <div class="toast-stack" id="toastStack"></div>
 
-    <div class="container">
-        <div class="form-section">
-            <h2>Log Today's Activity</h2>
-            <label for="date">Date</label>
-            <input type="date" id="date" />
+    <div class="app-shell">
 
-            <label for="steps">Steps</label>
-            <input type="number" id="steps" placeholder="Enter steps walked" />
+        <header class="topbar">
+            <div class="brand">
+                <span class="brand-mark"></span>
+                <div class="brand-text">
+                    <h1>Fitness Tracker</h1>
+                    <span>Canopus Realm module</span>
+                </div>
+            </div>
+            <div class="topbar-right">
+                <div class="streak-chip" id="streakChip">
+                    <i class="fas fa-fire"></i>
+                    <span id="streakText">0 day streak</span>
+                </div>
+                <div class="user-chip">
+                    <div class="user-avatar" id="userAvatar">?</div>
+                    <div>
+                        <div class="u-name" id="userName">Loading…</div>
+                        <div class="u-mode" id="userMode">Checking session…</div>
+                    </div>
+                </div>
+            </div>
+        </header>
 
-            <label for="calories">Calories Burned</label>
-            <input type="number" id="calories" placeholder="Enter calories burned" />
+        <nav class="tabs" id="tabs">
+            <button class="tab-btn active" data-tab="dashboard"><i class="fas fa-chart-simple"></i> Dashboard</button>
+            <button class="tab-btn" data-tab="log"><i class="fas fa-pen"></i> Log Entry</button>
+            <button class="tab-btn" data-tab="history"><i class="fas fa-clock-rotate-left"></i> History</button>
+            <button class="tab-btn" data-tab="goals"><i class="fas fa-bullseye"></i> Goals &amp; Profile</button>
+        </nav>
 
-            <label for="water">Water Intake (liters)</label>
-            <input type="number" step="0.1" id="water" placeholder="Enter water intake" />
+        <!--  ==== DASHBOARD  ==== -->
+        <section class="tab-panel active" id="panel-dashboard">
+            <div class="greeting">
+                <h2 id="greetingText">Welcome back, <span class="accent">Explorer</span></h2>
+                <p id="greetingDate">—</p>
+            </div>
 
-            <label for="sleep">Sleep Hours</label>
-            <input type="number" step="0.1" id="sleep" placeholder="Enter sleep hours" />
+            <div class="orbit-grid">
+                <div class="card orbit-card metric-steps">
+                    <div class="orbit-ring-wrap">
+                        <svg viewBox="0 0 84 84" width="84" height="84">
+                            <circle class="orbit-ring-bg" cx="42" cy="42" r="36"></circle>
+                            <circle class="orbit-ring-fg" id="ring-steps" cx="42" cy="42" r="36"></circle>
+                        </svg>
+                        <div class="orbit-ring-icon"><i class="fas fa-shoe-prints"></i></div>
+                    </div>
+                    <div class="orbit-meta">
+                        <div class="om-label">Steps</div>
+                        <div class="om-value" id="val-steps">0</div>
+                        <div class="om-goal" id="goal-steps-label">of 10,000 goal</div>
+                    </div>
+                </div>
 
-            <button onclick="addEntry()">Add Entry</button>
-        </div>
+                <div class="card orbit-card metric-calories">
+                    <div class="orbit-ring-wrap">
+                        <svg viewBox="0 0 84 84" width="84" height="84">
+                            <circle class="orbit-ring-bg" cx="42" cy="42" r="36"></circle>
+                            <circle class="orbit-ring-fg" id="ring-calories" cx="42" cy="42" r="36"></circle>
+                        </svg>
+                        <div class="orbit-ring-icon"><i class="fas fa-fire-flame-curved"></i></div>
+                    </div>
+                    <div class="orbit-meta">
+                        <div class="om-label">Calories</div>
+                        <div class="om-value" id="val-calories">0</div>
+                        <div class="om-goal" id="goal-calories-label">of 500 goal</div>
+                    </div>
+                </div>
 
-        <div class="stats-section">
-            <h2>Recent Stats</h2>
-            <ul id="statsList"></ul>
-        </div>
+                <div class="card orbit-card metric-water">
+                    <div class="orbit-ring-wrap">
+                        <svg viewBox="0 0 84 84" width="84" height="84">
+                            <circle class="orbit-ring-bg" cx="42" cy="42" r="36"></circle>
+                            <circle class="orbit-ring-fg" id="ring-water" cx="42" cy="42" r="36"></circle>
+                        </svg>
+                        <div class="orbit-ring-icon"><i class="fas fa-droplet"></i></div>
+                    </div>
+                    <div class="orbit-meta">
+                        <div class="om-label">Water</div>
+                        <div class="om-value" id="val-water">0 L</div>
+                        <div class="om-goal" id="goal-water-label">of 2.5 L goal</div>
+                    </div>
+                </div>
 
-        <div class="chart-section" id="chart-container">
-            <h2>Progress Chart</h2>
-            <canvas id="progressChart"></canvas>
-        </div>
+                <div class="card orbit-card metric-sleep">
+                    <div class="orbit-ring-wrap">
+                        <svg viewBox="0 0 84 84" width="84" height="84">
+                            <circle class="orbit-ring-bg" cx="42" cy="42" r="36"></circle>
+                            <circle class="orbit-ring-fg" id="ring-sleep" cx="42" cy="42" r="36"></circle>
+                        </svg>
+                        <div class="orbit-ring-icon"><i class="fas fa-moon"></i></div>
+                    </div>
+                    <div class="orbit-meta">
+                        <div class="om-label">Sleep</div>
+                        <div class="om-value" id="val-sleep">0 h</div>
+                        <div class="om-goal" id="goal-sleep-label">of 8 h goal</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card trend-card">
+                <div class="trend-head">
+                    <h3>Weekly Trend</h3>
+                    <div class="metric-pills" id="trendPills">
+                        <span class="metric-pill active" data-metric="steps" style="--metric-color:#2fd8f5;">Steps</span>
+                        <span class="metric-pill" data-metric="calories" style="--metric-color:#ff6fae;">Calories</span>
+                        <span class="metric-pill" data-metric="water" style="--metric-color:#a78bfa;">Water</span>
+                        <span class="metric-pill" data-metric="sleep" style="--metric-color:#16ffb0;">Sleep</span>
+                        <span class="metric-pill" data-metric="weight" style="--metric-color:#ffb84d;">Weight</span>
+                    </div>
+                </div>
+                <div class="chart-holder"><canvas id="trendChart"></canvas></div>
+            </div>
+
+            <div class="card">
+                <div class="trend-head">
+                    <h3>Achievements</h3>
+                </div>
+                <div class="badges-row" id="badgesRow"></div>
+            </div>
+        </section>
+
+        <!--  ==== LOG ENTRY  ==== -->
+        <section class="tab-panel" id="panel-log">
+            <div class="panel-heading">
+                <h2>Log Today's Activity</h2>
+                <p id="syncNoteTop"></p>
+            </div>
+            <div class="log-grid">
+                <div class="card">
+                    <form id="entryForm">
+                        <input type="hidden" id="f-editing-id" value="">
+                        <div class="form-grid">
+                            <div class="field">
+                                <label for="f-date">Date</label>
+                                <input type="date" id="f-date" required>
+                            </div>
+                            <div class="field">
+                                <label for="f-steps">Steps</label>
+                                <input type="number" id="f-steps" min="0" placeholder="e.g. 8500" required>
+                            </div>
+                            <div class="field">
+                                <label for="f-calories">Calories burned</label>
+                                <input type="number" id="f-calories" min="0" placeholder="e.g. 420" required>
+                            </div>
+                            <div class="field">
+                                <label for="f-water">Water (liters)</label>
+                                <input type="number" id="f-water" min="0" step="0.1" placeholder="e.g. 2.2" required>
+                            </div>
+                            <div class="field">
+                                <label for="f-sleep">Sleep (hours)</label>
+                                <input type="number" id="f-sleep" min="0" step="0.1" placeholder="e.g. 7.5" required>
+                            </div>
+                            <div class="field">
+                                <label for="f-weight">Weight (kg) <span class="hint">optional</span></label>
+                                <input type="number" id="f-weight" min="0" step="0.1" placeholder="e.g. 71.4">
+                            </div>
+                            <div class="field span-2">
+                                <label for="f-notes">Notes <span class="hint">optional</span></label>
+                                <textarea id="f-notes" placeholder="How did today feel? Any context worth remembering…"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary" id="saveEntryBtn"><i class="fas fa-check"></i> Save entry</button>
+                            <button type="button" class="btn btn-ghost" id="cancelEditBtn" style="display:none;">Cancel edit</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card tip-card">
+                    <h3 style="font-family: var(--font-display); margin-bottom: 0.9rem;">Why log daily?</h3>
+                    <p>A single day of data barely tells a story — but seven days in a row starts to reveal your real
+                        patterns: sleep debt, hydration dips, and the walks that actually move the needle.</p>
+                    <ul>
+                        <li><strong>Steps</strong> — general activity, not just workouts.</li>
+                        <li><strong>Water</strong> — most people underestimate this by ~30%.</li>
+                        <li><strong>Sleep</strong> — the metric most tied to how the rest go.</li>
+                        <li><strong>Weight</strong> is optional — log it weekly, not daily, for a cleaner trend.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!--  ==== HISTORY  ==== -->
+        <section class="tab-panel" id="panel-history">
+            <div class="panel-heading">
+                <h2>History</h2>
+                <p id="entryCountLabel">0 entries logged</p>
+            </div>
+            <div class="history-toolbar">
+                <div class="history-search">
+                    <i class="fas fa-magnifying-glass"></i>
+                    <input type="text" id="historySearch" placeholder="Search by date or note…">
+                </div>
+                <button class="btn btn-ghost btn-sm" id="exportCsvBtn"><i class="fas fa-file-arrow-down"></i> Export CSV</button>
+            </div>
+            <div class="table-wrap">
+                <table class="entries">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Steps</th>
+                            <th>Calories</th>
+                            <th>Water</th>
+                            <th>Sleep</th>
+                            <th>Weight</th>
+                            <th>Notes</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyBody"></tbody>
+                </table>
+                <div class="empty-state" id="historyEmpty">
+                    <i class="fas fa-satellite"></i>
+                    <h4>No entries yet</h4>
+                    <p>Log your first day to start charting your orbit.</p>
+                </div>
+            </div>
+        </section>
+
+        <!--  ==== GOALS & PROFILE  ==== -->
+        <section class="tab-panel" id="panel-goals">
+            <div class="panel-heading">
+                <h2>Goals &amp; Profile</h2>
+                <p>Tune your daily targets and body metrics</p>
+            </div>
+            <div class="goals-grid">
+                <div class="card">
+                    <h3 style="font-family: var(--font-display); margin-bottom: 1.1rem;">Daily goals</h3>
+                    <form id="goalsForm">
+                        <div class="form-grid">
+                            <div class="field">
+                                <label for="g-steps">Steps</label>
+                                <input type="number" id="g-steps" min="1000" step="500" required>
+                            </div>
+                            <div class="field">
+                                <label for="g-calories">Calories burned</label>
+                                <input type="number" id="g-calories" min="50" step="50" required>
+                            </div>
+                            <div class="field">
+                                <label for="g-water">Water (liters)</label>
+                                <input type="number" id="g-water" min="0.5" step="0.1" required>
+                            </div>
+                            <div class="field">
+                                <label for="g-sleep">Sleep (hours)</label>
+                                <input type="number" id="g-sleep" min="1" step="0.5" required>
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-bullseye"></i> Save goals</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3 style="font-family: var(--font-display); margin-bottom: 1.1rem;">Body profile &amp; BMI</h3>
+                    <form id="profileForm">
+                        <div class="form-grid">
+                            <div class="field">
+                                <label for="p-height">Height (cm)</label>
+                                <input type="number" id="p-height" min="80" step="0.5" placeholder="e.g. 175">
+                            </div>
+                            <div class="field">
+                                <label for="p-weight">Weight (kg)</label>
+                                <input type="number" id="p-weight" min="20" step="0.1" placeholder="e.g. 71.4">
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-calculator"></i> Calculate &amp; save</button>
+                        </div>
+                    </form>
+                    <div class="bmi-result" id="bmiResult">
+                        <div class="bmi-value" id="bmiValue">—</div>
+                        <span class="bmi-category" id="bmiCategory">—</span>
+                        <p class="bmi-note">BMI is a rough screening measure, not a diagnosis — it doesn't
+                            account for muscle mass, frame, or body composition.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </div>
 
-    <script src="script.js">
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>

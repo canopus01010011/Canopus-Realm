@@ -3,164 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>CanQuiz</title>
-    <style>* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Segoe UI', sans-serif;
-}
-
-body {
-  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 50px 20px;
-  flex-direction: column;
-  color: white;
-}
-
-.intro {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.intro h1 {
-  font-size: 3rem;
-  margin-bottom: 10px;
-}
-
-.intro p {
-  font-size: 1.2rem;
-  color: #ccc;
-}
-
-.subjects {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  max-width: 1000px;
-  width: 100%;
-}
-
-.subjects a {
-  text-decoration: none;
-}
-
-.subject-card {
-  padding: 30px;
-  border-radius: 15px;
-  text-align: center;
-  color: white;
-  font-size: 1.2rem;
-  font-weight: bold;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background-size: cover;
-  background-position: center;
-  height: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-}
-
-.subject-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.5);
-  filter: brightness(1.1);
-}
-
-.math {
-  background: url(Download\ Free\ Vectors\,\ Images\,\ Photos\ &\ Videos\ _\ Vecteezy.jpg) no-repeat center/cover;
-}
-
-.history {
-  background: url(download\ \(17\).jpg) no-repeat center/cover;
-}
-
-.geography {
-  background: url(download\ \(18\).jpg) no-repeat center/cover;
-}
-
-.physics {
-  background: url(Why\ is\ Albert\ Einstein\ so\ Famous_.jpg) no-repeat center/cover;
-}
-
-.astronomy {
-  background: url(download\ \(20\).jpg) no-repeat center/cover;
-}
-
-.medicine {
-  background: url(download\ \(19\).jpg) no-repeat center/cover;
-}
-
-.sports {
-  background: url(SPORTS\ BACKGROUNDS\ _\ Baseball\ Stadium\ Photoshop\ and\ Canva\ Backgrounds\ and\ Overlays.jpg) no-repeat center/cover;
-}
-
-.celebrities {
-  background: url(AOFOTO\ 8x6ft\ Red\ Carpet\ Backdrop\ Movie\ Night\ Stage\ Lighting\ Photography\ Background\ Celebrity\ Event\ Party\ Premiere\ Banner\ Photo\ Studio\ Props\ Kid\ Adult\ Artistic\ Portrait\ Activity\ Decoration\ Wallpaper.jpg) no-repeat center/cover;
-}
-
-.culture {
-  background: url(download\ \(21\).jpg) no-repeat center/cover;
-}
-
-@media (max-width: 900px) {
-  .subjects {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 600px) {
-  .subjects {
-    grid-template-columns: 1fr;
-  }
-}
-
-</style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="intro">
-        <h1>Welcome to CanQuiz</h1>
-        <p>Choose a subject and test your knowledge!</p>
-    </div>
+    <div class="container page-sheet">
+        <header class="page-header">
+            <p class="eyebrow">CanQuiz</p>
+            <h1>Sharpen your knowledge with category quizzes</h1>
+            <p>Tap a card to open a quiz, review your score instantly, and keep learning.</p>
+        </header>
 
-    <div class="subjects">
-        <a href="Math.html">
-            <div class="subject-card math">Math</div>
-        </a>
-        <a href="history.html">
-            <div class="subject-card history">History</div>
-        </a>
-        <a href="geography.html">
-            <div class="subject-card geography">Geography</div>
-        </a>
-
-        <a href="physic.html">
-            <div class="subject-card physics">Physics</div>
-        </a>
-        <a href="astronomy.html">
-            <div class="subject-card astronomy">Astronomy</div>
-        </a>
-        <a href="medicin.html">
-            <div class="subject-card medicine">Medicine</div>
-        </a>
-
-        <a href="sport.html">
-            <div class="subject-card sports">Sports</div>
-        </a>
-        <a href="celebrities.html">
-            <div class="subject-card celebrities">Celebrities</div>
-        </a>
-        <a href="culture.html">
-            <div class="subject-card culture">Culture</div>
-        </a>
+        <div class="subjects">
+            <a href="Math.html">
+                <article class="subject-card math">
+                    <div class="card-thumb">
+                        <img src="cu.jpg" alt="Math quiz image">
+                    </div>
+                    <div class="card-content">
+                        <span class="chip">Math</span>
+                        <h2>Number sense test</h2>
+                        <p>Practice arithmetic, patterns, and equations with quick questions.</p>
+                    </div>
+                </article>
+            </a>
+            <a href="history.html">
+                <article class="subject-card history">
+                    <div class="card-thumb">
+                        <img src="history-thumb.jpg" alt="History quiz image">
+                    </div>
+                    <div class="card-content">
+                        <span class="chip">History</span>
+                        <h2>Historical moments</h2>
+                        <p>Recall key events, world leaders, and ancient civilizations.</p>
+                    </div>
+                </article>
+            </a>
+            <a href="geography.html">
+                <article class="subject-card geography">
+                    <div class="card-thumb">
+                        <img src="geography-thumb.jpg" alt="Geography quiz image">
+                    </div>
+                    <div class="card-content">
+                        <span class="chip">Geography</span>
+                        <h2>World geography</h2>
+                        <p>Test your knowledge of capitals, countries, and natural landmarks.</p>
+                    </div>
+                </article>
+            </a>
+            <a href="physic.html">
+                <article class="subject-card physics">
+                    <div class="card-thumb">
+                        <img src="physics-thumb.jpg" alt="Physics quiz image">
+                    </div>
+                    <div class="card-content">
+                        <span class="chip">Physics</span>
+                        <h2>Physics basics</h2>
+                        <p>Explore motion, energy, and fundamental science principles.</p>
+                    </div>
+                </article>
+            </a>
+            <a href="astronomy.html">
+                <article class="subject-card astronomy">
+                    <div class="card-thumb">
+                        <img src="astronomy-thumb.jpg" alt="Astronomy quiz image">
+                    </div>
+                    <div class="card-content">
+                        <span class="chip">Astronomy</span>
+                        <h2>Space quiz</h2>
+                        <p>Learn about stars, planets, and the universe in a short quiz.</p>
+                    </div>
+                </article>
+            </a>
+            <a href="medicin.html">
+                <article class="subject-card medicine">
+                    <div class="card-thumb">
+                        <img src="medicine-thumb.jpg" alt="Medicine quiz image">
+                    </div>
+                    <div class="card-content">
+                        <span class="chip">Medicine</span>
+                        <h2>Health knowledge</h2>
+                        <p>Answer questions about the body and medical science.</p>
+                    </div>
+                </article>
+            </a>
+            <a href="sport.html">
+                <article class="subject-card sports">
+                    <div class="card-thumb">
+                        <img src="sports-thumb.jpg" alt="Sports quiz image">
+                    </div>
+                    <div class="card-content">
+                        <span class="chip">Sports</span>
+                        <h2>Sports trivia</h2>
+                        <p>Challenge yourself with questions from different sports.</p>
+                    </div>
+                </article>
+            </a>
+            <a href="celebrities.html">
+                <article class="subject-card celebrities">
+                    <div class="card-thumb">
+                        <img src="celebrities-thumb.jpg" alt="Celebrities quiz image">
+                    </div>
+                    <div class="card-content">
+                        <span class="chip">Celebrities</span>
+                        <h2>Pop culture</h2>
+                        <p>Recognize famous faces, movies, and entertainment facts.</p>
+                    </div>
+                </article>
+            </a>
+            <a href="culture.html">
+                <article class="subject-card culture">
+                    <div class="card-thumb">
+                        <img src="culture-thumb.jpg" alt="Culture quiz image">
+                    </div>
+                    <div class="card-content">
+                        <span class="chip">Culture</span>
+                        <h2>Global culture</h2>
+                        <p>Test your knowledge of traditions, art, and world culture.</p>
+                    </div>
+                </article>
+            </a>
+        </div>
     </div>
 </body>
-
-
 </html>

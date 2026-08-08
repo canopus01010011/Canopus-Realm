@@ -4,80 +4,18 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Celebrities Quiz</title>
-<style>
-    body {
-  font-family: "Segoe UI", sans-serif;
-  background: linear-gradient(to right, #1c1c1c, #2d2d2d);
-  color: #fff;
-  padding: 40px;
-  margin: 0;
-}
-
-.quiz-container {
-  max-width: 800px;
-  margin: auto;
-  background: #2c2c2c;
-  border-radius: 16px;
-  padding: 30px;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
-}
-
-.quiz-container h1 {
-  text-align: center;
-  color: #00bcd4;
-  margin-bottom: 30px;
-}
-
-.question-block {
-  background-color: #3b3b3b;
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 20px;
-  transition: 0.3s;
-}
-
-.question-block:hover {
-  background-color: #444;
-}
-
-label {
-  display: block;
-  margin: 8px 0;
-  cursor: pointer;
-}
-
-button {
-  display: block;
-  margin: 30px auto;
-  padding: 12px 28px;
-  background-color: #00bcd4;
-  color: #fff;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-button:hover {
-  background-color: #0097a7;
-}
-
-#result {
-  text-align: center;
-  font-size: 22px;
-  margin-top: 20px;
-  color: #ffc107;
-}
-
-    </style>
+        <title>Celebrities Quiz</title>
+        <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="quiz-container">
-        <h1>Celebrities Quiz</h1>
-        <form id="quizForm">
+        <div class="container page-sheet">
+                <div class="quiz-wrapper">
+                        <div class="quiz-title">
+                                <h1>Celebrities Quiz</h1>
+                                <p class="quiz-description">Pop culture questions for quick fun.</p>
+                        </div>
+                        <form id="quizForm">
             <div class="question-block">
                 <p>1. Who played Iron Man in the Marvel movies?</p>
                 <label><input type="radio" name="q1" value="a" /> Chris Hemsworth</label>
@@ -223,26 +161,14 @@ button:hover {
         </form>
     </div>
 
+    <script src="quiz.js"></script>
     <script>
-        function checkAnswers() {
-            const answers = {
-                q1: "b", q2: "c", q3: "b", q4: "a", q5: "b",
-                q6: "b", q7: "b", q8: "a", q9: "a", q10: "b",
-                q11: "b", q12: "a", q13: "a", q14: "c", q15: "a",
-                q16: "a", q17: "b", q18: "a", q19: "b", q20: "a"
-            };
-
-            let score = 0;
-            for (let q in answers) {
-                const selected = document.querySelector(`input[name="${q}"]:checked`);
-                if (selected && selected.value === answers[q]) {
-                    score++;
-                }
-            }
-
-            const result = document.getElementById("result");
-            result.innerHTML = `<h2>Your score is ${score} / 20</h2>`;
-        }
+        window.__correctAnswers = {
+            q1: "b", q2: "c", q3: "b", q4: "a", q5: "b",
+            q6: "b", q7: "b", q8: "a", q9: "a", q10: "b",
+            q11: "b", q12: "a", q13: "a", q14: "c", q15: "a",
+            q16: "a", q17: "b", q18: "a", q19: "b", q20: "a"
+        };
     </script>
 </body>
 

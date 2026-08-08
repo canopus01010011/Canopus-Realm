@@ -1,0 +1,332 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(circle at 50% 30%,
+            #ff4d6d,
+            #b30059 40%,
+            #17020d 100%);
+
+    color: white;
+
+    font-family: "Manrope", sans-serif;
+
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.celebration {
+    width: 100%;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 50px 25px;
+
+    position: relative;
+
+    z-index: 5;
+}
+
+.celebration-card {
+
+    width: min(800px, 95vw);
+
+    padding: 60px 40px;
+
+    text-align: center;
+
+    background:
+        rgba(255, 255, 255, 0.08);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.15);
+
+    border-radius: 35px;
+
+    backdrop-filter: blur(25px);
+
+    box-shadow:
+        0 40px 100px rgba(0, 0, 0, 0.45);
+
+    animation:
+        celebrationIn 1s ease;
+
+}
+
+@keyframes celebrationIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            scale(.8) translateY(30px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            scale(1) translateY(0);
+
+    }
+
+}
+
+
+
+.bears {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
+
+}
+
+.bears img {
+
+    object-fit: contain;
+
+}
+
+.bears img:first-child {
+
+    width: 140px;
+
+    height: 150px;
+
+}
+
+.bears img:last-child {
+
+    width: 120px;
+
+    height: 120px;
+
+}
+
+h1 {
+
+    font-family:
+        "Space Grotesk";
+
+    font-size:
+        clamp(38px, 7vw, 65px);
+
+    margin-top: 25px;
+
+    letter-spacing: -.04em;
+
+}
+
+h2 {
+
+    font-family:
+        "Space Grotesk";
+
+    font-size: 38px;
+
+    color: #ffb0c9;
+
+    margin-top: 8px;
+
+}
+
+.message {
+
+    max-width: 500px;
+
+    margin:
+        20px auto 0;
+
+    color:
+        rgba(255, 255, 255, .7);
+
+    line-height: 1.7;
+
+}
+
+.celebration-actions {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 12px;
+
+    margin-top: 35px;
+
+    flex-wrap: wrap;
+
+}
+
+.celebration-actions button {
+
+    padding:
+        14px 22px;
+
+    border-radius:
+        999px;
+
+    border: 1px solid rgba(255, 255, 255, .15);
+
+    background:
+        rgba(255, 255, 255, .08);
+
+    color: white;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s,
+        background .2s;
+
+}
+
+.celebration-actions button:hover {
+
+    transform:
+        translateY(-3px);
+
+    background:
+        rgba(255, 255, 255, .15);
+
+}
+
+.hearts {
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    pointer-events: none;
+
+    z-index: 1;
+}
+
+.hearts span {
+
+    position: absolute;
+
+    bottom: -40px;
+
+    width: 18px;
+
+    height: 18px;
+
+    background: #ff6d91;
+
+    transform: rotate(-45deg);
+
+    animation:
+        floatHeart linear forwards;
+
+}
+
+.hearts span::before,
+.hearts span::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 18px;
+
+    height: 18px;
+
+    background: #ff6d91;
+
+    border-radius: 50%;
+
+}
+
+.hearts span::before {
+
+    top: -9px;
+
+}
+
+.hearts span::after {
+
+    left: 9px;
+
+}
+
+@keyframes floatHeart {
+
+    from {
+
+        transform:
+            rotate(-45deg) translateY(0);
+
+        opacity: 0;
+
+    }
+
+    20% {
+
+        opacity: .8;
+
+    }
+
+    to {
+
+        transform:
+            rotate(-45deg) translateY(-110vh);
+
+        opacity: 0;
+
+    }
+
+}
+
+@media(max-width:600px) {
+
+    .celebration-card {
+
+        padding:
+            45px 20px;
+
+    }
+
+    .bears img:first-child {
+
+        width: 100px;
+
+    }
+
+    .bears img:last-child {
+
+        width: 90px;
+
+    }
+
+}

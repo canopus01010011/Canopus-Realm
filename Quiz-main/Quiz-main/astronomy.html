@@ -5,84 +5,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Astronomy Quiz - CanQuiz</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-            color: #fff;
-        }
-
-        header {
-            text-align: center;
-            padding: 30px 10px;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-bottom: 1px solid #555;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2rem;
-        }
-
-        .quiz-container {
-            max-width: 1000px;
-            margin: auto;
-            padding: 30px;
-        }
-
-        .question {
-            margin-bottom: 30px;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.06);
-            border-radius: 10px;
-            box-shadow: 0 0 10px #00000044;
-        }
-
-        .question h3 {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
-
-        button {
-            display: block;
-            margin: 30px auto 10px;
-            padding: 12px 30px;
-            font-size: 1.1rem;
-            border: none;
-            border-radius: 8px;
-            background-color: #00bcd4;
-            color: white;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #019cae;
-        }
-
-        #result {
-            text-align: center;
-            font-size: 1.4rem;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <header>
-        <h1>Astronomy Quiz</h1>
-    </header>
-
-    <div class="quiz-container">
-        <form id="quizForm">
+    <div class="container page-sheet">
+        <div class="quiz-wrapper">
+            <div class="quiz-title">
+                <h1>Astronomy Quiz</h1>
+                <p class="quiz-description">Space facts in bite-sized quizzes.</p>
+            </div>
+            <form id="quizForm">
             <div class="question">
                 <h3>1. What is the closest planet to the Sun?</h3>
                 <label><input type="radio" name="q1" value="a"> Mercury</label>
@@ -159,33 +92,20 @@
         </form>
     </div>
 
+    <script src="quiz.js"></script>
     <script>
-        function checkAnswers() {
-            const correctAnswers = {
-                q1: "a",
-                q2: "b",
-                q3: "a",
-                q4: "b",
-                q5: "b",
-                q6: "a",
-                q7: "c",
-                q8: "b",
-                q9: "a",
-                q10: "a"
-            };
-
-            let score = 0;
-            const total = Object.keys(correctAnswers).length;
-
-            for (let key in correctAnswers) {
-                const answer = document.querySelector(`input[name="${key}"]:checked`);
-                if (answer && answer.value === correctAnswers[key]) {
-                    score++;
-                }
-            }
-
-            document.getElementById("result").textContent = `Your Score: ${score}/${total}`;
-        }
+        window.__correctAnswers = {
+            q1: "a",
+            q2: "b",
+            q3: "a",
+            q4: "b",
+            q5: "b",
+            q6: "a",
+            q7: "c",
+            q8: "b",
+            q9: "a",
+            q10: "a"
+        };
     </script>
 </body>
 

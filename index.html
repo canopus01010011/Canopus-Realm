@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Canopus Realm — One Hub. Endless Creations.</title>
-    <link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,23 +61,53 @@
                 <li><button class="auth-tab-btn" data-tab="signup">Sign Up</button></li>
             </ul>
             <div id="login-tab" class="auth-tab-content active">
-                <form id="login-form">
+                <div id="login-verify-banner" class="verify-banner" style="display:none;">
+                    <i class="fas fa-triangle-exclamation"></i>
+                    <span>Please verify your email to unlock all features.</span>
+                    <button type="button" onclick="resendVerification()">Resend</button>
+                </div>
+                <form id="login-form" novalidate>
                     <h2>Welcome back</h2>
-                    <input type="email" placeholder="Email" required>
-                    <input type="password" placeholder="Password" required>
-                    <button type="submit" class="auth-btn">Enter the Realm</button>
+                    <div class="field-wrap">
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="field-wrap">
+                        <input type="password" name="password" placeholder="Password" required minlength="6">
+                        <button type="button" class="pw-toggle" data-target-form="login-form"><i
+                                class="fas fa-eye"></i></button>
+                    </div>
+                    <span class="field-error" id="login-error"></span>
+                    <div class="auth-forgot">
+                        <button type="button" onclick="handleForgotPassword()">Forgot password?</button>
+                    </div>
+                    <button type="submit" class="auth-btn"><span class="btn-label">Enter the Realm</span><span
+                            class="btn-spinner"></span></button>
                     <p class="auth-toggle">Don't have an account? <a href="#" onclick="switchTab('signup')">Sign up</a>
                     </p>
                 </form>
             </div>
             <div id="signup-tab" class="auth-tab-content">
-                <form id="signup-form">
+                <form id="signup-form" novalidate>
                     <h2>Create your account</h2>
-                    <input type="text" placeholder="Full Name" required>
-                    <input type="email" placeholder="Email" required>
-                    <input type="password" placeholder="Password" required>
-                    <input type="password" placeholder="Confirm Password" required>
-                    <button type="submit" class="auth-btn">Create account</button>
+                    <div class="field-wrap">
+                        <input type="text" name="name" placeholder="Full Name" required minlength="2">
+                    </div>
+                    <div class="field-wrap">
+                        <input type="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="field-wrap">
+                        <input type="password" name="password" placeholder="Password (min 6 characters)" required
+                            minlength="6">
+                        <button type="button" class="pw-toggle" data-target-form="signup-form"><i
+                                class="fas fa-eye"></i></button>
+                    </div>
+                    <div class="field-wrap">
+                        <input type="password" name="confirmPassword" placeholder="Confirm Password" required
+                            minlength="6">
+                    </div>
+                    <span class="field-error" id="signup-error"></span>
+                    <button type="submit" class="auth-btn"><span class="btn-label">Create account</span><span
+                            class="btn-spinner"></span></button>
                     <p class="auth-toggle">Already have an account? <a href="#" onclick="switchTab('login')">Log in</a>
                     </p>
                 </form>
@@ -91,6 +121,7 @@
             <div>
                 <p id="username-display">User</p>
                 <p id="useremail-display" class="small-text">email@example.com</p>
+                <p id="verify-status"></p>
             </div>
         </div>
         <hr>
@@ -109,11 +140,11 @@
             tools, and small worlds I've built and shipped, one project at a time.</p>
 
         <div class="hero-stats">
-            <div class="stat"><span class="stat-num" data-count="14">0</span><span class="stat-label">Projects</span>
+            <div class="stat"><span class="stat-num" data-count="13">0</span><span class="stat-label">Projects</span>
             </div>
             <div class="stat"><span class="stat-num" data-count="8">0</span><span class="stat-label">Technologies</span>
             </div>
-            <div class="stat"><span class="stat-num" data-count="500" data-suffix="+">0</span><span
+            <div class="stat"><span class="stat-num" data-count="100" data-suffix="+">0</span><span
                     class="stat-label">Commits</span></div>
         </div>
 
@@ -277,16 +308,7 @@
                 <div class="launch-row"><span class="rating">★★★☆☆</span><span class="launch-btn">Launch <i
                             class="fas fa-arrow-right"></i></span></div>
             </div>
-            <div class="project-card" data-name="Epic Music Player" data-tags="html css js playlist audio"
-                onclick="openProject('Epic-Music-Player-main')">
-                <div class="project-visual"><i class="fas fa-compact-disc"></i></div>
-                <h3>Music Player</h3>
-                <p>Listen to your favorite tracks with a playlist view.</p>
-                <div class="project-tags"><span class="tag">HTML</span><span class="tag">CSS</span><span
-                        class="tag">JS</span></div>
-                <div class="launch-row"><span class="rating">★★★★☆</span><span class="launch-btn">Launch <i
-                            class="fas fa-arrow-right"></i></span></div>
-            </div>
+
             <div class="project-card" data-name="Epic Page" data-tags="html css js content hub"
                 onclick="openProject('Epic-Page-main')">
                 <div class="project-visual"><i class="fas fa-music"></i></div>
@@ -300,44 +322,103 @@
         </div>
     </section>
 
-    <!-- Special Days -->
-    <section id="occasions" class="world" data-world="occasions">
-        <div class="world-header">
-            <h2 class="world-title"><span class="world-glyph">🎉</span> Special Days</h2>
-            <span class="world-sub"> small websites made for a moment</span>
-        </div>
-        <div class="projects-grid" data-grid="occasions">
-            <div class="project-card" data-name="Valentine" data-tags="html css js love confession"
-                onclick="openProject('ValentineLOL-main')">
-                <div class="project-visual"><i class="fas fa-heart"></i></div>
-                <h3>Valentine</h3>
-                <p>A small website for asking someone out.</p>
-                <div class="project-tags"><span class="tag">Love</span><span class="tag">Confession</span></div>
-                <div class="launch-row"><span class="rating">★★★★★</span><span class="launch-btn">Launch <i
-                            class="fas fa-arrow-right"></i></span></div>
+<!-- Special Days -->
+<section id="occasions" class="world" data-world="occasions">
+    <div class="world-header">
+        <h2 class="world-title">
+            <span class="world-glyph">🎉</span> Special Days
+        </h2>
+        <span class="world-sub">small websites made for a moment</span>
+    </div>
+
+    <div class="projects-grid" data-grid="occasions">
+
+        <!-- Valentine -->
+        <div class="project-card" data-name="Valentine" data-tags="html css js love confession"
+            onclick="openProject('ValentineLOL-main')">
+
+            <button class="share-btn" type="button" data-project="ValentineLOL-main" data-title="Valentine"
+                data-description="A playful Valentine project from Canopus Realm.">
+
+                <i class="fas fa-share-nodes"></i>
+                <span>Share</span>
+            </button>
+
+            <div class="project-visual">
+                <i class="fas fa-heart"></i>
             </div>
-            <div class="project-card" data-name="Eid Sa3id" data-tags="html css js eid celebration"
-                onclick="openProject('Eid-main')">
-                <div class="project-visual"><i class="fas fa-star-and-crescent"></i></div>
-                <h3>Eid Sa3id</h3>
-                <p>A simple website for celebrating Eid.</p>
-                <div class="project-tags"><span class="tag">Eid</span><span class="tag">Celebration</span></div>
-                <div class="launch-row"><span class="rating">★★★★☆</span><span class="launch-btn">Launch <i
-                            class="fas fa-arrow-right"></i></span></div>
+
+            <h3>Valentine</h3>
+
+            <p>A small website for asking someone out.</p>
+
+            <div class="project-tags">
+                <span class="tag">Love</span>
+                <span class="tag">Confession</span>
+            </div>
+
+            <div class="launch-row">
+                <span class="rating">★★★★★</span>
+
+                <span class="launch-btn">
+                    Launch
+                    <i class="fas fa-arrow-right"></i>
+                </span>
             </div>
         </div>
-    </section>
+
+
+        <!-- Eid -->
+        <div class="project-card" data-name="Eid Sa3id" data-tags="html css js eid celebration"
+            onclick="openProject('Eid-main')">
+
+            <button class="share-btn" type="button" data-project="Eid-main" data-title="Eid Sa3id"
+                data-description="A simple website for celebrating Eid from Canopus Realm.">
+
+                <i class="fas fa-share-nodes"></i>
+                <span>Share</span>
+            </button>
+
+            <div class="project-visual">
+                <i class="fas fa-star-and-crescent"></i>
+            </div>
+
+            <h3>Eid Sa3id</h3>
+
+            <p>A simple website for celebrating Eid.</p>
+
+            <div class="project-tags">
+                <span class="tag">Eid</span>
+                <span class="tag">Celebration</span>
+            </div>
+
+            <div class="launch-row">
+                <span class="rating">★★★★☆</span>
+
+                <span class="launch-btn">
+                    Launch
+                    <i class="fas fa-arrow-right"></i>
+                </span>
+            </div>
+        </div>
+
+    </div>
+</section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-logo">Canopus Realm</div>
         <p class="footer-credit">Created by Souheil</p>
         <div class="footer-links">
-            <a href="https://github.com/canopus01010011" target="_blank" rel="noopener"><i class="fab fa-github"></i> GitHub</a>
-            <a href="https://www.linkedin.com/in/souheil-guellil-55b59a290" target="_blank" rel="noopener"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <a href="https://github.com/canopus01010011" target="_blank" rel="noopener"><i class="fab fa-github"></i>
+                GitHub</a>
+            <a href="https://www.linkedin.com/in/souheil-guellil-55b59a290" target="_blank" rel="noopener"><i
+                    class="fab fa-linkedin"></i> LinkedIn</a>
             <a href="mailto:souheilsouhil1@gmail.com"><i class="fas fa-envelope"></i> Email</a>
         </div>
     </footer>
+
+
 
     <!-- Project Modal -->
     <div id="project-modal" class="modal">

@@ -5,82 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Physics Quiz - CanQuiz</title>
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(to right, #1f1c2c, #928dab);
-            color: #fff;
-            padding: 20px;
-        }
-
-        h1 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            color: #ffdd57;
-        }
-
-        .quiz-container {
-            max-width: 900px;
-            margin: 0 auto;
-            background-color: rgba(255, 255, 255, 0.05);
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
-        }
-
-        .question {
-            margin-bottom: 30px;
-            padding: 15px;
-            border-left: 4px solid #ffdd57;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-        }
-
-        .question p {
-            margin-bottom: 10px;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-
-        .question label {
-            display: block;
-            margin: 6px 0;
-            cursor: pointer;
-        }
-
-        .submit-btn {
-            display: block;
-            margin: 30px auto 10px;
-            background-color: #ffdd57;
-            color: #000;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .submit-btn:hover {
-            background-color: #ffe57f;
-        }
-
-        #result {
-            text-align: center;
-            font-size: 1.5rem;
-            margin-top: 20px;
-            font-weight: bold;
-            color: #a0ffb0;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <h1>Physics Quiz</h1>
-    <div class="quiz-container">
-        <form id="quizForm">
+    <div class="container page-sheet">
+        <div class="quiz-wrapper">
+            <div class="quiz-title">
+                <h1>Physics Quiz</h1>
+                <p class="quiz-description">Brush up core physics ideas with short quizzes.</p>
+            </div>
+            <form id="quizForm">
             <!-- Questions 1 to 20 -->
             <div class="question">
                 <p>1. What is the unit of force?</p>
@@ -227,24 +162,14 @@
         <div id="result"></div>
     </div>
 
+    <script src="quiz.js"></script>
     <script>
-        const correctAnswers = {
+        window.__correctAnswers = {
             q1: "a", q2: "a", q3: "b", q4: "a", q5: "b",
             q6: "a", q7: "a", q8: "a", q9: "b", q10: "a",
             q11: "c", q12: "b", q13: "a", q14: "b", q15: "a",
             q16: "b", q17: "b", q18: "a", q19: "a", q20: "a"
         };
-
-        function checkAnswers() {
-            let score = 0;
-            for (let i = 1; i <= 20; i++) {
-                const q = document.querySelector(`input[name="q${i}"]:checked`);
-                if (q && q.value === correctAnswers[`q${i}`]) {
-                    score++;
-                }
-            }
-            document.getElementById("result").innerText = `You got ${score}/20 correct!`;
-        }
     </script>
 </body>
 

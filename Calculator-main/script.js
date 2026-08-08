@@ -1,12 +1,14 @@
-// ============= GLOBAL STATE =============
 let display = '0';
 let sciDisplay = '0';
 let calculation = '';
 let sciCalculation = '';
+let sciMemory = 0;
+let sciLastAnswer = '0';
 let history = JSON.parse(localStorage.getItem('calcHistory')) || [];
 let quizQuestions = [];
 let quizIndex = 0;
 let quizScore = 0;
+let quizAnswered = false;
 
 // DOM Elements
 const displayEl = document.getElementById('display');
@@ -14,7 +16,7 @@ const sciDisplayEl = document.getElementById('sci-display');
 const modeButtons = document.querySelectorAll('.mode-btn');
 const modeContents = document.querySelectorAll('.mode-content');
 
-// ============= INITIALIZATION =============
+//   INITIALIZATION  
 document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
     updateDisplay();
@@ -44,7 +46,7 @@ function switchMode(e) {
     document.getElementById(mode + '-mode').classList.add('active');
 }
 
-// ============= BASIC CALCULATOR =============
+//   BASIC CALCULATOR  
 function appendNumber(num) {
     if (display === '0' && num !== '.') {
         display = num;
@@ -115,64 +117,127 @@ function handleKeyPress(e) {
     }
 }
 
-// ============= SCIENTIFIC CALCULATOR =============
-function sciAppendNumber(num) {
-    if (sciDisplay === '0' && num !== '.') {
-        sciDisplay = num;
-    } else if (!(num === '.' && sciDisplay.includes('.'))) {
-        sciDisplay += num;
+//   SCIENTIFIC CALCULATOR  
+function sciInsert(value) {
+    if (sciDisplay === 'Error') {
+        sciDisplay = '0';
     }
-    updateSciDisplay();
-}
 
-function sciAppendOperator(op) {
-    if (sciCalculation === '' && sciDisplay !== '') {
-        sciCalculation = sciDisplay + op;
-        sciDisplay = '';
-    } else if (sciDisplay !== '') {
-        sciCalculation += sciDisplay + op;
-        sciDisplay = '';
-    }
-    updateSciDisplay();
-}
+    const isNumberOrDot = /^[0-9.]$/.test(value);
+    const isFunctionOrConstant = /^(sin\(|cos\(|tan\(|ln\(|log\(|sqrt\(|pi|e|exp\()/i.test(value);
+    const isOperator = /^[+\-×÷^()]$/.test(value) || value === '1/';
 
-function sciAppendValue(value) {
-    if (value.includes('Math')) {
-        sciCalculation += value + '(';
-        updateSciDisplay();
+    if (sciDisplay === '0') {
+        if (isNumberOrDot) {
+            sciDisplay = value === '.' ? '0.' : value;
+        } else if (isFunctionOrConstant || isOperator) {
+            sciDisplay = value;
+        } else {
+            sciDisplay = value;
+        }
     } else {
-        sciDisplay = value;
+        sciDisplay += value;
+    }
+
+    updateSciDisplay();
+}
+
+function sciToggleSign() {
+    if (sciDisplay === '0' || sciDisplay === '') return;
+
+    if (sciDisplay.startsWith('-')) {
+        sciDisplay = sciDisplay.slice(1);
+    } else {
+        sciDisplay = '-' + sciDisplay;
+    }
+    updateSciDisplay();
+}
+
+function sciPower(power) {
+    if (sciDisplay && sciDisplay !== 'Error') {
+        sciDisplay = `(${sciDisplay})**${power}`;
         updateSciDisplay();
     }
+}
+
+function sciReciprocal() {
+    if (sciDisplay && sciDisplay !== 'Error') {
+        sciDisplay = `1/(${sciDisplay})`;
+        updateSciDisplay();
+    }
+}
+
+function sciFactorial() {
+    if (sciDisplay && sciDisplay !== 'Error') {
+        sciDisplay = `fact(${sciDisplay})`;
+        updateSciDisplay();
+    }
+}
+
+function sciMemoryClear() {
+    sciMemory = 0;
+    showSciStatus('MC cleared');
+}
+
+function sciMemoryRecall() {
+    sciDisplay = String(sciMemory);
+    updateSciDisplay();
+}
+
+function sciMemoryAdd() {
+    const value = Number(sciDisplay);
+    if (Number.isFinite(value)) {
+        sciMemory += value;
+        showSciStatus('M+ saved');
+    }
+}
+
+function sciMemorySubtract() {
+    const value = Number(sciDisplay);
+    if (Number.isFinite(value)) {
+        sciMemory -= value;
+        showSciStatus('M- saved');
+    }
+}
+
+function sciRecallAns() {
+    sciDisplay = sciLastAnswer;
+    updateSciDisplay();
 }
 
 function sciCalculate() {
-    if (sciCalculation !== '' && sciDisplay !== '') {
-        try {
-            let expr = sciCalculation + sciDisplay;
-            expr = expr.replace(/Math\.sqrt/g, 'Math.sqrt')
-                      .replace(/Math\.sin/g, 'Math.sin')
-                      .replace(/Math\.cos/g, 'Math.cos')
-                      .replace(/Math\.tan/g, 'Math.tan')
-                      .replace(/Math\.log/g, 'Math.log10')
-                      .replace(/Math\.PI/g, Math.PI)
-                      .replace(/Math\.E/g, Math.E)
-                      .replace(/\^/g, '**')
-                      .replace(/Math\.factorial/g, 'factorial');
-            
-            let result = eval(expr);
-            result = Math.round(result * 100000000) / 100000000;
-            
-            saveToHistory(expr, result);
-            
-            sciDisplay = String(result);
-            sciCalculation = '';
-            updateSciDisplay();
-        } catch (e) {
-            sciDisplay = 'Error';
-            sciCalculation = '';
-            updateSciDisplay();
-        }
+    const expression = sciDisplay.trim();
+    if (!expression || expression === 'Error') return;
+
+    try {
+        const cleaned = expression
+            .replace(/×/g, '*')
+            .replace(/÷/g, '/')
+            .replace(/\bpi\b/g, 'Math.PI')
+            .replace(/\be\b/g, 'Math.E')
+            .replace(/exp\(/g, 'Math.exp(')
+            .replace(/\^/g, '**')
+            .replace(/sqrt\(/g, 'Math.sqrt(')
+            .replace(/ln\(/g, 'Math.log(')
+            .replace(/log\(/g, 'Math.log10(')
+            .replace(/sin\(/g, 'Math.sin(')
+            .replace(/cos\(/g, 'Math.cos(')
+            .replace(/tan\(/g, 'Math.tan(')
+            .replace(/fact\(([^)]+)\)/g, 'factorial($1)')
+            .replace(/([0-9]+)!/g, 'factorial($1)');
+
+        let result = eval(cleaned);
+        if (typeof result === 'number' && !Number.isFinite(result)) throw new Error('Math error');
+        result = Math.round(result * 100000000) / 100000000;
+
+        sciLastAnswer = String(result);
+        saveToHistory(expression, result);
+        sciDisplay = String(result);
+        updateSciDisplay();
+        showSciStatus('Result saved');
+    } catch (e) {
+        sciDisplay = 'Error';
+        updateSciDisplay();
     }
 }
 
@@ -183,25 +248,35 @@ function sciClearDisplay() {
 }
 
 function sciDeleteLast() {
-    if (sciDisplay !== '') {
-        sciDisplay = sciDisplay.slice(0, -1) || '0';
-        updateSciDisplay();
+    if (sciDisplay.length > 1) {
+        sciDisplay = sciDisplay.slice(0, -1);
+    } else {
+        sciDisplay = '0';
     }
+    updateSciDisplay();
 }
 
 function updateSciDisplay() {
-    sciDisplayEl.value = sciCalculation + sciDisplay;
+    sciDisplayEl.value = sciDisplay;
+}
+
+function showSciStatus(message) {
+    const status = document.createElement('div');
+    status.className = 'status-toast';
+    status.textContent = message;
+    document.body.appendChild(status);
+    setTimeout(() => status.remove(), 1800);
 }
 
 function factorial(n) {
-    if (n < 0) return NaN;
-    if (n === 0 || n === 1) return 1;
+    n = Number(n);
+    if (!Number.isInteger(n) || n < 0) return NaN;
     let result = 1;
     for (let i = 2; i <= n; i++) result *= i;
     return result;
 }
 
-// ============= HISTORY =============
+//   HISTORY  
 function saveToHistory(expression, result) {
     history.unshift({ expression, result, date: new Date().toLocaleString() });
     if (history.length > 50) history.pop();
@@ -264,35 +339,57 @@ function switchModeManually(mode) {
     if (btn) btn.click();
 }
 
-// ============= MATH QUIZ =============
+//   MATH QUIZ  
 function generateQuizQuestions() {
-    quizQuestions = [
-        { question: '7 + 5 = ?', answer: 12 },
-        { question: '15 - 8 = ?', answer: 7 },
-        { question: '6 × 4 = ?', answer: 24 },
-        { question: '20 ÷ 5 = ?', answer: 4 },
-        { question: '9 × 9 = ?', answer: 81 },
-        { question: '100 - 33 = ?', answer: 67 },
-        { question: '12 + 8 + 5 = ?', answer: 25 },
-        { question: '50 ÷ 2 = ?', answer: 25 },
-        { question: '7 × 8 = ?', answer: 56 },
-        { question: '144 ÷ 12 = ?', answer: 12 }
-    ];
-    quizQuestions = quizQuestions.sort(() => Math.random() - 0.5);
+    const operations = ['+', '-', '×', '÷'];
+    const questions = [];
+    const totalQuestions = 10;
+
+    for (let i = 0; i < totalQuestions; i++) {
+        const op = operations[Math.floor(Math.random() * operations.length)];
+        let a = Math.floor(Math.random() * 12) + 1;
+        let b = Math.floor(Math.random() * 12) + 1;
+        let question = '';
+        let answer = 0;
+
+        if (op === '+') {
+            answer = a + b;
+            question = `${a} + ${b} = ?`;
+        } else if (op === '-') {
+            if (a < b) [a, b] = [b, a];
+            answer = a - b;
+            question = `${a} - ${b} = ?`;
+        } else if (op === '×') {
+            answer = a * b;
+            question = `${a} × ${b} = ?`;
+        } else {
+            answer = a;
+            const product = a * b;
+            question = `${product} ÷ ${b} = ?`;
+        }
+
+        questions.push({ question, answer });
+    }
+
+    quizQuestions = questions.sort(() => Math.random() - 0.5);
 }
 
 function loadQuizQuestion() {
     const feedbackEl = document.getElementById('feedback');
-    feedbackEl.innerHTML = '';
+    const progressFill = document.getElementById('quiz-progress-fill');
+    feedbackEl.textContent = '';
     feedbackEl.classList.remove('correct', 'incorrect');
-    
+    document.getElementById('quiz-submit').disabled = false;
+    document.getElementById('quiz-next').disabled = true;
+    document.getElementById('answer-input').disabled = false;
+
     if (quizIndex < quizQuestions.length) {
         const question = quizQuestions[quizIndex];
         document.getElementById('question-text').textContent = question.question;
         document.getElementById('answer-input').value = '';
         document.getElementById('answer-input').focus();
-        
         document.getElementById('quiz-count').textContent = quizIndex + 1;
+        progressFill.style.width = `${(quizIndex / quizQuestions.length) * 100}%`;
     } else {
         completeQuiz();
     }
@@ -300,16 +397,20 @@ function loadQuizQuestion() {
 
 function submitAnswer() {
     const input = document.getElementById('answer-input');
-    const answer = parseInt(input.value);
+    const answerText = input.value.trim();
+    const answer = Number(answerText);
     const feedback = document.getElementById('feedback');
     const question = quizQuestions[quizIndex];
-    
-    if (isNaN(answer)) {
-        feedback.textContent = 'Please enter a valid number';
+
+    feedback.textContent = '';
+    feedback.classList.remove('correct', 'incorrect');
+
+    if (answerText === '' || Number.isNaN(answer)) {
+        feedback.textContent = 'Please enter a valid number.';
         feedback.classList.add('incorrect');
         return;
     }
-    
+
     if (answer === question.answer) {
         quizScore++;
         feedback.textContent = '✓ Correct!';
@@ -319,43 +420,57 @@ function submitAnswer() {
         feedback.textContent = `✗ Incorrect! The answer is ${question.answer}`;
         feedback.classList.add('incorrect');
     }
-    
+
+    quizAnswered = true;
+    document.getElementById('quiz-submit').disabled = true;
+    document.getElementById('quiz-next').disabled = false;
+    input.disabled = true;
+}
+
+function nextQuizQuestion() {
+    if (!quizAnswered) return;
+    quizAnswered = false;
     quizIndex++;
-    setTimeout(() => {
+    if (quizIndex < quizQuestions.length) {
         loadQuizQuestion();
-    }, 1500);
+    } else {
+        completeQuiz();
+    }
 }
 
 function completeQuiz() {
     const percentage = (quizScore / quizQuestions.length) * 100;
-    
+    const messageElement = document.querySelector('.quiz-message');
+
     document.getElementById('quiz-content').style.display = 'none';
     document.getElementById('quiz-complete').style.display = 'block';
     document.getElementById('final-score').textContent = quizScore;
     
     let message = '';
-    if (percentage === 100) message = '🏆 Perfect Score!';
-    else if (percentage >= 80) message = '⭐ Great Job!';
-    else if (percentage >= 60) message = '👍 Good Effort!';
-    else message = '📚 Keep Practicing!';
-    
-    document.querySelector('.final-score').innerHTML = `${message}<br>Your Score: <strong>${quizScore}/10</strong>`;
+    if (percentage === 100) message = '🏆 Perfect Score! You’re a mental math master.';
+    else if (percentage >= 80) message = '⭐ Great Job! Keep sharpening your skills.';
+    else if (percentage >= 60) message = '👍 Good Effort! Practice makes perfect.';
+    else message = '📚 Keep Practicing! Try again to improve your score.';
+
+    messageElement.textContent = message;
 }
 
 function restartQuiz() {
     quizIndex = 0;
     quizScore = 0;
+    quizAnswered = false;
     generateQuizQuestions();
     
     document.getElementById('quiz-content').style.display = 'block';
     document.getElementById('quiz-complete').style.display = 'none';
     document.getElementById('quiz-score').textContent = '0';
     document.getElementById('quiz-count').textContent = '1';
+    document.getElementById('quiz-next').disabled = true;
     
     loadQuizQuestion();
 }
 
-// ============= UTILITIES =============
+//   UTILITIES  
 function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;

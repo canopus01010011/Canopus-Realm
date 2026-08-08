@@ -1,268 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Geography Quiz - CanQuiz</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(to right, #2b5876, #4e4376);
-            color: #fff;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        h1 {
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 3em;
-            color: #ffe082;
-        }
-
-        .question {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            transition: transform 0.2s ease;
-        }
-
-        .question:hover {
-            transform: scale(1.01);
-            background-color: rgba(255, 255, 255, 0.15);
-        }
-
-        .question p {
-            font-weight: bold;
-            font-size: 1.1em;
-        }
-
-        label {
-            display: block;
-            margin: 8px 0;
-            cursor: pointer;
-        }
-
-        button {
-            display: block;
-            margin: 30px auto;
-            padding: 15px 30px;
-            font-size: 1.2em;
-            border: none;
-            border-radius: 8px;
-            background: #ffc107;
-            color: #333;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        button:hover {
-            background: #ffb300;
-        }
-
-        #result {
-            text-align: center;
-            font-size: 1.5em;
-            margin-top: 20px;
-            font-weight: bold;
-            color: #a5ff90;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-    <div class="container">
-        <h1>🌍 Geography Quiz</h1>
-        <form id="quizForm">
-
-            <div class="question">
-                <p>1. What is the capital of Canada?</p>
-                <label><input type="radio" name="q1" value="false"> Toronto</label>
-                <label><input type="radio" name="q1" value="true"> Ottawa</label>
-                <label><input type="radio" name="q1" value="false"> Vancouver</label>
-                <label><input type="radio" name="q1" value="false"> Montreal</label>
+    <div class="container page-sheet">
+        <div class="quiz-wrapper">
+            <div class="quiz-title">
+                <h1>🌍 Geography Quiz</h1>
+                <p class="quiz-description">Explore world geography with quick multiple choice questions.</p>
             </div>
+            <form id="quizForm">
+                <div class="question">
+                    <h3>1. What is the capital of Canada?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q1" value="false"> Toronto</label>
+                        <label><input type="radio" name="q1" value="true"> Ottawa</label>
+                        <label><input type="radio" name="q1" value="false"> Vancouver</label>
+                        <label><input type="radio" name="q1" value="false"> Montreal</label>
+                    </div>
+                </div>
 
-            <div class="question">
-                <p>2. Which country has the most islands?</p>
-                <label><input type="radio" name="q2" value="true"> Sweden</label>
-                <label><input type="radio" name="q2" value="false"> Indonesia</label>
-                <label><input type="radio" name="q2" value="false"> Philippines</label>
-                <label><input type="radio" name="q2" value="false"> Canada</label>
-            </div>
+                <div class="question">
+                    <h3>2. Which country has the most islands?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q2" value="true"> Sweden</label>
+                        <label><input type="radio" name="q2" value="false"> Indonesia</label>
+                        <label><input type="radio" name="q2" value="false"> Philippines</label>
+                        <label><input type="radio" name="q2" value="false"> Canada</label>
+                    </div>
+                </div>
 
-            <div class="question">
-                <p>3. What is the longest river in the world?</p>
-                <label><input type="radio" name="q3" value="false"> Amazon</label>
-                <label><input type="radio" name="q3" value="true"> Nile</label>
-                <label><input type="radio" name="q3" value="false"> Yangtze</label>
-                <label><input type="radio" name="q3" value="false"> Mississippi</label>
-            </div>
+                <div class="question">
+                    <h3>3. What is the longest river in the world?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q3" value="false"> Amazon</label>
+                        <label><input type="radio" name="q3" value="true"> Nile</label>
+                        <label><input type="radio" name="q3" value="false"> Yangtze</label>
+                        <label><input type="radio" name="q3" value="false"> Mississippi</label>
+                    </div>
+                </div>
 
-            <div class="question">
-                <p>4. Which desert is the largest in the world?</p>
-                <label><input type="radio" name="q4" value="true"> Antarctic Desert</label>
-                <label><input type="radio" name="q4" value="false"> Sahara</label>
-                <label><input type="radio" name="q4" value="false"> Arabian</label>
-                <label><input type="radio" name="q4" value="false"> Gobi</label>
-            </div>
+                <div class="question">
+                    <h3>4. Which desert is the largest in the world?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q4" value="true"> Antarctic Desert</label>
+                        <label><input type="radio" name="q4" value="false"> Sahara</label>
+                        <label><input type="radio" name="q4" value="false"> Arabian</label>
+                        <label><input type="radio" name="q4" value="false"> Gobi</label>
+                    </div>
+                </div>
 
-            <div class="question">
-                <p>5. What is the smallest country in the world?</p>
-                <label><input type="radio" name="q5" value="true"> Vatican City</label>
-                <label><input type="radio" name="q5" value="false"> Monaco</label>
-                <label><input type="radio" name="q5" value="false"> San Marino</label>
-                <label><input type="radio" name="q5" value="false"> Liechtenstein</label>
-            </div>
+                <div class="question">
+                    <h3>5. What is the smallest country in the world?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q5" value="true"> Vatican City</label>
+                        <label><input type="radio" name="q5" value="false"> Monaco</label>
+                        <label><input type="radio" name="q5" value="false"> San Marino</label>
+                        <label><input type="radio" name="q5" value="false"> Liechtenstein</label>
+                    </div>
+                </div>
 
-            <div class="question">
-                <p>6. Which continent has the most countries?</p>
-                <label><input type="radio" name="q6" value="true"> Africa</label>
-                <label><input type="radio" name="q6" value="false"> Europe</label>
-                <label><input type="radio" name="q6" value="false"> Asia</label>
-                <label><input type="radio" name="q6" value="false"> South America</label>
-            </div>
+                <div class="question">
+                    <h3>6. Which continent has the most countries?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q6" value="true"> Africa</label>
+                        <label><input type="radio" name="q6" value="false"> Europe</label>
+                        <label><input type="radio" name="q6" value="false"> Asia</label>
+                        <label><input type="radio" name="q6" value="false"> South America</label>
+                    </div>
+                </div>
 
-            <div class="question">
-                <p>7. What is the largest ocean?</p>
-                <label><input type="radio" name="q7" value="true"> Pacific Ocean</label>
-                <label><input type="radio" name="q7" value="false"> Atlantic Ocean</label>
-                <label><input type="radio" name="q7" value="false"> Indian Ocean</label>
-                <label><input type="radio" name="q7" value="false"> Arctic Ocean</label>
-            </div>
+                <div class="question">
+                    <h3>7. What is the largest ocean?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q7" value="true"> Pacific Ocean</label>
+                        <label><input type="radio" name="q7" value="false"> Atlantic Ocean</label>
+                        <label><input type="radio" name="q7" value="false"> Indian Ocean</label>
+                        <label><input type="radio" name="q7" value="false"> Arctic Ocean</label>
+                    </div>
+                </div>
 
-            <div class="question">
-                <p>8. Which country is shaped like a boot?</p>
-                <label><input type="radio" name="q8" value="true"> Italy</label>
-                <label><input type="radio" name="q8" value="false"> Greece</label>
-                <label><input type="radio" name="q8" value="false"> Spain</label>
-                <label><input type="radio" name="q8" value="false"> Portugal</label>
-            </div>
+                <div class="question">
+                    <h3>8. Which country is shaped like a boot?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q8" value="true"> Italy</label>
+                        <label><input type="radio" name="q8" value="false"> Greece</label>
+                        <label><input type="radio" name="q8" value="false"> Spain</label>
+                        <label><input type="radio" name="q8" value="false"> Portugal</label>
+                    </div>
+                </div>
 
-            <div class="question">
-                <p>9. Where is Mount Everest located?</p>
-                <label><input type="radio" name="q9" value="true"> Nepal</label>
-                <label><input type="radio" name="q9" value="false"> India</label>
-                <label><input type="radio" name="q9" value="false"> China</label>
-                <label><input type="radio" name="q9" value="false"> Pakistan</label>
-            </div>
+                <div class="question">
+                    <h3>9. Where is Mount Everest located?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q9" value="true"> Nepal</label>
+                        <label><input type="radio" name="q9" value="false"> India</label>
+                        <label><input type="radio" name="q9" value="false"> China</label>
+                        <label><input type="radio" name="q9" value="false"> Pakistan</label>
+                    </div>
+                </div>
 
-            <div class="question">
-                <p>10. What is the capital of Australia?</p>
-                <label><input type="radio" name="q10" value="true"> Canberra</label>
-                <label><input type="radio" name="q10" value="false"> Sydney</label>
-                <label><input type="radio" name="q10" value="false"> Melbourne</label>
-                <label><input type="radio" name="q10" value="false"> Brisbane</label>
-            </div>
+                <div class="question">
+                    <h3>10. What is the capital of Australia?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q10" value="true"> Canberra</label>
+                        <label><input type="radio" name="q10" value="false"> Sydney</label>
+                        <label><input type="radio" name="q10" value="false"> Melbourne</label>
+                        <label><input type="radio" name="q10" value="false"> Brisbane</label>
+                    </div>
+                </div>
 
-            <!-- Questions 11 to 20 -->
-            <div class="question">
-                <p>11. Which U.S. state has the most volcanoes?</p>
-                <label><input type="radio" name="q11" value="true"> Alaska</label>
-                <label><input type="radio" name="q11" value="false"> Hawaii</label>
-                <label><input type="radio" name="q11" value="false"> California</label>
-                <label><input type="radio" name="q11" value="false"> Washington</label>
-            </div>
+                <div class="question">
+                    <h3>11. Which U.S. state has the most volcanoes?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q11" value="true"> Alaska</label>
+                        <label><input type="radio" name="q11" value="false"> Hawaii</label>
+                        <label><input type="radio" name="q11" value="false"> California</label>
+                        <label><input type="radio" name="q11" value="false"> Washington</label>
+                    </div>
+                </div>
 
-            <div class="question">
-                <p>12. Which river runs through Paris?</p>
-                <label><input type="radio" name="q12" value="true"> Seine</label>
-                <label><input type="radio" name="q12" value="false"> Thames</label>
-                <label><input type="radio" name="q12" value="false"> Danube</label>
-                <label><input type="radio" name="q12" value="false"> Rhine</label>
-            </div>
+                <div class="question">
+                    <h3>12. Which river runs through Paris?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q12" value="true"> Seine</label>
+                        <label><input type="radio" name="q12" value="false"> Thames</label>
+                        <label><input type="radio" name="q12" value="false"> Danube</label>
+                        <label><input type="radio" name="q12" value="false"> Rhine</label>
+                    </div>
+                </div>
 
-            <div class="question">
-                <p>13. Which city is known as the "City of Canals"?</p>
-                <label><input type="radio" name="q13" value="true"> Venice</label>
-                <label><input type="radio" name="q13" value="false"> Amsterdam</label>
-                <label><input type="radio" name="q13" value="false"> Bangkok</label>
-                <label><input type="radio" name="q13" value="false"> Bruges</label>
-            </div>
+                <div class="question">
+                    <h3>13. Which city is known as the "City of Canals"?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q13" value="true"> Venice</label>
+                        <label><input type="radio" name="q13" value="false"> Amsterdam</label>
+                        <label><input type="radio" name="q13" value="false"> Bangkok</label>
+                        <label><input type="radio" name="q13" value="false"> Bruges</label>
+                    </div>
+                </div>
 
-            <div class="question">
-                <p>14. Which mountain range separates Europe and Asia?</p>
-                <label><input type="radio" name="q14" value="true"> Ural Mountains</label>
-                <label><input type="radio" name="q14" value="false"> Alps</label>
-                <label><input type="radio" name="q14" value="false"> Himalayas</label>
-                <label><input type="radio" name="q14" value="false"> Andes</label>
-            </div>
+                <div class="question">
+                    <h3>14. Which mountain range separates Europe and Asia?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q14" value="true"> Ural Mountains</label>
+                        <label><input type="radio" name="q14" value="false"> Alps</label>
+                        <label><input type="radio" name="q14" value="false"> Himalayas</label>
+                        <label><input type="radio" name="q14" value="false"> Andes</label>
+                    </div>
+                </div>
 
-            <div class="question">
-                <p>15. What is the flattest continent?</p>
-                <label><input type="radio" name="q15" value="true"> Australia</label>
-                <label><input type="radio" name="q15" value="false"> Africa</label>
-                <label><input type="radio" name="q15" value="false"> Europe</label>
-                <label><input type="radio" name="q15" value="false"> Antarctica</label>
-            </div>
+                <div class="question">
+                    <h3>15. What is the flattest continent?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q15" value="true"> Australia</label>
+                        <label><input type="radio" name="q15" value="false"> Africa</label>
+                        <label><input type="radio" name="q15" value="false"> Europe</label>
+                        <label><input type="radio" name="q15" value="false"> Antarctica</label>
+                    </div>
+                </div>
 
-            <div class="question">
-                <p>16. What is the capital of Brazil?</p>
-                <label><input type="radio" name="q16" value="true"> Brasília</label>
-                <label><input type="radio" name="q16" value="false"> Rio de Janeiro</label>
-                <label><input type="radio" name="q16" value="false"> São Paulo</label>
-                <label><input type="radio" name="q16" value="false"> Salvador</label>
-            </div>
+                <div class="question">
+                    <h3>16. What is the capital of Brazil?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q16" value="true"> Brasília</label>
+                        <label><input type="radio" name="q16" value="false"> Rio de Janeiro</label>
+                        <label><input type="radio" name="q16" value="false"> São Paulo</label>
+                        <label><input type="radio" name="q16" value="false"> Salvador</label>
+                    </div>
+                </div>
 
-            <div class="question">
-                <p>17. What is the currency of Japan?</p>
-                <label><input type="radio" name="q17" value="true"> Yen</label>
-                <label><input type="radio" name="q17" value="false"> Won</label>
-                <label><input type="radio" name="q17" value="false"> Yuan</label>
-                <label><input type="radio" name="q17" value="false"> Dollar</label>
-            </div>
+                <div class="question">
+                    <h3>17. What is the currency of Japan?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q17" value="true"> Yen</label>
+                        <label><input type="radio" name="q17" value="false"> Won</label>
+                        <label><input type="radio" name="q17" value="false"> Yuan</label>
+                        <label><input type="radio" name="q17" value="false"> Dollar</label>
+                    </div>
+                </div>
 
-            <div class="question">
-                <p>18. What country is both in Europe and Asia?</p>
-                <label><input type="radio" name="q18" value="true"> Turkey</label>
-                <label><input type="radio" name="q18" value="false"> Russia</label>
-                <label><input type="radio" name="q18" value="false"> Georgia</label>
-                <label><input type="radio" name="q18" value="false"> Azerbaijan</label>
-            </div>
+                <div class="question">
+                    <h3>18. What country is both in Europe and Asia?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q18" value="true"> Turkey</label>
+                        <label><input type="radio" name="q18" value="false"> Russia</label>
+                        <label><input type="radio" name="q18" value="false"> Georgia</label>
+                        <label><input type="radio" name="q18" value="false"> Azerbaijan</label>
+                    </div>
+                </div>
 
-            <div class="question">
-                <p>19. Which ocean lies on the east coast of the United States?</p>
-                <label><input type="radio" name="q19" value="true"> Atlantic</label>
-                <label><input type="radio" name="q19" value="false"> Pacific</label>
-                <label><input type="radio" name="q19" value="false"> Arctic</label>
-                <label><input type="radio" name="q19" value="false"> Indian</label>
-            </div>
+                <div class="question">
+                    <h3>19. Which ocean lies on the east coast of the United States?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q19" value="true"> Atlantic</label>
+                        <label><input type="radio" name="q19" value="false"> Pacific</label>
+                        <label><input type="radio" name="q19" value="false"> Arctic</label>
+                        <label><input type="radio" name="q19" value="false"> Indian</label>
+                    </div>
+                </div>
 
-            <div class="question">
-                <p>20. What is the largest lake in the world?</p>
-                <label><input type="radio" name="q20" value="true"> Caspian Sea</label>
-                <label><input type="radio" name="q20" value="false"> Lake Superior</label>
-                <label><input type="radio" name="q20" value="false"> Lake Victoria</label>
-                <label><input type="radio" name="q20" value="false"> Lake Baikal</label>
-            </div>
+                <div class="question">
+                    <h3>20. What is the largest lake in the world?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q20" value="true"> Caspian Sea</label>
+                        <label><input type="radio" name="q20" value="false"> Lake Superior</label>
+                        <label><input type="radio" name="q20" value="false"> Lake Victoria</label>
+                        <label><input type="radio" name="q20" value="false"> Lake Baikal</label>
+                    </div>
+                </div>
 
-            <button type="button" onclick="calculateScore()">Submit</button>
-        </form>
-
-        <div id="result"></div>
+                <button type="submit">Submit</button>
+            </form>
+            <div id="result"></div>
+        </div>
     </div>
-
+    <script src="quiz.js"></script>
     <script>
-        function calculateScore() {
-            const form = document.getElementById("quizForm");
-            const answers = form.querySelectorAll("input[type='radio']:checked");
-            let score = 0;
+        window.__correctAnswers = {
+            q1: "true",
+            q2: "true",
+            q3: "true",
+            q4: "true",
+            q5: "true",
+            q6: "true",
+            q7: "true",
+            q8: "true",
+            q9: "true",
+            q10: "true",
+            q11: "true",
+            q12: "true",
+            q13: "true",
+            q14: "true",
+            q15: "true",
+            q16: "true",
+            q17: "true",
+            q18: "true",
+            q19: "true",
+            q20: "true"
+        };
 
-            answers.forEach(answer => {
-                if (answer.value === "true") score++;
-            });
-
-            document.getElementById("result").innerText = `🎉 You scored ${score}/20!`;
-        }
+        document.getElementById("quizForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+            checkAnswers();
+        });
     </script>
 </body>
-
 </html>

@@ -3,163 +3,46 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Math Quiz - CanQuiz</title>
-    <style>
-   /* Global settings */
-* {
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
-    color: #ffffff;
-    padding: 60px 20px;
-}
-
-/* Title styling */
-h1 {
-    text-align: center;
-    margin-bottom: 50px;
-    font-size: 3rem;
-    color: #00e5ff;
-    text-shadow: 0 0 10px #00e5ff88;
-}
-
-/* Form wrapper */
-.quiz-container {
-    max-width: 1100px;
-    margin: auto;
-}
-
-/* Ordered list reset */
-form ol {
-    list-style: none;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-    gap: 35px;
-}
-
-/* Individual question */
-form li {
-    background: rgba(255, 255, 255, 0.05);
-    padding: 25px;
-    border-radius: 16px;
-    box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
-    transition: 0.3s ease;
-    backdrop-filter: blur(6px);
-}
-
-form li:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 0 25px rgba(0, 229, 255, 0.3);
-}
-
-/* Question text */
-form li::before {
-    content: counter(item) ". ";
-    counter-increment: item;
-    font-weight: bold;
-    color: #00e5ff;
-    margin-right: 5px;
-}
-
-form li p,
-form li {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 15px;
-}
-
-/* Options */
-.options label {
-    display: block;
-    padding: 10px 15px;
-    border-radius: 10px;
-    margin: 10px 0;
-    background-color: rgba(255, 255, 255, 0.03);
-    cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease;
-}
-
-.options input[type="radio"] {
-    margin-right: 12px;
-    transform: scale(1.2);
-    accent-color: #00e5ff;
-}
-
-.options label:hover {
-    background-color: rgba(0, 229, 255, 0.1);
-    color: #00e5ff;
-}
-
-/* Submit button */
-button[type="submit"] {
-    display: block;
-    margin: 60px auto 0;
-    padding: 14px 36px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #000;
-    background-color: #00e5ff;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-button[type="submit"]:hover {
-    background-color: #00c2d6;
-    transform: scale(1.05);
-}
-
-/* Result display */
-#result {
-    margin-top: 30px;
-    text-align: center;
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: #00ffae;
-    padding: 20px;
-}
-
-</style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <div class="quiz-container">
-        <h1>🧮 Math Quiz</h1>
-        <form id="quiz-form">
-            <ol>
-                <li>
-                    What is 5 + 7?
-                    <div class="options">
-                        <label><input type="radio" name="q1" value="a"> 10</label>
-                        <label><input type="radio" name="q1" value="b"> 12</label>
-                        <label><input type="radio" name="q1" value="c"> 13</label>
-                    </div>
-                </li>
-                <li>
-                    What is 9 × 3?
-                    <div class="options">
-                        <label><input type="radio" name="q2" value="a"> 27</label>
-                        <label><input type="radio" name="q2" value="b"> 18</label>
-                        <label><input type="radio" name="q2" value="c"> 21</label>
-                    </div>
-                </li>
-                <li>
-                    What is the square root of 49?
-                    <div class="options">
-                        <label><input type="radio" name="q3" value="a"> 7</label>
-                        <label><input type="radio" name="q3" value="b"> 6</label>
-                        <label><input type="radio" name="q3" value="c"> 8</label>
-                    </div>
-                </li>
-                <li>
-                    15 divided by 3 is?
+    <div class="container page-sheet">
+        <div class="quiz-wrapper">
+            <div class="quiz-title">
+                <h1>🧮 Math Quiz</h1>
+                <p class="quiz-description">Test your math skills — multiple choice, instant results.</p>
+            </div>
+            <form id="quiz-form">
+                <ol>
+                    <li>
+                        What is 2 + 2?
+                        <div class="options">
+                            <label><input type="radio" name="q1" value="a"> 3</label>
+                            <label><input type="radio" name="q1" value="b"> 4</label>
+                            <label><input type="radio" name="q1" value="c"> 5</label>
+                        </div>
+                    </li>
+                    <li>
+                        What is 7 × 3?
+                        <div class="options">
+                            <label><input type="radio" name="q2" value="a"> 21</label>
+                            <label><input type="radio" name="q2" value="b"> 20</label>
+                            <label><input type="radio" name="q2" value="c"> 22</label>
+                        </div>
+                    </li>
+                    <li>
+                        What is 21 ÷ 3?
+                        <div class="options">
+                            <label><input type="radio" name="q3" value="a"> 7</label>
+                            <label><input type="radio" name="q3" value="b"> 6</label>
+                            <label><input type="radio" name="q3" value="c"> 8</label>
+                        </div>
+                    </li>
+                    <li>
+                        15 divided by 3 is?
                     <div class="options">
                         <label><input type="radio" name="q4" value="a"> 5</label>
                         <label><input type="radio" name="q4" value="b"> 3</label>

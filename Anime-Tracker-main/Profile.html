@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Profile — Canopus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="navbar-container">
+            <a class="logo" href="index.html">
+                <span class="logo-mark"></span>
+                <span>Canopus</span>
+            </a>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html#trending-section" class="nav-link">Trending</a></li>
+                <li><a href="index.html#top-rated-section" class="nav-link">Top Rated</a></li>
+                <li><a href="index.html#search-section" class="nav-link">Search</a></li>
+                <li><a href="index.html#my-list-section" class="nav-link">My List</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle-btn" id="theme-toggle-btn" aria-label="Toggle theme" type="button">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <span id="user-menu-placeholder"></span>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="signed-out-view" style="display:none;">
+        <div class="page-wrap">
+            <div class="logged-out-notice">
+                <i class="fas fa-user-lock"></i>
+                <h2>You're not logged in</h2>
+                <p class="muted-text">Log in to see your watch stats and profile.</p>
+                <br>
+                <button class="cta-btn" id="signed-out-login-btn">Log in / Sign up</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="signed-in-view" style="display:none;">
+        <div class="page-hero">
+            <h1>Your Profile</h1>
+            <p>Everything you've watched, rated and queued up — in one place.</p>
+        </div>
+
+        <div class="page-wrap">
+            <div class="profile-card">
+                <div class="avatar-circle" id="avatar-initial">?</div>
+                <div class="profile-meta">
+                    <h2 id="profile-name">—</h2>
+                    <p id="profile-email">—</p>
+                    <p id="profile-verified" class="muted-text"></p>
+                </div>
+            </div>
+
+            <div class="profile-stats-grid">
+                <div class="stat-block"><span class="stat-block-num" id="stat-total">0</span><span
+                        class="stat-block-label">Total titles</span></div>
+                <div class="stat-block"><span class="stat-block-num" id="stat-watching">0</span><span
+                        class="stat-block-label">Watching</span></div>
+                <div class="stat-block"><span class="stat-block-num" id="stat-completed">0</span><span
+                        class="stat-block-label">Completed</span></div>
+                <div class="stat-block"><span class="stat-block-num" id="stat-plan">0</span><span
+                        class="stat-block-label">Plan to watch</span></div>
+                <div class="stat-block"><span class="stat-block-num" id="stat-avg-rating">—</span><span
+                        class="stat-block-label">Your avg. rating</span></div>
+            </div>
+
+            <div class="settings-section">
+                <h2>Recently added</h2>
+                <div id="recent-list" class="projects-grid anime-grid"></div>
+            </div>
+
+            <div class="form-actions">
+                <a href="settings.html" class="btn btn-secondary"><i class="fas fa-cog"></i> Edit profile & settings</a>
+                <a href="index.html#my-list-section" class="btn btn-secondary"><i class="fas fa-list"></i> View full
+                    list</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="user-dropdown" class="user-dropdown">
+        <div class="user-info">
+            <div class="user-avatar"><i class="fas fa-user-circle"></i></div>
+            <div>
+                <p id="username-display">User</p>
+                <p id="useremail-display" class="small-text">email@example.com</p>
+            </div>
+        </div>
+        <hr>
+        <a href="profile.html" id="profile-link"><i class="fas fa-user"></i> Profile</a>
+        <a href="settings.html" id="settings-link"><i class="fas fa-cog"></i> Settings</a>
+        <hr>
+        <a href="#" id="logout-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </div>
+
+    <div id="auth-modal" class="modal">
+        <div class="modal-content">
+            <button type="button" class="close-modal" aria-label="Close">&times;</button>
+            <ul class="auth-tabs">
+                <li><button class="auth-tab-btn active" data-tab="login" type="button">Login</button></li>
+                <li><button class="auth-tab-btn" data-tab="signup" type="button">Sign Up</button></li>
+            </ul>
+            <div id="login-tab" class="auth-tab-content active">
+                <form id="login-form" novalidate>
+                    <h2>Welcome back</h2>
+                    <div class="field-wrap"><input type="email" placeholder="Email" required autocomplete="email"></div>
+                    <div class="field-wrap">
+                        <input type="password" placeholder="Password" required autocomplete="current-password">
+                        <button type="button" class="pw-toggle" aria-label="Show password"><i
+                                class="fas fa-eye"></i></button>
+                    </div>
+                    <button type="submit" class="auth-btn"><span class="btn-label">Log in</span><span
+                            class="btn-spinner"></span></button>
+                </form>
+            </div>
+            <div id="signup-tab" class="auth-tab-content">
+                <form id="signup-form" novalidate>
+                    <h2>Create your account</h2>
+                    <div class="field-wrap"><input type="text" placeholder="Display name" required autocomplete="name">
+                    </div>
+                    <div class="field-wrap"><input type="email" placeholder="Email" required autocomplete="email"></div>
+                    <div class="field-wrap">
+                        <input type="password" placeholder="Password (8+ characters)" required
+                            autocomplete="new-password" minlength="8">
+                        <button type="button" class="pw-toggle" aria-label="Show password"><i
+                                class="fas fa-eye"></i></button>
+                    </div>
+                    <div class="field-wrap"><input type="password" placeholder="Confirm password" required
+                            autocomplete="new-password" minlength="8"></div>
+                    <button type="submit" class="auth-btn"><span class="btn-label">Sign up</span><span
+                            class="btn-spinner"></span></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-logo">Canopus</div>
+        <p class="footer-credit">Anime discovery, ratings and reviews — data via the Jikan (MyAnimeList) API.</p>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="account.js"></script>
+    <script src="profile.js"></script>
+</body>
+
+</html>

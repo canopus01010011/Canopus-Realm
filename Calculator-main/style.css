@@ -1,16 +1,6 @@
-/*====================================================
-        CANOPUS CALCULATOR
-        Part 1 - Foundation
-====================================================*/
 
-/*=========================
-    GOOGLE FONTS
-==========================*/
 @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
 
-/*=========================
-    VARIABLES
-==========================*/
 :root{
 
     --void:#05070d;
@@ -42,9 +32,9 @@
     --speed:.35s;
 }
 
-/*=========================
+/*  =
     RESET
-==========================*/
+  */
 
 *{
     margin:0;
@@ -80,9 +70,9 @@ body{
     position:relative;
 }
 
-/*=========================
+/*  =
     STARS
-==========================*/
+  */
 
 body::before{
 
@@ -126,9 +116,9 @@ body::before{
 
 }
 
-/*=========================
+/*  =
     GLOW
-==========================*/
+  */
 
 body::after{
 
@@ -166,9 +156,9 @@ body::after{
 
 }
 
-/*=========================
+/*  =
     CONTAINER
-==========================*/
+  */
 
 .container{
 
@@ -216,9 +206,9 @@ body::after{
 
 }
 
-/*=========================
+/*  =
     MODE SELECTOR
-==========================*/
+  */
 
 .mode-selector{
 
@@ -307,9 +297,9 @@ body::after{
 
 }
 
-/*=========================
+/*  =
     MODES
-==========================*/
+  */
 
 .mode-content{
 
@@ -345,9 +335,9 @@ body::after{
 
 }
 
-/*=========================
+/*  =
     CALCULATOR CARD
-==========================*/
+  */
 
 .calculator{
 
@@ -374,9 +364,9 @@ body::after{
 
 }
 
-/*=========================
+/*  =
     DISPLAY
-==========================*/
+  */
 
 .display{
 
@@ -432,9 +422,9 @@ body::after{
 
 }
 
-/*=========================
+/*  =
     GRID
-==========================*/
+  */
 
 .buttons-grid{
 
@@ -446,9 +436,9 @@ body::after{
 
 }
 
-/*=========================
+/*  =
     RESPONSIVE
-==========================*/
+  */
 
 @media(max-width:768px){
 
@@ -481,14 +471,11 @@ justify-content:center;
 }
 
 }
-/*====================================================
-        CANOPUS CALCULATOR
-        PART 2 - BUTTONS & SCIENTIFIC MODE
-====================================================*/
 
-/*=========================
+
+/*  =
     BUTTONS
-==========================*/
+  */
 
 .btn{
 
@@ -593,9 +580,9 @@ justify-content:center;
 
 }
 
-/*=========================
+/*  =
     NUMBER BUTTONS
-==========================*/
+  */
 
 .btn:not(.btn-function):not(.btn-operator):not(.btn-equals){
 
@@ -608,9 +595,9 @@ justify-content:center;
 
 }
 
-/*=========================
+/*  =
     FUNCTION BUTTONS
-==========================*/
+  */
 
 .btn-function{
 
@@ -637,9 +624,9 @@ justify-content:center;
 
 }
 
-/*=========================
+/*  =
     OPERATOR BUTTONS
-==========================*/
+  */
 
 .btn-operator{
 
@@ -664,9 +651,9 @@ justify-content:center;
 
 }
 
-/*=========================
+/*  =
     EQUAL BUTTON
-==========================*/
+  */
 
 .btn-equals{
 
@@ -700,19 +687,18 @@ justify-content:center;
 
 }
 
-/*=========================
+/*  =
     ZERO BUTTON
-==========================*/
-
-.btn-zero{
-
-    grid-column:span 2;
-
+  */
+#basic-mode .btn-zero {
+    grid-column: span 2;
 }
 
-/*=========================
-    ICON BUTTONS
-==========================*/
+#scientific-mode .btn-zero {
+    grid-column: span 1;
+}
+
+
 
 .btn i{
 
@@ -720,9 +706,9 @@ justify-content:center;
 
 }
 
-/*=========================
+/*  =
     SCIENTIFIC CALCULATOR
-==========================*/
+  */
 
 .scientific-calc{
 
@@ -730,15 +716,15 @@ justify-content:center;
 
 }
 
-.scientific-calc .buttons-grid{
-
-    grid-template-columns:repeat(4,1fr);
-
+.scientific-calc .buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
 }
 
-/*=========================
+/*  =
     SCI BUTTONS
-==========================*/
+  */
 
 .scientific-calc .btn-function{
 
@@ -765,9 +751,9 @@ justify-content:center;
 
 }
 
-/*=========================
+/*  =
     DISPLAY GLOW
-==========================*/
+  */
 
 .calculator:hover .calc-display{
 
@@ -779,9 +765,9 @@ justify-content:center;
 
 }
 
-/*=========================
+/*  =
     FLOAT EFFECT
-==========================*/
+  */
 
 .calculator{
 
@@ -803,9 +789,9 @@ justify-content:center;
 
 }
 
-/*=========================
+/*  =
     BUTTON SHINE
-==========================*/
+  */
 
 .btn::before{
 
@@ -835,9 +821,9 @@ justify-content:center;
 
 }
 
-/*=========================
+/*  =
     SCI DISPLAY
-==========================*/
+  */
 
 #sci-display{
 
@@ -853,9 +839,9 @@ justify-content:center;
 
 }
 
-/*=========================
+/*  =
     RESPONSIVE
-==========================*/
+  */
 
 @media(max-width:700px){
 
@@ -917,4 +903,201 @@ justify-content:center;
 .btn-danger{
     background:linear-gradient(135deg,#ef4444,#dc2626);
     color:white;
+}
+
+.btn-primary{
+    color:#041014;
+    background:linear-gradient(135deg,#16ffb0,#2fd8f5);
+    border:none;
+}
+
+.btn-small{
+    padding:10px 14px;
+    font-size:0.95rem;
+    border-radius:14px;
+}
+
+.btn:disabled{
+    opacity:0.55;
+    cursor:not-allowed;
+}
+
+
+.status-toast{
+    position:fixed;
+    bottom:20px;
+    left:50%;
+    transform:translateX(-50%);
+    background:rgba(10,14,23,.95);
+    color:#f7fafc;
+    padding:12px 20px;
+    border-radius:999px;
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 18px 40px rgba(0,0,0,.3);
+    z-index:1000;
+    font-size:0.95rem;
+    letter-spacing:0.02em;
+}
+
+.quiz-container{
+    max-width:760px;
+    margin:auto;
+    padding:28px 24px;
+    background:rgba(9,13,24,.85);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:28px;
+    box-shadow:0 30px 70px rgba(0,0,0,.35);
+}
+
+.quiz-header{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    margin-bottom:24px;
+}
+
+.quiz-header h2{
+    font-size:1.7rem;
+    letter-spacing:0.02em;
+}
+
+.quiz-stats{
+    display:flex;
+    gap:20px;
+    color:var(--muted);
+    font-weight:600;
+}
+
+.quiz-stats strong{
+    color:var(--emerald);
+}
+
+.question-box{
+    display:grid;
+    gap:18px;
+    padding-bottom:20px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    margin-bottom:24px;
+}
+
+.question{
+    font-size:1.35rem;
+    color:white;
+}
+
+.answer-input{
+    width:100%;
+    max-width:360px;
+    padding:16px 18px;
+    border-radius:18px;
+    border:1px solid rgba(255,255,255,.12);
+    background:rgba(255,255,255,.06);
+    color:white;
+    font-size:1rem;
+    outline:none;
+}
+
+.answer-input:focus,
+.answer-input:disabled{
+    border-color:var(--emerald);
+}
+
+.feedback{
+    min-height:34px;
+    color:var(--text);
+    font-weight:700;
+    letter-spacing:0.01em;
+}
+
+.feedback.correct{
+    color:#4ade80;
+}
+
+.feedback.incorrect{
+    color:#f87171;
+}
+
+.quiz-complete{
+    text-align:center;
+    padding:26px 0;
+}
+
+.quiz-complete h2{
+    margin-bottom:18px;
+    font-size:1.9rem;
+}
+
+.final-score{
+    display:block;
+    margin:14px auto 24px;
+    font-size:1.15rem;
+    color:var(--text);
+}
+
+@media(max-width:700px){
+    .quiz-header{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .answer-input{
+        max-width:100%;
+    }
+}
+
+.quiz-description{
+    margin-top:6px;
+    color:var(--muted);
+    font-weight:500;
+}
+
+.quiz-progress{
+    margin-bottom:22px;
+}
+
+.progress-track{
+    width:100%;
+    height:12px;
+    border-radius:999px;
+    background:rgba(255,255,255,.08);
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.12);
+}
+
+.progress-fill{
+    width:0;
+    height:100%;
+    background:linear-gradient(135deg,var(--emerald),var(--cyan));
+    border-radius:999px;
+    transition:width .4s ease;
+}
+
+.quiz-actions{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.quiz-complete-actions{
+    justify-content:center;
+    margin-top:18px;
+}
+
+.quiz-actions .btn{
+    min-width:120px;
+}
+
+.quiz-complete{
+    text-align:center;
+}
+
+.quiz-complete h2{
+    margin-bottom:10px;
+}
+
+.quiz-complete .quiz-message{
+    color:var(--muted);
+    margin-top:10px;
 }
