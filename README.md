@@ -6,6 +6,7 @@ Canopus Realm is a personal project hub — a single, cohesive web app that hous
 
 > This repo *used to be* 13–14 completely separate projects, each with its own repo, its own README, and its own inconsistent styling. It's now one realm. See [A note on the "100+ Commits" stat](#a-note-on-the-100-commits-stat) if you're wondering why the numbers don't quite add up.
 
+13 projects built with 69 source files and over 26,000 lines of HTML, CSS, and JavaScript.
 ---
 
 ## Table of Contents
