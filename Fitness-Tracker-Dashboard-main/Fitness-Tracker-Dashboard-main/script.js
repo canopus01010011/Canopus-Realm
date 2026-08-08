@@ -38,9 +38,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
 async function resolveIdentity() {
+    const parentWin = window.parent;
+    const sameWindow = !parentWin || parentWin === window;
+
+    // Best-effort: some hub deployments expose `auth`/`db` as real globals.
+    // Safe to try, but never relied on alone — let/const vars declared in the
+    // hub's <script> tags do NOT attach to window, so this quietly fails most
+    // of the time and silently dumps everyone into guest mode below.
     try {
-        const parentWin = window.parent;
-        const sameWindow = !parentWin || parentWin === window;
         if (!sameWindow && parentWin.auth && parentWin.auth.currentUser && parentWin.db) {
             const pUser = parentWin.auth.currentUser;
             user = {
@@ -53,13 +58,70 @@ async function resolveIdentity() {
             return;
         }
     } catch (err) {
-        // Cross-origin or parent not ready. fall through to guest mode
-        console.warn('Fitness Tracker: could not read parent session, using local mode.', err);
+        console.warn('Fitness Tracker: direct parent access unavailable, trying postMessage handshake.', err);
     }
-    // Guest / standalone fallback .still fully usable, just local to this browser.
+
+    // Primary path: the Canopus Realm hub broadcasts the logged-in user via
+    // postMessage (see the hub's script.js `openProject`/message listener).
+    // This works regardless of scoping/origin quirks, so use it as the
+    // real source of truth for "who is logged in".
+    if (!sameWindow) {
+        const realmUser = await requestRealmUserInfo();
+        if (realmUser && realmUser.email) {
+            user = {
+                uid: 'realm-' + slugifyEmail(realmUser.email),
+                displayName: realmUser.name || realmUser.email.split('@')[0],
+                email: realmUser.email,
+                verified: !!realmUser.verified
+            };
+            storeMode = 'realm';
+            return;
+        }
+    }
+
+    // Guest / standalone fallback — still fully usable, just local to this
+    // browser and NOT tied to any Canopus Realm account.
     const guestId = getOrCreateGuestId();
     user = { uid: guestId, displayName: 'Guest Explorer', email: null };
     storeMode = 'local';
+}
+
+// Asks the parent hub "who's logged in?" and waits for its reply.
+// Resolves to: {name, email, verified} if someone is logged in,
+// null if the hub replied but no one is logged in,
+// or undefined if there was no reply at all (e.g. opened standalone).
+function requestRealmUserInfo(timeoutMs = 1500) {
+    return new Promise((resolve) => {
+        let settled = false;
+
+        function handleMessage(e) {
+            if (settled) return;
+            if (!e.data || e.data.source !== 'canopus-realm' || e.data.type !== 'canopus-user-info') return;
+            settled = true;
+            window.removeEventListener('message', handleMessage);
+            resolve(e.data.user || null);
+        }
+        window.addEventListener('message', handleMessage);
+
+        try {
+            window.parent.postMessage({ source: 'fitness-tracker', type: 'canopus-request-user-info' }, '*');
+        } catch (err) {
+            console.warn('Fitness Tracker: could not request user info from parent.', err);
+        }
+
+        setTimeout(() => {
+            if (settled) return;
+            settled = true;
+            window.removeEventListener('message', handleMessage);
+            resolve(undefined);
+        }, timeoutMs);
+    });
+}
+
+// Stable, localStorage-safe key derived from an email address, so the same
+// Canopus Realm account always maps to the same fitness data on this device.
+function slugifyEmail(email) {
+    return email.trim().toLowerCase().replace(/[^a-z0-9]+/g, '_');
 }
 
 function getOrCreateGuestId() {
@@ -75,11 +137,18 @@ function renderIdentity() {
     const initials = (user.displayName || 'U').trim().slice(0, 2).toUpperCase();
     document.getElementById('userAvatar').textContent = initials;
     document.getElementById('userName').textContent = user.displayName;
-    document.getElementById('userMode').textContent = storeMode === 'cloud' ? 'Cloud synced' : 'Local guest mode';
+    const modeLabels = {
+        cloud: 'Cloud synced',
+        realm: 'Realm account',
+        local: 'Local guest mode'
+    };
+    document.getElementById('userMode').textContent = modeLabels[storeMode] || 'Local guest mode';
 
     const syncNoteTop = document.getElementById('syncNoteTop');
     if (storeMode === 'cloud') {
         syncNoteTop.innerHTML = '<i class="fas fa-cloud"></i> Saving to your Canopus Realm account';
+    } else if (storeMode === 'realm') {
+        syncNoteTop.innerHTML = '<i class="fas fa-user-check"></i> Signed in as ' + escapeHtml(user.email) + ' — data saved to this account';
     } else {
         syncNoteTop.innerHTML = '<i class="fas fa-hard-drive"></i> Saved on this device only — log in from the realm to sync';
     }
