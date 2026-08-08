@@ -1651,15 +1651,42 @@ function updateUIForAuth() {
     }
 }
 
-function openAuthModal() { authModal.classList.add('active'); }
-function closeAuthModal() { authModal.classList.remove('active'); }
+
+
+function openAuthModal() {
+    authModal.classList.add('active');
+}
+
+function closeAuthModal() {
+    authModal.classList.remove('active');
+}
 
 function switchTab(tabName) {
-    document.querySelectorAll('.auth-tab-content').forEach(tab => tab.classList.remove('active'));
-    document.querySelectorAll('.auth-tab-btn').forEach(btn => btn.classList.remove('active'));
-    document.getElementById(tabName + '-tab').classList.add('active');
-    document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+    const targetTab = document.getElementById(tabName + '-tab');
+    const targetButton = document.querySelector(
+        `.auth-tab-btn[data-tab="${tabName}"]`
+    );
+
+    if (!targetTab || !targetButton) return;
+
+    document.querySelectorAll('.auth-tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+
+    document.querySelectorAll('.auth-tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+
+    targetTab.classList.add('active');
+    targetButton.classList.add('active');
 }
+
+document.querySelectorAll('.auth-tab-btn').forEach(btn => {
+    btn.addEventListener('click', (event) => {
+        event.preventDefault();
+        switchTab(btn.dataset.tab);
+    });
+});
 
 document.querySelectorAll('.close-modal').forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -1866,14 +1893,9 @@ function openProject(projectName) {
         showMessage('Project not found!', 'error');
         return;
     }
-
-    if (!currentUser) {
-        showMessage('Please login to access the hub projects.', 'warning');
-        openAuthModal();
-        return;
-    }
-
-    projectModal.classList.add('active');
+// Projects are public. Visitors can open projects without creating an account.
+projectModal.classList.add('active');
+    
     projectLoader.style.display = 'flex';
     projectIframe.style.display = 'none';
     projectIframe.src = projectPath;
@@ -1888,7 +1910,11 @@ function openProject(projectName) {
                     name: currentUser.displayName || 'Guest',
                     email: currentUser.email,
                     verified: !!currentUser.emailVerified
-                } : null
+                } : {
+                name: 'Guest',
+                email: null,
+                verified: false
+            }
             }, '*');
         } catch (err) {
             console.warn('Could not post user info to project iframe:', err);
@@ -1900,6 +1926,7 @@ function openProject(projectName) {
     };
     trackActivity('open_project', projectName);
 }
+
 
 function closeProjectModal() {
     projectModal.classList.remove('active');
@@ -1921,7 +1948,11 @@ window.addEventListener('message', (e) => {
             name: currentUser.displayName || 'Guest',
             email: currentUser.email,
             verified: !!currentUser.emailVerified
-        } : null
+        } : {
+            name: 'Guest',
+            email: null,
+            verified: false
+        }
     }, '*');
 });
 
