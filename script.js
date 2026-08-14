@@ -2020,3 +2020,26 @@ function checkNotifications() {
             });
     }
 }
+document.querySelectorAll('.project-card').forEach(card => {
+    const projectId = card.getAttribute('onclick')?.match(/openProject\('([^']+)'\)/)?.[1];
+
+    if (!projectId || card.querySelector('.share-btn')) return;
+
+    const title = card.dataset.name || 'Project';
+    const description = card.querySelector('p')?.textContent.trim() || '';
+
+    const shareButton = document.createElement('button');
+
+    shareButton.className = 'share-btn';
+    shareButton.type = 'button';
+    shareButton.dataset.project = projectId;
+    shareButton.dataset.title = title;
+    shareButton.dataset.description = description;
+
+    shareButton.innerHTML = `
+        <i class="fas fa-share-nodes"></i>
+        <span>Share</span>
+    `;
+
+    card.prepend(shareButton);
+});

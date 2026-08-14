@@ -3107,9 +3107,6 @@ input:focus-visible,
         flex-basis: 34px;
     }
 
-    .user-menu-btn {
-        display: none;
-    }
 
     .hero h1 {
         font-size: 2.35rem;
