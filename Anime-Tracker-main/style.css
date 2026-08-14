@@ -1470,3 +1470,334 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
         scroll-behavior: auto !important;
     }
 }
+
+
+
+@media (max-width: 768px) {
+
+    /* ---------- Global ---------- */
+
+    body {
+        font-size: 15px;
+    }
+
+    /* ---------- Navbar ---------- */
+
+    .navbar {
+        padding: 0.75rem 0.75rem 0;
+    }
+
+    .navbar-container {
+        padding: 0.65rem 0.85rem;
+        gap: 0.75rem;
+    }
+
+    .logo {
+        font-size: 1rem;
+    }
+
+    .logo .logo-mark {
+        width: 30px;
+        height: 30px;
+    }
+
+    /* ---------- Hero ---------- */
+
+    .hero {
+        min-height: auto;
+
+        padding:
+            7rem 1.25rem 4rem;
+
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: clamp(2rem, 10vw, 3rem);
+        line-height: 1.05;
+    }
+
+    .hero-sub {
+        max-width: 100%;
+        font-size: 0.95rem;
+    }
+
+    .hero-stats {
+        width: 100%;
+
+        justify-content: center;
+
+        gap: 1.25rem;
+
+        flex-wrap: wrap;
+
+        margin:
+            2rem 0 2rem;
+    }
+
+    .stat .stat-num {
+        font-size: 1.35rem;
+    }
+
+    .stat .stat-label {
+        font-size: 0.65rem;
+    }
+
+    .cta-row {
+        width: 100%;
+
+        flex-direction: column;
+
+        gap: 0.75rem;
+    }
+
+    .cta-btn,
+    .cta-ghost {
+        width: 100%;
+        padding: 0.9rem 1.25rem;
+    }
+
+    /* Reduce decorative planet on mobile */
+
+    .planet {
+        width: 300px;
+        height: 300px;
+
+        right: -45%;
+        top: 8%;
+
+        opacity: 0.65;
+    }
+
+    .planet-ring {
+        display: none;
+    }
+
+    .scroll-cue {
+        display: none;
+    }
+
+    /* ---------- Search / filters ---------- */
+
+    .filter-bar-wrap {
+        padding: 0.65rem 0.75rem;
+    }
+
+    .filter-bar {
+        border-radius: 1rem;
+
+        padding: 0.5rem;
+
+        flex-direction: column;
+
+        gap: 0.5rem;
+    }
+
+    .search-box-inline {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .genre-select,
+    .sort-select,
+    .surprise-btn {
+        width: 100%;
+    }
+
+    /* ---------- Project section ---------- */
+
+    .world {
+        padding:
+            2.25rem 1rem 3rem;
+    }
+
+    .world-header {
+        align-items: flex-start;
+        flex-direction: column;
+
+        margin-bottom: 1.5rem;
+    }
+
+    .world-title {
+        font-size: 1.45rem;
+    }
+
+    .world-sub {
+        font-size: 0.75rem;
+    }
+
+    /* ---------- Project cards ---------- */
+
+    .projects-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 0.8rem;
+    }
+
+    .anime-card {
+        border-radius: 0.85rem;
+    }
+
+    .anime-card .anime-info {
+        padding: 0.7rem 0.75rem 0.85rem;
+    }
+
+    .anime-card .anime-title {
+        font-size: 0.85rem;
+        min-height: auto;
+    }
+
+    .anime-card .anime-info p {
+        font-size: 0.72rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .anime-rating {
+        font-size: 0.75rem;
+    }
+
+    .favorite-btn,
+    .quick-add-btn {
+        width: 34px;
+        height: 34px;
+
+        font-size: 0.85rem;
+
+        top: 7px;
+    }
+
+    .favorite-btn {
+        right: 7px;
+    }
+
+    .quick-add-btn {
+        left: 7px;
+    }
+
+    /* Disable hover transformations on touch devices */
+
+    .anime-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .anime-card:hover img {
+        transform: none;
+    }
+
+    /* ---------- Modals ---------- */
+
+    .modal.active {
+        padding: 0.75rem;
+    }
+
+    .modal-content {
+        width: 100%;
+        max-width: none;
+
+        max-height: 92dvh;
+
+        padding: 1.25rem;
+
+        border-radius: 1rem;
+    }
+
+    /* ---------- Anime details ---------- */
+
+    .anime-detail-grid {
+        display: flex;
+        flex-direction: column;
+
+        gap: 1.25rem;
+    }
+
+    .anime-detail-poster img {
+        width: 140px;
+        max-width: 140px;
+    }
+
+    .anime-detail-info h1 {
+        font-size: 1.45rem;
+
+        padding-right: 2.5rem;
+    }
+
+    .anime-detail-info>p {
+        max-height: none;
+        font-size: 0.85rem;
+    }
+
+    .detail-stats {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 0.65rem;
+
+        padding: 0.75rem;
+    }
+
+    .stat-label {
+        font-size: 0.65rem;
+    }
+
+    .stat-value {
+        font-size: 0.95rem;
+    }
+
+    /* ---------- Reviews ---------- */
+
+    .review-form {
+        padding: 1rem;
+    }
+
+    .star-rating {
+        font-size: 1.4rem;
+    }
+
+    .reviews-list {
+        max-height: 300px;
+    }
+
+    .review-item {
+        padding: 0.8rem;
+    }
+
+    /* ---------- Footer ---------- */
+
+    .footer {
+        padding:
+            3rem 1.25rem 2rem;
+    }
+
+    .footer-links {
+        gap: 1rem;
+    }
+}
+
+
+
+
+@media (max-width: 400px) {
+
+    .projects-grid {
+        gap: 0.65rem;
+    }
+
+    .anime-card .anime-info {
+        padding: 0.6rem;
+    }
+
+    .anime-card .anime-title {
+        font-size: 0.78rem;
+    }
+
+    .anime-card .anime-info p {
+        font-size: 0.68rem;
+    }
+
+    .world {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+}

@@ -616,3 +616,21 @@ document.getElementById("scrollDown").addEventListener("click", () => {
         behavior: "smooth"
     });
 });
+
+function openMobileBracket() {
+    const bracket = document.getElementById('tournamentBracket');
+
+    if (bracket) {
+        bracket.classList.add('mobile-bracket-open');
+        document.body.classList.add('bracket-open');
+    }
+}
+
+function closeMobileBracket() {
+    const bracket = document.getElementById('tournamentBracket');
+
+    if (bracket) {
+        bracket.classList.remove('mobile-bracket-open');
+        document.body.classList.remove('bracket-open');
+    }
+}

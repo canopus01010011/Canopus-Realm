@@ -131,29 +131,56 @@
             <div class="mode-badge">Competition Mode</div>
         </div>
 
-        <div id="competitionGameArea" class="competition-game-content">
-            <div class="tournament-bracket" id="tournamentBracket"></div>
-            
-            <div class="competition-game-area">
-                <div class="match-info">
-                    <h3 id="matchTitle"></h3>
-                    <div class="match-stats">
-                        <span id="matchScore1"></span>
-                        <span class="vs">vs</span>
-                        <span id="matchScore2"></span>
-                    </div>
-                </div>
+<div id="competitionGameArea" class="competition-game-content">
 
-                <div class="game-board" id="competitionGameBoard"></div>
+    <!-- Tournament Bracket -->
+    <div class="tournament-bracket" id="tournamentBracket">
 
-                <div class="match-controls">
-                    <button id="nextRoundBtn" class="next-round-btn hidden" onclick="nextCompetitionRound()">
-                        <i class="fas fa-arrow-right"></i> Next Match
-                    </button>
-                </div>
+        <!-- Mobile bracket header -->
+        <div class="mobile-bracket-header">
+            <button class="mobile-bracket-close" onclick="closeMobileBracket()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+
+            <span>Tournament Plan</span>
+        </div>
+
+    </div>
+
+    <!-- Main Game Area -->
+    <div class="competition-game-area">
+
+        <div class="match-info">
+            <h3 id="matchTitle"></h3>
+
+            <div class="match-stats">
+                <span id="matchScore1"></span>
+                <span class="vs">vs</span>
+                <span id="matchScore2"></span>
             </div>
         </div>
 
+        <div class="game-board" id="competitionGameBoard"></div>
+
+        <div class="match-controls">
+
+            <button id="nextRoundBtn" class="next-round-btn hidden" onclick="nextCompetitionRound()">
+                <i class="fas fa-arrow-right"></i>
+                Next Match
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Mobile Tournament Plan Button -->
+    <button class="mobile-bracket-btn" onclick="openMobileBracket()">
+        <i class="fas fa-trophy"></i>
+        <span>Tournament Plan</span>
+        <i class="fas fa-chevron-right"></i>
+    </button>
+
+</div>
         <div id="tournamentResults" class="tournament-results hidden">
             <h2>🏆 Tournament Results</h2>
             <div id="resultsContent"></div>

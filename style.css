@@ -2152,9 +2152,7 @@ input:focus-visible,
 
 }
 
-/*       
-   CANOPUS REALM — CARD SHARE BUTTON
-          */
+
 
 .project-card {
     position: relative;
@@ -2237,5 +2235,1009 @@ input:focus-visible,
     .share-btn {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+
+
+
+
+@media (max-width: 768px) {
+
+
+
+    html {
+        scroll-padding-top: 90px;
+    }
+
+    body {
+        overflow-x: hidden;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .cursor-glow {
+        display: none;
+    }
+
+    ::-webkit-scrollbar {
+        width: 4px;
+    }
+
+
+
+    .navbar {
+        padding: 0.7rem 0.65rem 0;
+    }
+
+    .navbar-container {
+        width: 100%;
+        padding: 0.65rem 0.8rem;
+        gap: 0.5rem;
+        min-height: 52px;
+    }
+
+    .logo {
+        gap: 0.45rem;
+        font-size: 0.95rem;
+        min-width: 0;
+    }
+
+    .logo .logo-mark {
+        width: 30px;
+        height: 30px;
+        flex: 0 0 30px;
+    }
+
+    .nav-actions {
+        gap: 0.45rem;
+        margin-left: auto;
+    }
+
+    .icon-btn {
+        width: 36px;
+        height: 36px;
+        flex: 0 0 36px;
+    }
+
+    .user-menu-btn {
+        padding: 0.55rem 0.85rem;
+        font-size: 0.76rem;
+        white-space: nowrap;
+    }
+
+    .hamburger {
+        width: 36px;
+        height: 36px;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--surface-border);
+        flex: 0 0 36px;
+    }
+
+    .hamburger span {
+        width: 19px;
+    }
+
+    .nav-menu {
+        top: calc(64px + env(safe-area-inset-top));
+        left: 0.65rem;
+        right: 0.65rem;
+
+        padding: 0.7rem;
+        gap: 0.25rem;
+
+        border-radius: 1rem;
+
+        max-height: calc(100dvh - 90px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    .nav-menu li {
+        width: 100%;
+    }
+
+    .nav-link {
+        display: block;
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border-radius: 0.7rem;
+        font-size: 0.9rem;
+    }
+
+    .nav-link::after {
+        display: none;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+        background: rgba(22, 255, 176, 0.07);
+    }
+
+
+    /* -----------------------------------------------------
+       SEARCH
+       ----------------------------------------------------- */
+
+    .search-overlay {
+        padding:
+            calc(5rem + env(safe-area-inset-top)) 0.75rem 1rem;
+
+        align-items: flex-start;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .search-box input {
+        font-size: 1rem;
+        padding: 1rem;
+        min-height: 52px;
+    }
+
+    .search-results {
+        max-height: 65dvh;
+    }
+
+    .search-result-item {
+        min-height: 58px;
+        padding: 0.8rem;
+    }
+
+
+    /* -----------------------------------------------------
+       HERO
+       ----------------------------------------------------- */
+
+    .hero {
+        min-height: 100svh;
+        padding:
+            7.5rem 1.25rem 5rem;
+
+        justify-content: center;
+    }
+
+    .planet {
+        width: 300px;
+        height: 300px;
+        right: -42%;
+        top: 10%;
+        opacity: 0.7;
+    }
+
+    .planet-ring {
+        width: 500px;
+        height: 150px;
+        right: -42%;
+        top: 27%;
+    }
+
+    .eyebrow {
+        font-size: 0.68rem;
+        letter-spacing: 0.18em;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.7rem, 14vw, 4.5rem);
+        line-height: 0.95;
+        margin: 0.8rem 0 1rem;
+    }
+
+    .hero-sub {
+        max-width: 340px;
+        font-size: 0.92rem;
+        line-height: 1.55;
+    }
+
+    .hero-stats {
+        width: 100%;
+        justify-content: center;
+        gap: 1.1rem;
+        margin: 2rem 0;
+    }
+
+    .stat {
+        min-width: 70px;
+    }
+
+    .stat .stat-num {
+        font-size: 1.35rem;
+    }
+
+    .stat .stat-label {
+        font-size: 0.6rem;
+        letter-spacing: 0.08em;
+    }
+
+    .cta-row {
+        width: 100%;
+        max-width: 340px;
+        flex-direction: column;
+        gap: 0.7rem;
+    }
+
+    .cta-btn,
+    .cta-ghost {
+        width: 100%;
+        min-height: 50px;
+        padding: 0.8rem 1.25rem;
+    }
+
+    .scroll-cue {
+        bottom: calc(1.5rem + env(safe-area-inset-bottom));
+        font-size: 0.6rem;
+    }
+
+
+    /* -----------------------------------------------------
+       FILTER BAR
+       ----------------------------------------------------- */
+
+    .filter-bar {
+        top: 62px;
+        padding: 0.55rem 0.65rem;
+
+        /*
+         * Don't make the filter area too tall.
+         */
+        overflow: hidden;
+    }
+
+    .filter-pills {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        padding: 0.3rem;
+
+        border-radius: 1rem;
+
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+
+        overscroll-behavior-x: contain;
+    }
+
+    .filter-pills::-webkit-scrollbar {
+        display: none;
+    }
+
+    .filter-pill {
+        flex: 0 0 auto;
+        min-height: 40px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 0.55rem 0.9rem;
+
+        font-size: 0.7rem;
+    }
+
+
+    /* -----------------------------------------------------
+       FEATURED PROJECT
+       ----------------------------------------------------- */
+
+    .featured-wrap {
+        margin: 1.25rem auto 3.5rem;
+        padding: 0 0.85rem;
+    }
+
+    .featured-card {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+
+        padding: 1.25rem;
+        border-radius: 1.25rem;
+
+        min-height: auto;
+    }
+
+    .featured-card h3 {
+        font-size: 1.8rem;
+    }
+
+    .featured-card p {
+        font-size: 0.86rem;
+        line-height: 1.55;
+        margin-bottom: 1rem;
+    }
+
+    .featured-visual {
+        order: -1;
+        aspect-ratio: 16 / 9;
+        min-height: 150px;
+        font-size: 3rem;
+    }
+
+    .featured-launch {
+        width: 100%;
+        min-height: 48px;
+    }
+
+    .featured-tags {
+        margin-bottom: 1rem;
+    }
+
+
+    /* -----------------------------------------------------
+       WORLDS / SECTIONS
+       ----------------------------------------------------- */
+
+    .world {
+        padding: 3rem 0.85rem;
+    }
+
+    .world-header {
+        margin-bottom: 1.4rem;
+        gap: 0.4rem;
+    }
+
+    .world-title {
+        font-size: 1.55rem;
+        gap: 0.5rem;
+    }
+
+    .world-title .world-glyph {
+        font-size: 1.15rem;
+    }
+
+    .world-sub {
+        width: 100%;
+        font-size: 0.72rem;
+    }
+
+
+    /* -----------------------------------------------------
+       PROJECT GRID
+       ----------------------------------------------------- */
+
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .project-card {
+        padding: 1rem;
+        border-radius: 1rem;
+
+        /*
+         * Important:
+         * remove the desktop hover movement on touch devices.
+         */
+        transform: translateY(30px);
+    }
+
+    .project-card:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    .project-card:active {
+        transform: scale(0.985);
+    }
+
+    .project-card::before {
+        display: none;
+    }
+
+    .project-visual {
+        aspect-ratio: 16 / 9;
+        margin-bottom: 1rem;
+        font-size: 2.3rem;
+        border-radius: 0.75rem;
+    }
+
+    .project-card h3 {
+        font-size: 1.15rem;
+    }
+
+    .project-card p {
+        font-size: 0.82rem;
+        line-height: 1.5;
+    }
+
+    .project-tags {
+        gap: 0.3rem;
+    }
+
+    .tag {
+        font-size: 0.62rem;
+        padding: 0.25rem 0.55rem;
+    }
+
+    .launch-row {
+        min-height: 40px;
+    }
+
+    .launch-btn {
+        min-height: 40px;
+        display: inline-flex;
+        align-items: center;
+        padding: 0.4rem 0;
+    }
+
+
+    /* -----------------------------------------------------
+       SHARE BUTTON
+       ----------------------------------------------------- */
+
+    /*
+     * On phones, hover doesn't exist.
+     * Always show the share button.
+     */
+
+    .share-btn {
+        top: 10px;
+        right: 10px;
+
+        min-width: 40px;
+        min-height: 40px;
+
+        width: 40px;
+        height: 40px;
+
+        justify-content: center;
+
+        padding: 0;
+
+        opacity: 1;
+        transform: none;
+
+        border-radius: 50%;
+    }
+
+    .share-btn span {
+        display: none;
+    }
+
+    .share-btn i {
+        font-size: 0.85rem;
+    }
+
+
+    /* -----------------------------------------------------
+       SHARE MENU
+       ----------------------------------------------------- */
+
+    .canopus-share-menu {
+        /*
+         * Avoid relying on a tiny desktop-style popup.
+         */
+        width: calc(100vw - 20px);
+
+        max-width: 420px;
+
+        max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 24px);
+
+        overflow-y: auto;
+
+        padding:
+            12px 12px calc(12px + env(safe-area-inset-bottom));
+
+        border-radius: 20px;
+
+        /*
+         * Prevent iOS momentum scrolling from
+         * affecting the page behind it.
+         */
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .share-menu-header {
+        margin-bottom: 10px;
+    }
+
+    .share-menu-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+    }
+
+    .share-option {
+        min-height: 68px;
+        min-width: 0;
+        padding: 8px 4px;
+
+        /*
+         * 44px+ touch target.
+         */
+        touch-action: manipulation;
+    }
+
+    .share-option-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 15px;
+    }
+
+    .share-copy-row {
+        min-height: 52px;
+        touch-action: manipulation;
+    }
+
+    .copy-left small {
+        max-width: 145px;
+    }
+
+
+    /* -----------------------------------------------------
+       AUTH MODALS
+       ----------------------------------------------------- */
+
+    .modal {
+        padding: 0;
+        align-items: flex-end;
+    }
+
+    .modal-content {
+        width: 100%;
+        max-width: none;
+
+        max-height: calc(100dvh - env(safe-area-inset-top));
+
+        overflow-y: auto;
+
+        border-radius: 1.25rem 1.25rem 0 0;
+
+        padding:
+            1.5rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom));
+
+        /*
+         * Easier to interact with forms on mobile.
+         */
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .close-modal {
+        top: 0.8rem;
+        right: 0.9rem;
+
+        width: 42px;
+        height: 42px;
+
+        display: grid;
+        place-items: center;
+
+        border-radius: 50%;
+    }
+
+    .auth-tabs {
+        margin-top: 1.5rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .auth-tab-btn {
+        min-height: 48px;
+    }
+
+    #login-form,
+    #signup-form {
+        gap: 0.75rem;
+    }
+
+    #login-form input,
+    #signup-form input {
+        min-height: 48px;
+        font-size: 16px;
+        /*
+         * 16px prevents iOS Safari from zooming
+         * when focusing an input.
+         */
+    }
+
+    .auth-btn {
+        min-height: 50px;
+        font-size: 0.95rem;
+    }
+
+    .pw-toggle {
+        width: 40px;
+        height: 40px;
+    }
+
+    .verify-banner {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+
+    /* -----------------------------------------------------
+       USER DROPDOWN
+       ----------------------------------------------------- */
+
+    .user-dropdown {
+        top: calc(64px + env(safe-area-inset-top));
+        left: 0.65rem;
+        right: 0.65rem;
+
+        width: auto;
+        min-width: 0;
+
+        max-height: calc(100dvh - 80px);
+        overflow-y: auto;
+
+        border-radius: 1rem;
+
+        padding: 0.85rem;
+    }
+
+    .user-dropdown a {
+        min-height: 46px;
+    }
+
+
+    /* -----------------------------------------------------
+       PROJECT VIEWER
+       ----------------------------------------------------- */
+
+    .project-modal-content {
+        position: fixed;
+
+        inset: 0;
+
+        width: 100%;
+        max-width: none;
+
+        height: 100dvh;
+        max-height: 100dvh;
+
+        border: none;
+        border-radius: 0;
+
+        padding: 0;
+
+        background: var(--void);
+
+        /*
+         * Don't allow the iframe to cause the
+         * outer modal to scroll.
+         */
+        overflow: hidden;
+    }
+
+    #project-iframe {
+        position: absolute;
+
+        top: 0;
+        left: 0;
+
+        width: 100%;
+        height: 100%;
+
+        min-height: 0;
+
+        border: none;
+
+        display: block;
+
+        background: var(--void);
+
+        /*
+         * iframe itself handles its own page scrolling.
+         */
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .project-modal-content .close-modal {
+        position: fixed;
+
+        top: calc(0.7rem + env(safe-area-inset-top));
+
+        right: calc(0.7rem + env(safe-area-inset-right));
+
+        width: 44px;
+        height: 44px;
+
+        z-index: 100;
+
+        display: grid;
+        place-items: center;
+
+        font-size: 1rem;
+
+        touch-action: manipulation;
+    }
+
+    .project-modal-content .close-modal:active {
+        transform: scale(0.9);
+    }
+
+    .project-loader {
+        position: fixed;
+        inset: 0;
+
+        padding: 1.5rem;
+
+        text-align: center;
+    }
+
+
+    /* -----------------------------------------------------
+       FOOTER
+       ----------------------------------------------------- */
+
+    .footer {
+        padding:
+            3rem 1rem calc(2rem + env(safe-area-inset-bottom));
+
+        margin-top: 2rem;
+    }
+
+    .footer-links {
+        gap: 0.7rem 1.25rem;
+    }
+
+    .footer-links a {
+        font-size: 0.82rem;
+    }
+
+
+    /* -----------------------------------------------------
+       TOASTS
+       ----------------------------------------------------- */
+
+    .message {
+        top: auto;
+
+        left: 0.75rem;
+        right: 0.75rem;
+
+        bottom: calc(1rem + env(safe-area-inset-bottom));
+
+        width: auto;
+
+        text-align: center;
+
+        padding: 0.85rem 1rem;
+
+        font-size: 0.82rem;
+    }
+}
+
+
+
+@media (max-width: 480px) {
+
+    .navbar-container {
+        padding: 0.55rem 0.65rem;
+    }
+
+    /*
+     * Hide text from the user button if necessary.
+     * Keeps the header from becoming overcrowded.
+     */
+    .user-menu-btn {
+        padding: 0.55rem 0.7rem;
+    }
+
+    .hero {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.5rem, 15vw, 3.6rem);
+    }
+
+    .hero-stats {
+        gap: 0.7rem;
+    }
+
+    .stat .stat-num {
+        font-size: 1.2rem;
+    }
+
+    .stat .stat-label {
+        font-size: 0.55rem;
+    }
+
+    .featured-wrap {
+        padding: 0 0.65rem;
+    }
+
+    .featured-card {
+        padding: 1rem;
+    }
+
+    .world {
+        padding-left: 0.65rem;
+        padding-right: 0.65rem;
+    }
+
+    .project-card {
+        padding: 0.85rem;
+    }
+
+    .project-card h3 {
+        font-size: 1.05rem;
+    }
+
+    .project-card p {
+        font-size: 0.78rem;
+    }
+
+    .canopus-share-menu {
+        width: calc(100vw - 16px);
+        border-radius: 18px;
+    }
+
+    .share-menu-title small {
+        max-width: 170px;
+    }
+
+    .share-option {
+        min-height: 64px;
+    }
+}
+
+
+
+
+@media (max-width: 360px) {
+
+    .logo {
+        font-size: 0.85rem;
+    }
+
+    .logo .logo-mark {
+        width: 27px;
+        height: 27px;
+        flex-basis: 27px;
+    }
+
+    .nav-actions {
+        gap: 0.25rem;
+    }
+
+    .icon-btn,
+    .hamburger {
+        width: 34px;
+        height: 34px;
+        flex-basis: 34px;
+    }
+
+    .user-menu-btn {
+        display: none;
+    }
+
+    .hero h1 {
+        font-size: 2.35rem;
+    }
+
+    .hero-sub {
+        font-size: 0.84rem;
+    }
+
+    .hero-stats {
+        gap: 0.45rem;
+    }
+
+    .stat .stat-num {
+        font-size: 1.05rem;
+    }
+
+    .stat .stat-label {
+        font-size: 0.5rem;
+    }
+
+    .cta-btn,
+    .cta-ghost {
+        min-height: 48px;
+        font-size: 0.88rem;
+    }
+
+    .share-menu-grid {
+        gap: 4px;
+    }
+
+    .share-option {
+        min-height: 60px;
+        font-size: 9px;
+    }
+
+    .share-option-icon {
+        width: 29px;
+        height: 29px;
+    }
+}
+
+
+
+@media (hover: none) and (pointer: coarse) {
+
+    /*
+     * Disable hover-only visual transformations.
+     */
+
+    .project-card:hover {
+        transform: none;
+        border-color: var(--surface-border);
+        box-shadow: none;
+    }
+
+    .project-card:hover .project-visual::after {
+        transform: translateX(-100%);
+    }
+
+    .project-card:hover .launch-btn {
+        gap: 0.4rem;
+    }
+
+    .cta-btn:hover,
+    .cta-ghost:hover,
+    .featured-launch:hover,
+    .icon-btn:hover,
+    .user-menu-btn:hover {
+        transform: none;
+        box-shadow: none;
+    }
+
+    /*
+     * Make important controls comfortable to tap.
+     */
+
+    button,
+    a,
+    .project-card,
+    .filter-pill {
+        touch-action: manipulation;
+    }
+
+    /*
+     * Remove hover-based share appearance logic.
+     */
+
+    .share-btn {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@media (max-width: 768px) and (orientation: landscape) {
+
+    .hero {
+        min-height: auto;
+        padding-top: 7rem;
+        padding-bottom: 4rem;
+    }
+
+    .hero h1 {
+        font-size: clamp(2.5rem, 9vw, 4rem);
+    }
+
+    .hero-stats {
+        margin: 1.25rem 0;
+    }
+
+    .scroll-cue {
+        display: none;
+    }
+
+    .project-modal-content .close-modal {
+        top: 0.6rem;
+    }
+}
+
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    .project-card,
+    .share-btn,
+    .canopus-share-menu,
+    .modal-content {
+        animation: none !important;
+        transition: none !important;
     }
 }
