@@ -16,7 +16,10 @@ const projectPaths = {
     'Currency-Converter-main': 'Currency-Converter-main/Currency-Converter-main/index.html',
     'ValentineLOL-main': 'ValentineLOL-main/index.html',
     'Eid-main': 'Eid-main/index.html',
-    'karoake': 'karoake/index.html',
+       // Karaoke
+    'Karaoke': 'karaoke/index.html',
+    'karaoke': 'karaoke/index.html'
+
 };
 
 // Featured project rotation dATA
