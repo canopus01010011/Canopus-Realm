@@ -17,8 +17,7 @@ const projectPaths = {
     'ValentineLOL-main': 'ValentineLOL-main/index.html',
     'Eid-main': 'Eid-main/index.html',
        // Karaoke
-    'Karaoke': 'karaoke/index.html',
-    'karaoke': 'karaoke/index.html'
+    'karaoke': 'karaoke/index.html',
 
 };
 
