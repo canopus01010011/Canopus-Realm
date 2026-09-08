@@ -15,7 +15,8 @@ const projectPaths = {
     'Calculator-main': 'Calculator-main/index.html',
     'Currency-Converter-main': 'Currency-Converter-main/Currency-Converter-main/index.html',
     'ValentineLOL-main': 'ValentineLOL-main/index.html',
-    'Eid-main': 'Eid-main/index.html'
+    'Eid-main': 'Eid-main/index.html',
+    'Karaoke-main': 'Karaoke-main/index.html',
 };
 
 // Featured project rotation dATA
