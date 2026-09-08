@@ -1,0 +1,3409 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#060814">
+<title>Canopus Karaoke — Phase 3</title>
+
+<style>
+:root{
+    --bg:#050611;
+    --bg2:#090d1c;
+    --panel:rgba(12,17,35,.72);
+    --panel-strong:rgba(15,22,44,.9);
+    --line:rgba(255,255,255,.09);
+    --text:#f5f7ff;
+    --muted:#9aa5c0;
+    --cyan:#2fd8f5;
+    --emerald:#16ffb0;
+    --violet:#a78bfa;
+    --gold:#ffd84d;
+    --danger:#ff6685;
+    --shadow:0 24px 70px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+    margin:0;
+    min-height:100vh;
+    color:var(--text);
+    font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:
+      radial-gradient(circle at 15% 15%,rgba(47,216,245,.12),transparent 28%),
+      radial-gradient(circle at 85% 20%,rgba(167,139,250,.13),transparent 30%),
+      radial-gradient(circle at 50% 90%,rgba(22,255,176,.08),transparent 34%),
+      linear-gradient(135deg,var(--bg),var(--bg2) 55%,#04050d);
+    overflow-x:hidden;
+}
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.42;
+    background-image:
+      radial-gradient(circle at 12% 23%,#fff 0 1px,transparent 1.5px),
+      radial-gradient(circle at 71% 12%,#fff 0 1px,transparent 1.5px),
+      radial-gradient(circle at 88% 67%,#fff 0 1px,transparent 1.5px),
+      radial-gradient(circle at 38% 78%,#fff 0 1px,transparent 1.5px),
+      radial-gradient(circle at 57% 43%,#fff 0 1px,transparent 1.5px);
+    background-size:240px 210px,310px 260px,270px 230px,330px 280px,390px 320px;
+}
+button,input,select{font:inherit}
+button{color:inherit}
+.app{
+    position:relative;
+    width:min(1500px,100%);
+    margin:auto;
+    padding:24px;
+}
+.topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:18px;
+    margin-bottom:22px;
+}
+.brand{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+.brand-mark{
+    width:44px;height:44px;border-radius:14px;
+    display:grid;place-items:center;
+    background:linear-gradient(135deg,rgba(47,216,245,.2),rgba(167,139,250,.2));
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 0 28px rgba(47,216,245,.12);
+    font-size:22px;
+}
+.brand h1{font-size:18px;margin:0;letter-spacing:.3px}
+.brand p{font-size:12px;color:var(--muted);margin:2px 0 0}
+.top-actions{display:flex;gap:9px;align-items:center}
+.icon-btn,.ghost-btn,.primary-btn{
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.045);
+    border-radius:12px;
+    padding:10px 13px;
+    cursor:pointer;
+    transition:.2s ease;
+}
+.icon-btn{width:42px;height:42px;padding:0}
+.icon-btn:hover,.ghost-btn:hover,.primary-btn:hover{
+    transform:translateY(-1px);
+    border-color:rgba(47,216,245,.38);
+    background:rgba(47,216,245,.08);
+}
+.primary-btn{
+    border-color:rgba(47,216,245,.32);
+    background:linear-gradient(135deg,rgba(47,216,245,.16),rgba(22,255,176,.08));
+}
+.layout{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 330px;
+    gap:18px;
+}
+.panel{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:22px;
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(18px);
+    overflow:hidden;
+}
+.hero{
+    position:relative;
+    min-height:240px;
+    padding:30px;
+    display:flex;
+    align-items:flex-end;
+    background:
+      radial-gradient(circle at 75% 30%,rgba(167,139,250,.2),transparent 25%),
+      radial-gradient(circle at 25% 65%,rgba(47,216,245,.13),transparent 30%);
+}
+.hero-orb{
+    position:absolute;
+    width:180px;height:180px;
+    right:9%;top:24px;
+    border-radius:50%;
+    background:
+      radial-gradient(circle at 32% 28%,rgba(255,255,255,.8) 0 2%,transparent 3%),
+      radial-gradient(circle at 65% 62%,rgba(47,216,245,.32),transparent 45%),
+      radial-gradient(circle at 45% 45%,rgba(167,139,250,.28),rgba(8,10,25,.05) 65%);
+    box-shadow:0 0 80px rgba(47,216,245,.12);
+    border:1px solid rgba(255,255,255,.09);
+}
+.hero-content{position:relative;z-index:1;max-width:680px}
+.eyebrow{
+    color:var(--cyan);
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    margin-bottom:10px;
+}
+.hero h2{font-size:clamp(30px,5vw,52px);line-height:1.02;margin:0 0 12px}
+.hero p{margin:0;color:var(--muted);max-width:620px;line-height:1.65}
+.import-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.file-label{position:relative;display:inline-flex}
+.file-label input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.main{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 300px;
+    min-height:620px;
+}
+.lyrics-wrap{min-width:0;border-right:1px solid var(--line)}
+.lyrics-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    padding:16px 20px;
+    border-bottom:1px solid var(--line);
+}
+.song-title{font-weight:700}
+.song-meta{font-size:12px;color:var(--muted);margin-top:3px}
+.status{
+    font-size:11px;
+    padding:6px 9px;
+    border-radius:999px;
+    color:var(--muted);
+    border:1px solid var(--line);
+    white-space:nowrap;
+}
+.status.ready{color:var(--emerald);border-color:rgba(22,255,176,.25);background:rgba(22,255,176,.06)}
+.lyrics{
+    height:520px;
+    overflow:auto;
+    padding:70px 30px 160px;
+    scroll-behavior:smooth;
+    scrollbar-width:thin;
+}
+.lyric-line{
+    width:min(760px,100%);
+    margin:0 auto;
+    padding:12px 14px;
+    border-radius:13px;
+    color:#737d99;
+    font-size:clamp(18px,2.4vw,27px);
+    font-weight:650;
+    line-height:1.35;
+    text-align:center;
+    cursor:pointer;
+    transition:transform .28s ease,color .28s ease,opacity .28s ease,background .28s ease,filter .28s ease;
+}
+.lyric-line:hover{color:#b9c2d8;background:rgba(255,255,255,.035)}
+.lyric-line.active{
+    color:white;
+    transform:scale(1.055);
+    background:linear-gradient(90deg,rgba(47,216,245,.07),rgba(167,139,250,.08),rgba(22,255,176,.05));
+    text-shadow:0 0 24px rgba(47,216,245,.3);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.045),0 0 28px rgba(47,216,245,.05);
+}
+.lyric-line.past{color:#8993ad}
+.empty{
+    height:100%;
+    min-height:350px;
+    display:grid;
+    place-items:center;
+    text-align:center;
+    color:var(--muted);
+    padding:30px;
+}
+.empty-icon{font-size:48px;margin-bottom:12px}
+.controls{
+    background:rgba(4,7,17,.52);
+    border-top:1px solid var(--line);
+    padding:18px 20px;
+}
+.progress-row{display:flex;align-items:center;gap:10px}
+.time{font-variant-numeric:tabular-nums;color:var(--muted);font-size:11px;min-width:40px}
+input[type=range]{
+    width:100%;
+    accent-color:var(--cyan);
+    cursor:pointer;
+}
+.transport{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:9px;
+    margin-top:13px;
+}
+.transport .play{
+    width:52px;height:52px;border-radius:50%;
+    border:1px solid rgba(47,216,245,.38);
+    background:linear-gradient(135deg,rgba(47,216,245,.18),rgba(167,139,250,.18));
+    cursor:pointer;
+    font-size:18px;
+    box-shadow:0 0 28px rgba(47,216,245,.1);
+}
+.secondary-controls{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    margin-top:13px;
+}
+.control-group{display:flex;align-items:center;gap:8px}
+.small-select{
+    color:var(--text);
+    background:rgba(255,255,255,.05);
+    border:1px solid var(--line);
+    border-radius:9px;
+    padding:7px 9px;
+}
+.side{
+    padding:20px;
+    background:rgba(7,10,22,.3);
+}
+.side-section + .side-section{margin-top:24px}
+.side-title{
+    font-size:11px;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+    color:var(--muted);
+    margin-bottom:11px;
+}
+.track-card{
+    padding:14px;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.035);
+    border-radius:16px;
+}
+.cover{
+    aspect-ratio:1;
+    border-radius:13px;
+    display:grid;
+    place-items:center;
+    font-size:52px;
+    background:
+      radial-gradient(circle at 30% 30%,rgba(47,216,245,.35),transparent 32%),
+      radial-gradient(circle at 70% 70%,rgba(167,139,250,.34),transparent 34%),
+      linear-gradient(145deg,#101832,#070914);
+    border:1px solid rgba(255,255,255,.08);
+    margin-bottom:14px;
+}
+.track-name{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.track-file{font-size:11px;color:var(--muted);margin-top:4px;word-break:break-word}
+.setting{
+    padding:12px 0;
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+.setting:last-child{border-bottom:0}
+.setting-head{display:flex;justify-content:space-between;gap:10px;margin-bottom:7px}
+.setting-name{font-size:13px}
+.setting-value{font-size:12px;color:var(--cyan)}
+.hint{font-size:11px;color:var(--muted);line-height:1.5}
+.drop{
+    border:1px dashed rgba(47,216,245,.28);
+    border-radius:15px;
+    padding:15px;
+    text-align:center;
+    color:var(--muted);
+    background:rgba(47,216,245,.025);
+    transition:.2s ease;
+}
+.drop.dragging{
+    background:rgba(47,216,245,.1);
+    border-color:var(--cyan);
+    transform:scale(1.01);
+}
+.toast{
+    position:fixed;
+    z-index:20;
+    left:50%;
+    bottom:24px;
+    transform:translate(-50%,20px);
+    opacity:0;
+    pointer-events:none;
+    padding:11px 15px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    background:rgba(8,11,24,.94);
+    backdrop-filter:blur(12px);
+    box-shadow:var(--shadow);
+    font-size:12px;
+    transition:.25s ease;
+}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+kbd{
+    padding:2px 6px;
+    border:1px solid var(--line);
+    border-radius:5px;
+    background:rgba(255,255,255,.05);
+    font-size:10px;
+}
+@media(max-width:1050px){
+    .layout{grid-template-columns:1fr}
+}
+@media(max-width:820px){
+    .app{padding:14px}
+    .topbar{align-items:flex-start}
+    .main{grid-template-columns:1fr}
+    .lyrics-wrap{border-right:0}
+    .side{border-top:1px solid var(--line)}
+    .hero{min-height:270px;padding:23px}
+    .hero-orb{width:130px;height:130px;right:5%;top:25px;opacity:.7}
+    .lyrics{height:480px;padding-left:12px;padding-right:12px}
+    .secondary-controls{flex-wrap:wrap}
+}
+@media(max-width:560px){
+    .brand p{display:none}
+    .top-actions .ghost-btn{display:none}
+    .hero h2{font-size:34px}
+    .hero-orb{width:100px;height:100px;right:4%;top:30px}
+    .hero p{font-size:13px}
+    .lyric-line{font-size:18px}
+    .lyrics-head{padding:14px}
+    .controls{padding:14px}
+}
+
+.studio-nav{
+    display:flex;gap:5px;align-items:center;
+    padding:9px 12px;border-bottom:1px solid var(--line);
+    background:rgba(4,7,17,.32);overflow:auto;
+}
+.nav-tab{
+    border:1px solid transparent;background:transparent;color:var(--muted);
+    padding:9px 12px;border-radius:10px;cursor:pointer;white-space:nowrap;
+    transition:.2s ease;font-size:12px;font-weight:650;
+}
+.nav-tab:hover{color:var(--text);background:rgba(255,255,255,.04)}
+.nav-tab.active{
+    color:var(--text);border-color:rgba(47,216,245,.2);
+    background:linear-gradient(135deg,rgba(47,216,245,.1),rgba(167,139,250,.08));
+}
+.nav-count{
+    display:inline-grid;place-items:center;min-width:18px;height:18px;
+    padding:0 5px;margin-left:4px;border-radius:999px;
+    background:rgba(255,255,255,.07);font-size:10px;color:var(--cyan);
+}
+.library-view{padding:26px}
+.library-header{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    gap:18px;margin-bottom:20px;
+}
+.library-header h2{margin:0 0 5px;font-size:clamp(24px,4vw,36px)}
+.library-actions{display:flex;gap:8px;align-items:center;min-width:min(520px,100%)}
+.search-input{
+    width:100%;min-width:180px;padding:10px 12px;border-radius:10px;
+    color:var(--text);background:rgba(255,255,255,.045);
+    border:1px solid var(--line);outline:none;
+}
+.search-input:focus{border-color:rgba(47,216,245,.4);box-shadow:0 0 0 3px rgba(47,216,245,.06)}
+.library-stats{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px;
+}
+.stat{
+    border:1px solid var(--line);background:rgba(255,255,255,.025);
+    border-radius:14px;padding:14px;
+}
+.stat strong{display:block;font-size:21px}
+.stat span{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.song-grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:13px;
+}
+.song-card{
+    position:relative;border:1px solid var(--line);border-radius:17px;
+    background:rgba(255,255,255,.035);padding:12px;overflow:hidden;
+    transition:.22s ease;
+}
+.song-card:hover{
+    transform:translateY(-3px);border-color:rgba(47,216,245,.24);
+    background:rgba(255,255,255,.05);box-shadow:0 16px 40px rgba(0,0,0,.22);
+}
+.song-cover{
+    position:relative;aspect-ratio:1;border-radius:13px;display:grid;place-items:center;
+    background:
+      radial-gradient(circle at 30% 28%,rgba(47,216,245,.35),transparent 30%),
+      radial-gradient(circle at 72% 70%,rgba(167,139,250,.32),transparent 35%),
+      linear-gradient(145deg,#111a35,#070914);
+    border:1px solid rgba(255,255,255,.07);margin-bottom:12px;
+    overflow:hidden;
+}
+.song-cover::after{
+    content:"♫";font-size:45px;opacity:.88;
+    text-shadow:0 0 25px rgba(47,216,245,.22);
+}
+.song-favorite{
+    position:absolute;top:9px;right:9px;width:34px;height:34px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.1);background:rgba(3,5,13,.55);
+    cursor:pointer;z-index:2;
+}
+.song-favorite.active{color:var(--danger);border-color:rgba(255,102,133,.28);background:rgba(255,102,133,.08)}
+.song-info{min-width:0}
+.song-name{font-size:14px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.song-artist{font-size:11px;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.song-badges{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}
+.badge{
+    padding:4px 6px;border-radius:999px;background:rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.06);color:var(--muted);font-size:9px;
+}
+.badge.lyrics{color:var(--emerald);border-color:rgba(22,255,176,.15)}
+.song-actions{display:flex;gap:6px;margin-top:11px}
+.song-actions button{flex:1;padding:8px 9px;font-size:11px}
+.library-empty{
+    text-align:center;padding:70px 20px;color:var(--muted);
+    border:1px dashed var(--line);border-radius:18px;background:rgba(255,255,255,.018);
+}
+.library-empty[hidden],.library-view[hidden]{display:none!important}
+.library-empty .empty-icon{margin-bottom:7px}
+.library-empty strong{color:var(--text);display:block}
+@media(max-width:760px){
+    .library-header{align-items:stretch;flex-direction:column}
+    .library-actions{min-width:0}
+}
+@media(max-width:560px){
+    .library-view{padding:16px}
+    .library-actions{flex-direction:column}
+    .library-actions>*{width:100%}
+    .library-stats{gap:7px}
+    .stat{padding:11px}
+    .song-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+    .song-card{padding:9px}
+}
+@media(max-width:390px){
+    .song-grid{grid-template-columns:1fr}
+}
+
+
+.storage-status{
+    display:flex;align-items:center;gap:8px;margin-top:12px;padding:9px 10px;
+    border:1px solid rgba(255,255,255,.06);border-radius:10px;
+    background:rgba(255,255,255,.025);font-size:10px;color:var(--muted);
+}
+.storage-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px currentColor}
+.storage-status.ready{color:var(--emerald)}
+.storage-status.ready .storage-dot{background:var(--emerald)}
+.storage-status.error{color:var(--danger)}
+.storage-status.error .storage-dot{background:var(--danger)}
+.storage-status.busy{color:var(--cyan)}
+.storage-status.busy .storage-dot{background:var(--cyan)}
+.storage-info{
+    display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px;
+}
+.storage-info div{
+    padding:10px;border-radius:11px;border:1px solid var(--line);
+    background:rgba(255,255,255,.025);
+}
+.storage-info strong{display:block;font-size:13px}
+.storage-info span{display:block;color:var(--muted);font-size:9px;margin-top:2px}
+
+
+.song-cover {
+  width: 76px;
+  height: 76px;
+  flex: 0 0 76px;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(47,216,245,.28), transparent 35%),
+    radial-gradient(circle at 75% 75%, rgba(167,139,250,.24), transparent 38%),
+    rgba(255,255,255,.045);
+  border: 1px solid rgba(255,255,255,.10);
+  display:grid;
+  place-items:center;
+}
+.song-cover img { width:100%; height:100%; object-fit:cover; display:block; }
+.song-cover .cover-placeholder { font-size:27px; opacity:.82; }
+.song-card .song-main { min-width:0; flex:1; }
+.song-card .song-title { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.song-card .song-meta { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.song-card .song-album { opacity:.58; font-size:.78rem; margin-top:3px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.song-card .song-actions { display:flex; gap:6px; align-items:center; }
+
+.p4-edit-btn, .p4-cover-btn {
+  border:1px solid rgba(255,255,255,.11);
+  background:rgba(255,255,255,.055);
+  color:inherit;
+  border-radius:10px;
+  padding:7px 9px;
+  cursor:pointer;
+}
+.p4-edit-btn:hover, .p4-cover-btn:hover { background:rgba(47,216,245,.12); }
+
+.p4-modal-backdrop {
+  position:fixed; inset:0; z-index:9999;
+  display:none; align-items:center; justify-content:center;
+  padding:20px;
+  background:rgba(3,7,18,.78);
+  backdrop-filter:blur(12px);
+}
+.p4-modal-backdrop.open { display:flex; }
+.p4-modal {
+  width:min(650px, 100%);
+  max-height:min(90vh, 760px);
+  overflow:auto;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:22px;
+  background:linear-gradient(145deg,rgba(16,25,45,.97),rgba(8,13,28,.98));
+  box-shadow:0 25px 90px rgba(0,0,0,.55);
+  padding:22px;
+}
+.p4-modal h3 { margin:0 0 5px; font-size:1.3rem; }
+.p4-modal-subtitle { opacity:.62; margin-bottom:18px; font-size:.88rem; }
+.p4-form-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.p4-field { display:flex; flex-direction:column; gap:7px; }
+.p4-field.full { grid-column:1 / -1; }
+.p4-field label { font-size:.78rem; opacity:.66; }
+.p4-field input {
+  width:100%; box-sizing:border-box;
+  border:1px solid rgba(255,255,255,.11);
+  background:rgba(255,255,255,.045);
+  color:inherit; outline:none;
+  border-radius:11px; padding:11px 12px;
+}
+.p4-field input:focus { border-color:rgba(47,216,245,.5); box-shadow:0 0 0 3px rgba(47,216,245,.08); }
+.p4-cover-editor { display:flex; gap:18px; align-items:center; margin:4px 0 18px; }
+.p4-cover-preview {
+  width:120px; height:120px; flex:0 0 120px;
+  border-radius:18px; overflow:hidden;
+  display:grid; place-items:center;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.05);
+  font-size:42px;
+}
+.p4-cover-preview img { width:100%; height:100%; object-fit:cover; }
+.p4-cover-tools { display:flex; flex-wrap:wrap; gap:8px; }
+.p4-modal-actions { display:flex; justify-content:flex-end; gap:9px; margin-top:20px; }
+.p4-modal-actions button {
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:11px; padding:10px 15px; cursor:pointer;
+  color:inherit; background:rgba(255,255,255,.05);
+}
+.p4-modal-actions .primary { background:rgba(47,216,245,.16); border-color:rgba(47,216,245,.35); }
+.p4-hidden { display:none !important; }
+
+.p4-player-cover {
+  width:170px; height:170px; border-radius:24px; overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+  background:
+    radial-gradient(circle at 25% 25%, rgba(47,216,245,.3), transparent 35%),
+    radial-gradient(circle at 75% 75%, rgba(167,139,250,.25), transparent 38%),
+    rgba(255,255,255,.045);
+  display:grid; place-items:center; flex:0 0 170px;
+}
+.p4-player-cover img { width:100%; height:100%; object-fit:cover; }
+.p4-player-cover .cover-placeholder { font-size:60px; opacity:.82; }
+
+@media (max-width: 700px) {
+  .p4-form-grid { grid-template-columns:1fr; }
+  .p4-field.full { grid-column:auto; }
+  .p4-cover-editor { align-items:flex-start; }
+  .p4-player-cover { width:120px; height:120px; flex-basis:120px; }
+}
+
+
+.p5-stage {
+  position:fixed; inset:0; z-index:8000;
+  display:none; flex-direction:column;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(47,216,245,.10), transparent 35%),
+    radial-gradient(circle at 80% 80%, rgba(167,139,250,.10), transparent 38%),
+    #050914;
+}
+.p5-stage.open { display:flex; }
+.p5-stage-top {
+  height:72px; flex:0 0 72px; display:flex; align-items:center; gap:14px;
+  padding:0 24px; border-bottom:1px solid rgba(255,255,255,.09);
+  background:rgba(5,9,20,.72); backdrop-filter:blur(14px);
+}
+.p5-stage-cover {
+  width:44px;height:44px;border-radius:11px;overflow:hidden;
+  display:grid;place-items:center;background:rgba(255,255,255,.06);
+}
+.p5-stage-cover img { width:100%;height:100%;object-fit:cover; }
+.p5-stage-title { min-width:0; flex:1; }
+.p5-stage-title strong { display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+.p5-stage-title span { display:block;opacity:.55;font-size:.8rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+.p5-stage-close,.p5-stage-btn {
+  border:1px solid rgba(255,255,255,.11); background:rgba(255,255,255,.055);
+  color:inherit;border-radius:11px;padding:9px 12px;cursor:pointer;
+}
+.p5-stage-close:hover,.p5-stage-btn:hover { background:rgba(47,216,245,.12); }
+
+.p5-lyrics-stage {
+  flex:1; min-height:0; overflow:auto; text-align:center;
+  padding:8vh 7vw 24vh; scroll-behavior:smooth;
+}
+.p5-lyric-line {
+  margin:0 auto; max-width:1050px; padding:14px 18px;
+  font-size:clamp(1.35rem,3vw,2.55rem); line-height:1.35;
+  font-weight:700; color:rgba(255,255,255,.25);
+  cursor:pointer; transition:transform .25s, color .25s, opacity .25s, filter .25s;
+}
+.p5-lyric-line.active {
+  color:#fff; transform:scale(1.035);
+  text-shadow:0 0 25px rgba(47,216,245,.35);
+}
+.p5-lyric-line.near { color:rgba(255,255,255,.58); }
+.p5-lyric-empty { padding-top:20vh;opacity:.55;font-size:1rem; }
+
+.p5-bottom {
+  flex:0 0 auto; border-top:1px solid rgba(255,255,255,.09);
+  background:rgba(5,9,20,.88);backdrop-filter:blur(16px);padding:12px 20px 16px;
+}
+.p5-progress-row { display:flex;align-items:center;gap:10px;max-width:1100px;margin:auto; }
+.p5-time { font-variant-numeric:tabular-nums;font-size:.75rem;opacity:.6;min-width:42px; }
+.p5-range { flex:1; accent-color:#2fd8f5;cursor:pointer; }
+.p5-controls { display:flex;align-items:center;justify-content:center;gap:8px;margin-top:10px;flex-wrap:wrap; }
+.p5-control {
+  min-width:42px;height:40px;padding:0 12px;border-radius:12px;
+  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.055);
+  color:inherit;cursor:pointer;
+}
+.p5-control.primary { min-width:58px;background:rgba(47,216,245,.15);border-color:rgba(47,216,245,.35); }
+.p5-control.record { background:rgba(255,75,100,.10);border-color:rgba(255,75,100,.28); }
+.p5-control.recording { background:rgba(255,75,100,.2);box-shadow:0 0 0 3px rgba(255,75,100,.08); }
+.p5-control:disabled { opacity:.38;cursor:not-allowed; }
+
+.p5-panel {
+  position:fixed;right:20px;bottom:115px;width:min(350px,calc(100vw - 40px));
+  z-index:8050;display:none;padding:17px;border-radius:18px;
+  border:1px solid rgba(255,255,255,.12);background:rgba(10,16,31,.96);
+  box-shadow:0 20px 70px rgba(0,0,0,.5);backdrop-filter:blur(16px);
+}
+.p5-panel.open { display:block; }
+.p5-panel h4 { margin:0 0 12px; }
+.p5-meter { height:12px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden; }
+.p5-meter-fill { height:100%;width:0%;background:linear-gradient(90deg,#2fd8f5,#16ffb0,#ffd166);transition:width .06s; }
+.p5-panel-row { display:flex;align-items:center;justify-content:space-between;gap:10px;margin:11px 0; }
+.p5-panel-row label { font-size:.8rem;opacity:.65; }
+.p5-panel-row input[type=range] { width:155px;accent-color:#2fd8f5; }
+.p5-select { width:100%;padding:9px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:#0b1224;color:inherit; }
+
+.p5-recording-list { display:grid;gap:9px;margin-top:12px; }
+.p5-recording-item {
+  display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;
+  border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.035);
+}
+.p5-recording-item .info { flex:1;min-width:0; }
+.p5-recording-item strong,.p5-recording-item span { display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+.p5-recording-item span { font-size:.75rem;opacity:.55;margin-top:2px; }
+.p5-recording-item button { border:0;background:transparent;color:inherit;cursor:pointer;opacity:.7; }
+.p5-rec-dot { width:9px;height:9px;border-radius:50%;background:#ff4b64;box-shadow:0 0 12px rgba(255,75,100,.7); }
+
+@media(max-width:700px) {
+  .p5-stage-top { padding:0 12px; }
+  .p5-stage-top .p5-stage-btn { padding:8px 9px;font-size:.78rem; }
+  .p5-lyrics-stage { padding-left:4vw;padding-right:4vw; }
+  .p5-lyric-line { padding:12px 8px; }
+}
+
+
+.p51-record-source {
+  margin-top:10px;padding:10px;border-radius:11px;
+  background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.07);
+  font-size:.78rem;opacity:.72;
+}
+.p51-recording-badge {
+  display:inline-flex;align-items:center;gap:6px;padding:4px 8px;border-radius:99px;
+  background:rgba(22,255,176,.08);border:1px solid rgba(22,255,176,.2);
+  font-size:.72rem;margin-top:7px;
+}
+
+
+.p6-user-chip{
+    display:flex;align-items:center;gap:9px;
+    padding:6px 12px 6px 6px;border-radius:999px;
+    border:1px solid var(--line);background:rgba(255,255,255,.045);
+    cursor:pointer;transition:.2s ease;
+}
+.p6-user-chip:hover{border-color:rgba(47,216,245,.35);background:rgba(47,216,245,.07)}
+.p6-avatar{
+    width:30px;height:30px;border-radius:50%;flex:0 0 30px;
+    display:grid;place-items:center;font-size:12px;font-weight:800;
+    background:linear-gradient(135deg,var(--cyan),var(--violet));color:#04101c;
+    overflow:hidden;
+}
+.p6-avatar img{width:100%;height:100%;object-fit:cover}
+.p6-user-meta{min-width:0;line-height:1.25}
+.p6-user-name{font-size:12px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:130px}
+.p6-user-mode{font-size:10px;color:var(--muted)}
+.p6-user-mode.cloud{color:var(--emerald)}
+.p6-user-mode.guest{color:var(--gold)}
+.p6-back-btn{
+    display:inline-flex;align-items:center;gap:7px;
+    border:1px solid var(--line);background:rgba(255,255,255,.045);
+    border-radius:12px;padding:10px 13px;cursor:pointer;transition:.2s ease;
+    text-decoration:none;color:inherit;font-size:12px;
+}
+.p6-back-btn:hover{border-color:rgba(47,216,245,.35);background:rgba(47,216,245,.08)}
+.p6-guest-banner{
+    display:flex;align-items:center;gap:9px;margin-top:12px;padding:10px 12px;
+    border-radius:11px;border:1px solid rgba(255,216,77,.25);
+    background:rgba(255,216,77,.06);color:#e8d38a;font-size:11.5px;
+}
+.p6-guest-banner button{
+    margin-left:auto;border:1px solid rgba(255,216,77,.35);background:rgba(255,216,77,.1);
+    color:#ffe8a3;border-radius:9px;padding:6px 10px;font-size:10.5px;cursor:pointer;flex:0 0 auto;
+}
+.p6-settings-panel{padding:0}
+.p6-settings-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.p6-settings-row:last-child{border-bottom:0}
+.p6-stat-mini{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px}
+.p6-stat-mini div{font-size:11px;color:var(--muted)}
+.p6-stat-mini strong{color:var(--text);font-size:14px;display:block}
+@media(max-width:560px){
+    .p6-user-name{max-width:80px}
+    .p6-back-btn span{display:none}
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-mark">🎤</div>
+            <div>
+                <h1>Canopus Karaoke</h1>
+                <p>Sing through the stars</p>
+            </div>
+        </div>
+        <div class="top-actions">
+            <a class="p6-back-btn" id="p6BackToRealm" href="../../index.html" title="Back to Canopus Realm">↩ <span>Realm</span></a>
+            <button type="button" class="p6-user-chip" id="p6UserChip" title="Account">
+                <span class="p6-avatar" id="p6Avatar">?</span>
+                <span class="p6-user-meta">
+                    <span class="p6-user-name" id="p6UserName">Checking…</span>
+                    <span class="p6-user-mode" id="p6UserMode">session</span>
+                </span>
+            </button>
+            <button class="ghost-btn" id="clearBtn">Clear</button>
+            <button class="ghost-btn" id="storageBtn" title="Check local storage">💾 Storage</button>
+            <button class="icon-btn" id="fullscreenBtn" title="Fullscreen">⛶</button>
+<button type="button" class="p5-stage-btn" id="p5OpenKaraoke" title="Open Karaoke Mode">🎤 Karaoke</button>
+        </div>
+    </header>
+
+    <section class="panel">
+        <nav class="studio-nav" aria-label="Karaoke sections">
+            <button class="nav-tab active" data-view="studio">🎤 Studio</button>
+            <button class="nav-tab" data-view="library">🎵 Library <span class="nav-count" id="libraryCount">0</span></button>
+            <button class="nav-tab" data-view="favorites">♥ Favorites <span class="nav-count" id="favoriteCount">0</span></button>
+            <button class="nav-tab" data-view="recent">◷ Recent</button>
+        </nav>
+
+        <div id="studioView">
+        <div class="hero">
+            <div class="hero-orb"></div>
+            <div class="hero-content">
+                <div class="eyebrow">Canopus Realm • Phase 1</div>
+                <h2>Your lyrics.<br>Perfectly in orbit.</h2>
+                <p>
+                    A redesigned karaoke studio built around the original Audio + LRC engine:
+                    load your song, load its lyrics, and sing with synchronized glowing lyrics.
+                </p>
+                <div class="import-row">
+                    <label class="file-label">
+                        <button class="primary-btn">🔊 Load Audio</button>
+                        <input id="audioFile" type="file" accept="audio/*">
+                    </label>
+                    <label class="file-label">
+                        <button class="ghost-btn">📝 Load LRC</button>
+                        <input id="lrcFile" type="file" accept=".lrc,text/plain">
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="main">
+            <section class="lyrics-wrap">
+                <div class="lyrics-head">
+                    <div>
+                        <div class="song-title" id="songTitle">No song loaded</div>
+                        <div class="song-meta" id="songMeta">Load an audio file and matching .lrc lyrics</div>
+                    </div>
+                    <div class="status" id="status">Waiting</div>
+                </div>
+
+                <div class="lyrics" id="lyrics">
+                    <div class="empty" id="emptyState">
+                        <div>
+                            <div class="empty-icon">🌌</div>
+                            <strong>Drop a song into the studio</strong>
+                            <p class="hint">Audio + LRC works locally in your browser.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <div class="progress-row">
+                        <span class="time" id="currentTime">00:00</span>
+                        <input id="seek" type="range" min="0" max="0" value="0" step="0.01" disabled>
+                        <span class="time" id="duration">00:00</span>
+                    </div>
+
+                    <div class="transport">
+                        <button class="icon-btn" id="backBtn" title="Back 5 seconds">↶</button>
+                        <button class="play" id="playBtn" disabled>▶</button>
+                        <button class="icon-btn" id="forwardBtn" title="Forward 5 seconds">↷</button>
+                    </div>
+
+                    <div class="secondary-controls">
+                        <div class="control-group">
+                            <button class="icon-btn" id="stopBtn" title="Stop" disabled>■</button>
+                            <button class="icon-btn" id="muteBtn" title="Mute" disabled>🔊</button>
+                        </div>
+                        <div class="control-group">
+                            <span class="hint">Speed</span>
+                            <select class="small-select" id="speed">
+                                <option value=".75">0.75×</option>
+                                <option value=".9">0.90×</option>
+                                <option value="1" selected>1.00×</option>
+                                <option value="1.1">1.10×</option>
+                                <option value="1.25">1.25×</option>
+                                <option value="1.5">1.50×</option>
+                                <option value="2">2.00×</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="side">
+                <div class="side-section">
+                    <div class="side-title">Now Playing</div>
+                    <div class="track-card">
+                        <div class="cover">🎤</div>
+                        <div class="track-name" id="sideTitle">Nothing playing</div>
+                        <div class="track-file" id="sideFile">Import an audio file to begin.</div>
+                    </div>
+                </div>
+
+                <div class="side-section">
+                    <div class="side-title">Lyrics Sync</div>
+                    <div class="setting">
+                        <div class="setting-head">
+                            <span class="setting-name">Offset</span>
+                            <span class="setting-value" id="offsetValue">0 ms</span>
+                        </div>
+                        <input id="offset" type="range" min="-3000" max="3000" step="10" value="0">
+                        <div class="hint">Move lyrics earlier or later if the timing does not match.</div>
+                    </div>
+                </div>
+
+                <div class="side-section">
+                    <div class="side-title">Import & Storage</div>
+                    <div class="drop" id="dropZone">
+                        <strong>Drop files here</strong>
+                        <div class="hint" style="margin-top:6px">Audio + .lrc</div>
+                        <div class="hint" style="margin-top:8px">
+                            <kbd>A</kbd> audio · <kbd>L</kbd> lyrics · <kbd>Space</kbd> play
+                        </div>
+                        <div class="storage-status" id="storageStatus">
+                            <span class="storage-dot"></span>
+                            <span>Local library storage initializing…</span>
+                        </div>
+                        <div class="p6-guest-banner" id="p6GuestBanner" hidden>
+                            <span>⚠</span>
+                            <span>Browsing as guest — favorites/stats stay on this device. Sign in from Canopus Realm to sync them to your account.</span>
+                            <button type="button" id="p6SignInBtn">Sign in</button>
+                        </div>
+                        <div class="p6-stat-mini" id="p6StatMini">
+                            <div><strong id="p6StatSongs">0</strong>Songs</div>
+                            <div><strong id="p6StatFavorites">0</strong>Favorites</div>
+                            <div><strong id="p6StatRecordings">0</strong>My Karaoke</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="side-section">
+                    <div class="side-title">About LRC</div>
+                    <div class="hint">
+                        Supports timestamped lines such as
+                        <code>[00:12.50] First line</code> and multiple timestamps on one line.
+                    </div>
+                </div>
+            </aside>
+        </div>
+        </div>
+
+        <section class="library-view" id="libraryView" hidden>
+            <div class="library-header">
+                <div>
+                    <div class="eyebrow">Canopus Library</div>
+                    <h2>Your music universe</h2>
+                    <p class="hint">Keep your imported karaoke tracks organized and ready to launch.</p>
+                </div>
+                <div class="library-actions">
+                    <input id="librarySearch" class="search-input" type="search" placeholder="Search songs, artists, files…" autocomplete="off">
+                    <select id="librarySort" class="small-select" aria-label="Sort library">
+                        <option value="recent">Recently added</option>
+                        <option value="played">Recently played</option>
+                        <option value="title">Title A–Z</option>
+                        <option value="artist">Artist A–Z</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="library-stats">
+                <div class="stat"><strong id="statSongs">0</strong><span>Songs</span></div>
+                <div class="stat"><strong id="statFavorites">0</strong><span>Favorites</span></div>
+                <div class="stat"><strong id="statPlayed">0</strong><span>Played</span></div>
+            </div>
+
+            <div id="songGrid" class="song-grid"></div>
+            <div id="libraryEmpty" class="library-empty">
+                <div class="empty-icon">🎶</div>
+                <strong>Your library is empty</strong>
+                <p class="hint">Load an audio file from Studio to add your first song.</p>
+            </div>
+        </section>
+
+        <section class="library-view" id="favoritesView" hidden>
+            <div class="library-header">
+                <div>
+                    <div class="eyebrow">Favorites</div>
+                    <h2>Your favorite tracks</h2>
+                    <p class="hint">Quick access to the songs you love most.</p>
+                </div>
+            </div>
+            <div id="favoriteGrid" class="song-grid"></div>
+            <div id="favoriteEmpty" class="library-empty">
+                <div class="empty-icon">♥</div>
+                <strong>No favorites yet</strong>
+                <p class="hint">Tap the heart on a song to save it here.</p>
+            </div>
+        </section>
+
+        <section class="library-view" id="recentView" hidden>
+            <div class="library-header">
+                <div>
+                    <div class="eyebrow">Recently Played</div>
+                    <h2>Back to your latest sessions</h2>
+                    <p class="hint">Your most recently played local tracks.</p>
+                </div>
+            </div>
+            <div id="recentGrid" class="song-grid"></div>
+            <div id="recentEmpty" class="library-empty">
+                <div class="empty-icon">◷</div>
+                <strong>Nothing played yet</strong>
+                <p class="hint">Start a song from your library and it will appear here.</p>
+            </div>
+        </section>
+    </section>
+</div>
+
+<audio id="player" preload="metadata"></audio>
+<div class="toast" id="toast"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="../../firebase-config.js"></script>
+
+<script>
+(() => {
+    const $ = id => document.getElementById(id);
+
+    const audioInput = $("audioFile");
+    const lrcInput = $("lrcFile");
+    const player = $("player");
+    const lyricsEl = $("lyrics");
+    const emptyState = $("emptyState");
+    const seek = $("seek");
+    const playBtn = $("playBtn");
+    const stopBtn = $("stopBtn");
+    const muteBtn = $("muteBtn");
+    const backBtn = $("backBtn");
+    const forwardBtn = $("forwardBtn");
+    const speed = $("speed");
+    const offset = $("offset");
+    const offsetValue = $("offsetValue");
+    const currentTimeEl = $("currentTime");
+    const durationEl = $("duration");
+    const songTitle = $("songTitle");
+    const songMeta = $("songMeta");
+    const sideTitle = $("sideTitle");
+    const sideFile = $("sideFile");
+    const status = $("status");
+    const dropZone = $("dropZone");
+    const toastEl = $("toast");
+
+    let entries = [];
+    let activeIndex = -1;
+    let offsetMs = 0;
+    let audioUrl = null;
+    let audioLoaded = false;
+    let lrcLoaded = false;
+    let toastTimer = null;
+
+    function formatTime(seconds) {
+        if (!Number.isFinite(seconds) || seconds < 0) seconds = 0;
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+    }
+
+    function escapeHtml(value) {
+        return String(value)
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+    }
+
+    function parseLRC(text) {
+        const output = [];
+        const lines = String(text).replace(/\r/g, "").split("\n");
+        const timeRe = /\[(\d{1,3}):(\d{2})(?:[.:](\d{1,3}))?\]/g;
+
+        for (const raw of lines) {
+            if (!raw.trim()) continue;
+
+            const matches = [...raw.matchAll(timeRe)];
+            if (!matches.length) continue;
+
+            const pureText = raw.replace(timeRe, "").trim();
+
+            for (const match of matches) {
+                const minutes = Number.parseInt(match[1], 10);
+                const seconds = Number.parseInt(match[2], 10);
+                const fractionText = match[3] || "";
+                const fraction = fractionText
+                    ? Number.parseInt(fractionText.padEnd(3, "0").slice(0, 3), 10) / 1000
+                    : 0;
+
+                const time = minutes * 60 + seconds + fraction;
+
+                if (Number.isFinite(time)) {
+                    output.push({ t: time, text: pureText });
+                }
+            }
+        }
+
+        return output.sort((a, b) => a.t - b.t);
+    }
+
+    function showToast(message) {
+        toastEl.textContent = message;
+        toastEl.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toastEl.classList.remove("show"), 2300);
+    }
+
+    function setStatus(text, ready = false) {
+        status.textContent = text;
+        status.classList.toggle("ready", ready);
+    }
+
+    function renderLyrics() {
+        lyricsEl.innerHTML = "";
+
+        if (!entries.length) {
+            lyricsEl.appendChild(emptyState);
+            emptyState.style.display = "grid";
+            activeIndex = -1;
+            return;
+        }
+
+        entries.forEach((entry, index) => {
+            const line = document.createElement("div");
+            line.className = "lyric-line";
+            line.dataset.index = index;
+            line.dataset.time = entry.t;
+            line.innerHTML = escapeHtml(entry.text || "♪");
+            line.addEventListener("click", () => {
+                player.currentTime = Math.max(0, entry.t + offsetMs / 1000);
+                player.play().catch(() => {});
+            });
+            lyricsEl.appendChild(line);
+        });
+
+        activeIndex = -1;
+        updateActive(true);
+    }
+
+    function findActiveIndex(time) {
+        if (!entries.length) return -1;
+
+        let lo = 0;
+        let hi = entries.length - 1;
+        let result = -1;
+
+        while (lo <= hi) {
+            const mid = (lo + hi) >> 1;
+            if (entries[mid].t <= time) {
+                result = mid;
+                lo = mid + 1;
+            } else {
+                hi = mid - 1;
+            }
+        }
+        return result;
+    }
+
+    function updateActive(force = false) {
+        if (!entries.length) return;
+
+        const lyricTime = player.currentTime - offsetMs / 1000;
+        const nextIndex = findActiveIndex(lyricTime);
+
+        if (!force && nextIndex === activeIndex) return;
+
+        if (activeIndex >= 0) {
+            const oldLine = lyricsEl.children[activeIndex];
+            oldLine?.classList.remove("active");
+            oldLine?.classList.add("past");
+        }
+
+        activeIndex = nextIndex;
+
+        for (let i = 0; i < lyricsEl.children.length; i++) {
+            lyricsEl.children[i].classList.toggle("past", i < activeIndex);
+        }
+
+        const activeLine = activeIndex >= 0 ? lyricsEl.children[activeIndex] : null;
+        activeLine?.classList.add("active");
+
+        if (activeLine) {
+            activeLine.scrollIntoView({
+                behavior: force ? "auto" : "smooth",
+                block: "center"
+            });
+        }
+    }
+
+    function updateProgress() {
+        const current = player.currentTime || 0;
+        const total = Number.isFinite(player.duration) ? player.duration : 0;
+
+        currentTimeEl.textContent = formatTime(current);
+        durationEl.textContent = formatTime(total);
+
+        seek.max = total || 0;
+        seek.value = current;
+        seek.disabled = !audioLoaded;
+
+        updateActive();
+    }
+
+    function updateReadyState() {
+        if (audioLoaded && lrcLoaded) {
+            setStatus("Ready to sing", true);
+        } else if (audioLoaded) {
+            setStatus("Audio loaded");
+        } else if (lrcLoaded) {
+            setStatus("Lyrics loaded");
+        } else {
+            setStatus("Waiting");
+        }
+    }
+
+    function loadAudioFile(file) {
+        if (!file || !file.type.startsWith("audio/")) {
+            showToast("Please choose a valid audio file.");
+            return;
+        }
+
+        if (audioUrl) URL.revokeObjectURL(audioUrl);
+        audioUrl = URL.createObjectURL(file);
+
+        player.src = audioUrl;
+        player.load();
+
+        audioLoaded = true;
+        playBtn.disabled = false;
+        stopBtn.disabled = false;
+        muteBtn.disabled = false;
+
+        songTitle.textContent = file.name.replace(/\.[^/.]+$/, "");
+        songMeta.textContent = "Local audio file";
+        sideTitle.textContent = file.name.replace(/\.[^/.]+$/, "");
+        sideFile.textContent = file.name;
+
+        updateReadyState();
+        showToast("Audio loaded.");
+    }
+
+    function loadLrcFile(file) {
+        if (!file) return;
+
+        const isLrc = file.name.toLowerCase().endsWith(".lrc") || file.type.startsWith("text/");
+        if (!isLrc) {
+            showToast("Please choose a .lrc lyrics file.");
+            return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = () => {
+            entries = parseLRC(reader.result);
+            lrcLoaded = entries.length > 0;
+            renderLyrics();
+
+            if (lrcLoaded) {
+                songMeta.textContent = audioLoaded
+                    ? `${entries.length} synchronized lyric lines`
+                    : `${entries.length} lyric lines`;
+                setStatus("Lyrics loaded", true);
+                showToast(`${entries.length} lyric lines loaded.`);
+            } else {
+                setStatus("No timestamps found");
+                showToast("No valid LRC timestamps were found.");
+            }
+        };
+
+        reader.onerror = () => showToast("Could not read the lyrics file.");
+        reader.readAsText(file);
+    }
+
+    function clearStudio() {
+        if (audioUrl) {
+            URL.revokeObjectURL(audioUrl);
+            audioUrl = null;
+        }
+
+        player.pause();
+        player.removeAttribute("src");
+        player.load();
+
+        entries = [];
+        activeIndex = -1;
+        audioLoaded = false;
+        lrcLoaded = false;
+        seek.value = 0;
+        seek.max = 0;
+        currentTimeEl.textContent = "00:00";
+        durationEl.textContent = "00:00";
+        playBtn.disabled = true;
+        stopBtn.disabled = true;
+        muteBtn.disabled = true;
+        songTitle.textContent = "No song loaded";
+        songMeta.textContent = "Load an audio file and matching .lrc lyrics";
+        sideTitle.textContent = "Nothing playing";
+        sideFile.textContent = "Import an audio file to begin.";
+        renderLyrics();
+        updateReadyState();
+    }
+
+    audioInput.addEventListener("change", event => {
+        const file = event.target.files?.[0];
+        if (file) loadAudioFile(file);
+        event.target.value = "";
+    });
+
+    lrcInput.addEventListener("change", event => {
+        const file = event.target.files?.[0];
+        if (file) loadLrcFile(file);
+        event.target.value = "";
+    });
+
+    playBtn.addEventListener("click", () => {
+        if (!audioLoaded) return;
+        if (player.paused) player.play().catch(() => showToast("Playback could not start."));
+        else player.pause();
+    });
+
+    stopBtn.addEventListener("click", () => {
+        player.pause();
+        player.currentTime = 0;
+        updateProgress();
+    });
+
+    backBtn.addEventListener("click", () => {
+        if (!audioLoaded) return;
+        player.currentTime = Math.max(0, player.currentTime - 5);
+    });
+
+    forwardBtn.addEventListener("click", () => {
+        if (!audioLoaded) return;
+        player.currentTime = Math.min(player.duration || Infinity, player.currentTime + 5);
+    });
+
+    muteBtn.addEventListener("click", () => {
+        player.muted = !player.muted;
+        muteBtn.textContent = player.muted ? "🔇" : "🔊";
+    });
+
+    speed.addEventListener("change", () => {
+        player.playbackRate = Number(speed.value);
+    });
+
+    seek.addEventListener("input", () => {
+        if (audioLoaded) {
+            player.currentTime = Number(seek.value);
+            updateActive();
+        }
+    });
+
+    offset.addEventListener("input", () => {
+        offsetMs = Number(offset.value);
+        offsetValue.textContent = `${offsetMs > 0 ? "+" : ""}${offsetMs} ms`;
+        updateActive(true);
+    });
+
+    player.addEventListener("play", () => {
+        playBtn.textContent = "Ⅱ";
+    });
+
+    player.addEventListener("pause", () => {
+        playBtn.textContent = "▶";
+    });
+
+    player.addEventListener("loadedmetadata", updateProgress);
+    player.addEventListener("timeupdate", updateProgress);
+    player.addEventListener("seeked", updateActive);
+    player.addEventListener("ended", () => {
+        playBtn.textContent = "▶";
+        updateActive(true);
+    });
+
+    ["dragenter", "dragover"].forEach(eventName => {
+        dropZone.addEventListener(eventName, event => {
+            event.preventDefault();
+            dropZone.classList.add("dragging");
+        });
+    });
+
+    ["dragleave", "drop"].forEach(eventName => {
+        dropZone.addEventListener(eventName, event => {
+            event.preventDefault();
+            dropZone.classList.remove("dragging");
+        });
+    });
+
+    dropZone.addEventListener("drop", event => {
+        const files = [...event.dataTransfer.files];
+        files.forEach(file => {
+            if (file.type.startsWith("audio/")) loadAudioFile(file);
+            else if (file.name.toLowerCase().endsWith(".lrc") || file.type.startsWith("text/")) loadLrcFile(file);
+        });
+
+        if (!files.length) showToast("No supported files dropped.");
+    });
+
+    $("clearBtn").addEventListener("click", clearStudio);
+
+    $("fullscreenBtn").addEventListener("click", async () => {
+        try {
+            if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
+            else await document.exitFullscreen();
+        } catch {
+            showToast("Fullscreen is not available here.");
+        }
+    });
+
+    window.addEventListener("keydown", event => {
+        if (event.target.matches("input,select,textarea,button")) return;
+
+        if (event.code === "Space") {
+            event.preventDefault();
+            if (audioLoaded) {
+                player.paused ? player.play().catch(() => {}) : player.pause();
+            }
+        } else if (event.key === "ArrowRight") {
+            if (audioLoaded) player.currentTime = Math.min(player.duration || Infinity, player.currentTime + 5);
+        } else if (event.key === "ArrowLeft") {
+            if (audioLoaded) player.currentTime = Math.max(0, player.currentTime - 5);
+        } else if (event.key.toLowerCase() === "a") {
+            audioInput.click();
+        } else if (event.key.toLowerCase() === "l") {
+            lrcInput.click();
+        }
+    });
+
+    renderLyrics();
+    updateReadyState();
+
+    const STORAGE_KEY = "canopus-karaoke-library-v2";
+    let library = loadLibrary();
+
+    function loadLibrary() {
+        try {
+            const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+            return Array.isArray(data) ? data : [];
+        } catch {
+            return [];
+        }
+    }
+
+    function saveLibrary() {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(library));
+        } catch {
+            showToast("Browser storage is unavailable.");
+        }
+    }
+
+    function normalizeName(name) {
+        return name.replace(/\.[^/.]+$/, "").replace(/[_-]+/g, " ").trim();
+    }
+
+    function getSongById(id) {
+        return library.find(song => song.id === id);
+    }
+
+    function makeSongId(file) {
+        return `${file.name}::${file.size}::${file.lastModified}`;
+    }
+
+    function upsertSong(file) {
+        const id = makeSongId(file);
+        let song = getSongById(id);
+
+        if (!song) {
+            song = {
+                id,
+                title: normalizeName(file.name) || "Untitled",
+                artist: "Unknown artist",
+                album: "",
+                fileName: file.name,
+                size: file.size,
+                lastModified: file.lastModified,
+                hasLyrics: false,
+                favorite: false,
+                createdAt: Date.now(),
+                lastPlayed: 0
+            };
+            library.unshift(song);
+        }
+
+        song.fileName = file.name;
+        song.size = file.size;
+        song.lastModified = file.lastModified;
+        return song;
+    }
+
+    function markSongPlayed(file) {
+        const song = upsertSong(file);
+        song.lastPlayed = Date.now();
+        saveLibrary();
+        renderLibraryViews();
+    }
+
+    function toggleFavorite(id) {
+        const song = getSongById(id);
+        if (!song) return;
+        song.favorite = !song.favorite;
+        saveLibrary();
+        renderLibraryViews();
+        showToast(song.favorite ? "Added to favorites." : "Removed from favorites.");
+    }
+
+    function playLibrarySong(id) {
+        const song = getSongById(id);
+        if (!song) return;
+
+    
+        if (currentAudioFile && makeSongId(currentAudioFile) === id) {
+            loadAudioFile(currentAudioFile, true);
+            if (currentLrcFile) loadLrcFile(currentLrcFile);
+            player.play().catch(() => {});
+            return;
+        }
+
+        showToast("For security, browsers cannot restore local files after reload. Load this song again from Studio.");
+        switchView("studio");
+    }
+
+    function renderSongCard(song) {
+        const card = document.createElement("article");
+        card.className = "song-card";
+
+        const cover = document.createElement("div");
+        cover.className = "song-cover";
+
+        const favorite = document.createElement("button");
+        favorite.className = `song-favorite${song.favorite ? " active" : ""}`;
+        favorite.title = song.favorite ? "Remove favorite" : "Add favorite";
+        favorite.textContent = song.favorite ? "♥" : "♡";
+        favorite.addEventListener("click", () => toggleFavorite(song.id));
+        cover.appendChild(favorite);
+
+        const info = document.createElement("div");
+        info.className = "song-info";
+
+        const name = document.createElement("div");
+        name.className = "song-name";
+        name.title = song.title;
+        name.textContent = song.title;
+
+        const artist = document.createElement("div");
+        artist.className = "song-artist";
+        artist.textContent = song.artist || "Unknown artist";
+
+        const badges = document.createElement("div");
+        badges.className = "song-badges";
+
+        const lyricsBadge = document.createElement("span");
+        lyricsBadge.className = `badge${song.hasLyrics ? " lyrics" : ""}`;
+        lyricsBadge.textContent = song.hasLyrics ? "LRC synced" : "No LRC";
+        badges.appendChild(lyricsBadge);
+
+        if (song.lastPlayed) {
+            const playedBadge = document.createElement("span");
+            playedBadge.className = "badge";
+            playedBadge.textContent = "Played";
+            badges.appendChild(playedBadge);
+        }
+
+        const actions = document.createElement("div");
+        actions.className = "song-actions";
+
+        const play = document.createElement("button");
+        play.className = "primary-btn";
+        play.textContent = "▶ Play";
+        play.addEventListener("click", () => playLibrarySong(song.id));
+
+        const remove = document.createElement("button");
+        remove.className = "ghost-btn";
+        remove.textContent = "Remove";
+        remove.addEventListener("click", () => removeSong(song.id));
+
+        actions.append(play, remove);
+        info.append(name, artist, badges, actions);
+        card.append(cover, info);
+        return card;
+    }
+
+    function removeSong(id) {
+        const song = getSongById(id);
+        if (!song) return;
+        library = library.filter(item => item.id !== id);
+        saveLibrary();
+        renderLibraryViews();
+        showToast(`Removed "${song.title}".`);
+    }
+
+    function sortedSongs(source, sortMode) {
+        const songs = [...source];
+
+        if (sortMode === "title") {
+            songs.sort((a,b) => a.title.localeCompare(b.title));
+        } else if (sortMode === "artist") {
+            songs.sort((a,b) => (a.artist || "").localeCompare(b.artist || ""));
+        } else if (sortMode === "played") {
+            songs.sort((a,b) => (b.lastPlayed || 0) - (a.lastPlayed || 0));
+        } else {
+            songs.sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
+        }
+
+        return songs;
+    }
+
+    function renderGrid(containerId, emptyId, songs) {
+        const container = $(containerId);
+        const empty = $(emptyId);
+        container.innerHTML = "";
+
+        if (!songs.length) {
+            empty.hidden = false;
+            return;
+        }
+
+        empty.hidden = true;
+        songs.forEach(song => container.appendChild(renderSongCard(song)));
+    }
+
+    function renderLibraryViews() {
+        const query = ($("librarySearch")?.value || "").trim().toLowerCase();
+        const sortMode = $("librarySort")?.value || "recent";
+
+        const filtered = library.filter(song => {
+            if (!query) return true;
+            return [song.title, song.artist, song.album, song.fileName]
+                .filter(Boolean)
+                .some(value => String(value).toLowerCase().includes(query));
+        });
+
+        const favorites = filtered.filter(song => song.favorite);
+        const recent = sortedSongs(
+            library.filter(song => song.lastPlayed),
+            "played"
+        );
+
+        renderGrid("songGrid", "libraryEmpty", sortedSongs(filtered, sortMode));
+        renderGrid("favoriteGrid", "favoriteEmpty", sortedSongs(favorites, "title"));
+        renderGrid("recentGrid", "recentEmpty", recent);
+
+        $("libraryCount").textContent = library.length;
+        $("favoriteCount").textContent = library.filter(song => song.favorite).length;
+        $("statSongs").textContent = library.length;
+        $("statFavorites").textContent = library.filter(song => song.favorite).length;
+        $("statPlayed").textContent = library.filter(song => song.lastPlayed).length;
+    }
+
+    function switchView(view) {
+        const views = {
+            studio: $("studioView"),
+            library: $("libraryView"),
+            favorites: $("favoritesView"),
+            recent: $("recentView")
+        };
+
+        Object.entries(views).forEach(([name, element]) => {
+            element.hidden = name !== view;
+        });
+
+        document.querySelectorAll(".nav-tab").forEach(tab => {
+            tab.classList.toggle("active", tab.dataset.view === view);
+        });
+
+        if (view !== "studio") renderLibraryViews();
+    }
+
+    document.querySelectorAll(".nav-tab").forEach(tab => {
+        tab.addEventListener("click", () => switchView(tab.dataset.view));
+    });
+
+    $("librarySearch").addEventListener("input", renderLibraryViews);
+    $("librarySort").addEventListener("change", renderLibraryViews);
+
+    let currentAudioFile = null;
+    let currentLrcFile = null;
+
+    const originalLoadAudioFile = loadAudioFile;
+    loadAudioFile = function(file) {
+        currentAudioFile = file;
+        const song = upsertSong(file);
+        song.title = normalizeName(file.name) || song.title;
+        saveLibrary();
+        originalLoadAudioFile(file);
+        renderLibraryViews();
+    };
+
+    const originalLoadLrcFile = loadLrcFile;
+    loadLrcFile = function(file) {
+        currentLrcFile = file;
+        originalLoadLrcFile(file);
+
+        const song = currentAudioFile ? getSongById(makeSongId(currentAudioFile)) : null;
+        if (song) {
+            song.hasLyrics = true;
+            saveLibrary();
+            renderLibraryViews();
+        }
+    };
+
+    const originalClearStudio = clearStudio;
+    clearStudio = function() {
+        currentAudioFile = null;
+        currentLrcFile = null;
+        originalClearStudio();
+    };
+
+    player.addEventListener("play", () => {
+        if (currentAudioFile) markSongPlayed(currentAudioFile);
+    });
+
+    renderLibraryViews();
+
+
+    const DB_NAME = "canopus-karaoke-db";
+    const DB_VERSION = 1;
+    const SONG_STORE = "songs";
+    let db = null;
+    let persistentAudioUrl = null;
+    let persistentLrcText = null;
+    let currentSongId = null;
+
+    function setStorageStatus(message, state = "") {
+        const el = $("storageStatus");
+        if (!el) return;
+        el.className = `storage-status ${state}`.trim();
+        el.querySelector("span:last-child").textContent = message;
+    }
+
+    function openDatabase() {
+        return new Promise((resolve, reject) => {
+            if (!("indexedDB" in window)) {
+                reject(new Error("IndexedDB is not supported by this browser."));
+                return;
+            }
+
+            const request = indexedDB.open(DB_NAME, DB_VERSION);
+
+            request.onupgradeneeded = () => {
+                const database = request.result;
+                if (!database.objectStoreNames.contains(SONG_STORE)) {
+                    const store = database.createObjectStore(SONG_STORE, { keyPath: "id" });
+                    store.createIndex("title", "title", { unique: false });
+                    store.createIndex("createdAt", "createdAt", { unique: false });
+                    store.createIndex("lastPlayed", "lastPlayed", { unique: false });
+                }
+            };
+
+            request.onsuccess = () => {
+                db = request.result;
+                db.onversionchange = () => db.close();
+                resolve(db);
+            };
+
+            request.onerror = () => reject(request.error || new Error("Could not open IndexedDB."));
+        });
+    }
+
+    function idbPut(record) {
+        return new Promise((resolve, reject) => {
+            if (!db) return reject(new Error("Database is not ready."));
+            const tx = db.transaction(SONG_STORE, "readwrite");
+            tx.objectStore(SONG_STORE).put(record);
+            tx.oncomplete = () => resolve();
+            tx.onerror = () => reject(tx.error || new Error("Could not save song."));
+        });
+    }
+
+    function idbGet(id) {
+        return new Promise((resolve, reject) => {
+            if (!db) return reject(new Error("Database is not ready."));
+            const tx = db.transaction(SONG_STORE, "readonly");
+            const request = tx.objectStore(SONG_STORE).get(id);
+            request.onsuccess = () => resolve(request.result || null);
+            request.onerror = () => reject(request.error || new Error("Could not read song."));
+        });
+    }
+
+    function idbGetAll() {
+        return new Promise((resolve, reject) => {
+            if (!db) return reject(new Error("Database is not ready."));
+            const tx = db.transaction(SONG_STORE, "readonly");
+            const request = tx.objectStore(SONG_STORE).getAll();
+            request.onsuccess = () => resolve(request.result || []);
+            request.onerror = () => reject(request.error || new Error("Could not read library."));
+        });
+    }
+
+    function idbDelete(id) {
+        return new Promise((resolve, reject) => {
+            if (!db) return reject(new Error("Database is not ready."));
+            const tx = db.transaction(SONG_STORE, "readwrite");
+            tx.objectStore(SONG_STORE).delete(id);
+            tx.oncomplete = () => resolve();
+            tx.onerror = () => reject(tx.error || new Error("Could not delete song."));
+        });
+    }
+
+    async function migrateLocalMetadataToIndexedDB() {
+        if (!db) return;
+
+        try {
+            const stored = await idbGetAll();
+
+            for (const meta of library) {
+                const existing = stored.find(song => song.id === meta.id);
+                if (!existing) {
+                    await idbPut({
+                        ...meta,
+                        audioBlob: null,
+                        lrcText: null
+                    });
+                }
+            }
+        } catch (error) {
+            console.warn("IndexedDB migration skipped:", error);
+        }
+    }
+
+    async function initializePersistentStorage() {
+        try {
+            setStorageStatus("Opening local database…", "busy");
+            await openDatabase();
+            await migrateLocalMetadataToIndexedDB();
+            setStorageStatus("Persistent local library ready", "ready");
+        } catch (error) {
+            console.error(error);
+            setStorageStatus("IndexedDB unavailable — metadata mode", "error");
+        }
+    }
+
+    async function persistCurrentSong() {
+        if (!db || !currentAudioFile) return;
+
+        const id = makeSongId(currentAudioFile);
+        const song = getSongById(id);
+        if (!song) return;
+
+        try {
+            const previous = await idbGet(id);
+
+            await idbPut({
+                ...(previous || {}),
+                ...song,
+                id,
+                audioBlob: currentAudioFile,
+                lrcText: persistentLrcText
+            });
+        } catch (error) {
+            console.error("Could not persist song:", error);
+            setStorageStatus("Could not save this song", "error");
+        }
+    }
+
+    async function restorePersistentLibrary() {
+        if (!db) return;
+
+        try {
+            const records = await idbGetAll();
+
+            for (const record of records) {
+                const existing = getSongById(record.id);
+
+                if (existing) {
+                    Object.assign(existing, {
+                        title: record.title || existing.title,
+                        artist: record.artist || existing.artist,
+                        album: record.album || existing.album,
+                        fileName: record.fileName || existing.fileName,
+                        size: record.size || existing.size,
+                        lastModified: record.lastModified || existing.lastModified,
+                        hasLyrics: Boolean(record.lrcText) || existing.hasLyrics,
+                        favorite: Boolean(existing.favorite || record.favorite),
+                        createdAt: existing.createdAt || record.createdAt || Date.now(),
+                        lastPlayed: Math.max(existing.lastPlayed || 0, record.lastPlayed || 0)
+                    });
+                } else {
+                    library.push({
+                        id: record.id,
+                        title: record.title || "Untitled",
+                        artist: record.artist || "Unknown artist",
+                        album: record.album || "",
+                        fileName: record.fileName || "Unknown file",
+                        size: record.size || 0,
+                        lastModified: record.lastModified || 0,
+                        hasLyrics: Boolean(record.lrcText),
+                        favorite: Boolean(record.favorite),
+                        createdAt: record.createdAt || Date.now(),
+                        lastPlayed: record.lastPlayed || 0
+                    });
+                }
+            }
+
+            saveLibrary();
+            renderLibraryViews();
+        } catch (error) {
+            console.error("Could not restore IndexedDB library:", error);
+        }
+    }
+
+    const phase3LoadAudioFile = loadAudioFile;
+    loadAudioFile = async function(file) {
+        currentAudioFile = file;
+        currentSongId = makeSongId(file);
+
+        const song = upsertSong(file);
+        song.title = normalizeName(file.name) || song.title;
+        saveLibrary();
+
+        phase3LoadAudioFile(file);
+        renderLibraryViews();
+
+        await persistCurrentSong();
+        setStorageStatus("Song saved locally", "ready");
+    };
+
+    const phase3LoadLrcFile = loadLrcFile;
+    loadLrcFile = async function(file) {
+        currentLrcFile = file;
+
+        const reader = new FileReader();
+        reader.onload = async () => {
+            persistentLrcText = String(reader.result || "");
+
+            phase3LoadLrcFile(file);
+
+            const song = currentAudioFile ? getSongById(makeSongId(currentAudioFile)) : null;
+            if (song) {
+                song.hasLyrics = entries.length > 0;
+                saveLibrary();
+            }
+
+            await persistCurrentSong();
+            renderLibraryViews();
+            setStorageStatus("Song + lyrics saved locally", "ready");
+        };
+
+        reader.onerror = () => {
+            setStorageStatus("Could not save lyrics", "error");
+            phase3LoadLrcFile(file);
+        };
+
+        reader.readAsText(file);
+    };
+
+    playLibrarySong = async function(id) {
+        const song = getSongById(id);
+        if (!song) return;
+
+        if (currentAudioFile && makeSongId(currentAudioFile) === id) {
+            if (currentLrcFile) {
+                await loadLrcFile(currentLrcFile);
+            }
+            player.play().catch(() => {});
+            return;
+        }
+
+        if (!db) {
+            showToast("Persistent storage is not available. Load the file again from Studio.");
+            switchView("studio");
+            return;
+        }
+
+        try {
+            setStorageStatus("Restoring song…", "busy");
+            const record = await idbGet(id);
+
+            if (!record?.audioBlob) {
+                showToast("This library entry has no stored audio. Please import it again.");
+                switchView("studio");
+                setStorageStatus("Audio needs to be imported again", "error");
+                return;
+            }
+
+            if (persistentAudioUrl) URL.revokeObjectURL(persistentAudioUrl);
+            persistentAudioUrl = URL.createObjectURL(record.audioBlob);
+
+            player.src = persistentAudioUrl;
+            player.load();
+
+            currentSongId = id;
+            currentAudioFile = new File(
+                [record.audioBlob],
+                record.fileName || `${record.title || "song"}.audio`,
+                { type: record.audioBlob.type || "audio/mpeg", lastModified: record.lastModified || Date.now() }
+            );
+
+            if (record.lrcText) {
+                persistentLrcText = record.lrcText;
+                entries = parseLRC(record.lrcText);
+                lrcLoaded = entries.length > 0;
+                renderLyrics();
+            } else {
+                persistentLrcText = null;
+                entries = [];
+                lrcLoaded = false;
+                renderLyrics();
+            }
+
+            audioLoaded = true;
+            playBtn.disabled = false;
+            stopBtn.disabled = false;
+            muteBtn.disabled = false;
+
+            songTitle.textContent = record.title || normalizeName(record.fileName || "Song");
+            songMeta.textContent = record.lrcText
+                ? `${entries.length} synchronized lyric lines • restored locally`
+                : "Restored from local library";
+            sideTitle.textContent = record.title || "Restored song";
+            sideFile.textContent = record.fileName || "Local library file";
+
+            song.lastPlayed = Date.now();
+            saveLibrary();
+            await idbPut({ ...record, lastPlayed: song.lastPlayed, favorite: song.favorite });
+
+            updateReadyState();
+            renderLibraryViews();
+            switchView("studio");
+
+            player.play().catch(() => {});
+            setStorageStatus("Song restored from local storage", "ready");
+        } catch (error) {
+            console.error(error);
+            showToast("Could not restore this song.");
+            setStorageStatus("Restore failed", "error");
+        }
+    };
+
+    const phase3RemoveSong = removeSong;
+    removeSong = async function(id) {
+        try {
+            await idbDelete(id);
+        } catch (error) {
+            console.warn("IndexedDB delete failed:", error);
+        }
+        phase3RemoveSong(id);
+    };
+
+    const phase3ToggleFavorite = toggleFavorite;
+    toggleFavorite = async function(id) {
+        phase3ToggleFavorite(id);
+        const song = getSongById(id);
+        if (!song || !db) return;
+
+        try {
+            const record = await idbGet(id);
+            if (record) await idbPut({ ...record, favorite: song.favorite });
+        } catch (error) {
+            console.warn("Favorite persistence failed:", error);
+        }
+    };
+
+    player.addEventListener("play", async () => {
+        if (!db || !currentSongId) return;
+        const song = getSongById(currentSongId);
+        if (!song) return;
+
+        song.lastPlayed = Date.now();
+        saveLibrary();
+
+        try {
+            const record = await idbGet(currentSongId);
+            if (record) await idbPut({ ...record, lastPlayed: song.lastPlayed, favorite: song.favorite });
+            renderLibraryViews();
+        } catch (error) {
+            console.warn("Play state persistence failed:", error);
+        }
+    });
+
+    $("storageBtn").addEventListener("click", async () => {
+        if (!db) {
+            showToast("IndexedDB is not available in this browser.");
+            return;
+        }
+
+        try {
+            const records = await idbGetAll();
+            const withAudio = records.filter(record => record.audioBlob instanceof Blob).length;
+            const withLyrics = records.filter(record => record.lrcText).length;
+
+            showToast(`${records.length} stored song${records.length === 1 ? "" : "s"} • ${withAudio} audio • ${withLyrics} LRC`);
+        } catch {
+            showToast("Could not inspect local storage.");
+        }
+    });
+
+    initializePersistentStorage().then(restorePersistentLibrary);
+
+    window.showToast = showToast;
+    window.saveLibrary = saveLibrary;
+    window.getSongById = getSongById;
+    window.upsertSong = upsertSong;
+    window.makeSongId = makeSongId;
+    window.renderLibraryViews = renderLibraryViews;
+    window.updateStats = renderLibraryViews;
+    window.switchView = switchView;
+    window.loadAudioFile = (...a) => loadAudioFile(...a);
+    window.loadLrcFile = (...a) => loadLrcFile(...a);
+    window.playLibrarySong = (...a) => playLibrarySong(...a);
+    window.removeSong = (...a) => removeSong(...a);
+    window.toggleFavorite = (...a) => toggleFavorite(...a);
+    window.parseLRC = parseLRC;
+    window.player = player;
+    Object.defineProperty(window, "library", { get: () => library });
+    Object.defineProperty(window, "entries", { get: () => entries });
+    Object.defineProperty(window, "currentAudioFile", { get: () => currentAudioFile });
+    Object.defineProperty(window, "currentSongId", {
+        get: () => currentSongId,
+        set: v => { currentSongId = v; }
+    });
+
+})();
+
+
+
+const P4_DB_NAME = "canopus-karaoke-db";
+const P4_DB_VERSION = 2;
+let p4EditingSongId = null;
+let p4PendingCoverBlob = undefined; 
+let p4PendingCoverUrl = null;
+
+function p4OpenDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(P4_DB_NAME, P4_DB_VERSION);
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if (!db.objectStoreNames.contains("songs")) db.createObjectStore("songs", { keyPath: "id" });
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function p4ReadSong(id) {
+  const db = await p4OpenDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction("songs", "readonly");
+    const req = tx.objectStore("songs").get(id);
+    req.onsuccess = () => resolve(req.result || null);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function p4WriteSong(record) {
+  const db = await p4OpenDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction("songs", "readwrite");
+    tx.objectStore("songs").put(record);
+    tx.oncomplete = resolve;
+    tx.onerror = () => reject(tx.error);
+  });
+}
+
+async function p4ReadCoverBlob(id) {
+  try {
+    const record = await p4ReadSong(id);
+    return record && record.coverBlob ? record.coverBlob : null;
+  } catch (_) {
+    return null;
+  }
+}
+
+function p4Escape(value) {
+  if (typeof escapeHtml === "function") return escapeHtml(value ?? "");
+  return String(value ?? "").replace(/[&<>"']/g, ch => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+  }[ch]));
+}
+
+function p4CoverMarkup(song, sizeClass="") {
+  const safeTitle = p4Escape(song.title || "Song");
+  if (song.coverUrl) {
+    return `<div class="song-cover ${sizeClass}"><img src="${song.coverUrl}" alt="${safeTitle} cover" loading="lazy"></div>`;
+  }
+  return `<div class="song-cover ${sizeClass}"><span class="cover-placeholder">🎵</span></div>`;
+}
+
+function p4GetSongById(id) {
+  return (typeof library !== "undefined" ? library : []).find(s => s.id === id) || null;
+}
+
+function p4UpdateLibrarySong(song, changes) {
+  Object.assign(song, changes);
+  if (typeof saveLibrary === "function") saveLibrary();
+}
+
+async function p4BuildCoverUrl(song) {
+  if (!song || !song.id) return null;
+  const blob = await p4ReadCoverBlob(song.id);
+  return blob ? URL.createObjectURL(blob) : null;
+}
+
+async function p4RefreshCoverUrls() {
+  const songs = typeof library !== "undefined" ? library : [];
+  for (const song of songs) {
+    if (song.coverUrl) {
+      try { URL.revokeObjectURL(song.coverUrl); } catch (_) {}
+      song.coverUrl = null;
+    }
+    song.coverUrl = await p4BuildCoverUrl(song);
+  }
+}
+
+function p4RenderPlayerIdentity(song) {
+  if (!song) return;
+  const title = song.title || song.name || "Untitled";
+  const artist = song.artist || "Unknown artist";
+
+  const titleSelectors = ["#nowPlayingTitle", "#playerTitle", ".now-playing-title", "[data-now-playing-title]"];
+  const artistSelectors = ["#nowPlayingArtist", "#playerArtist", ".now-playing-artist", "[data-now-playing-artist]"];
+
+  titleSelectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach(el => el.textContent = title);
+  });
+  artistSelectors.forEach(sel => {
+    document.querySelectorAll(sel).forEach(el => el.textContent = artist);
+  });
+
+  const playerCover = document.getElementById("playerCoverPhase4");
+  if (playerCover) {
+    playerCover.innerHTML = song.coverUrl
+      ? `<img src="${song.coverUrl}" alt="${p4Escape(title)} cover">`
+      : `<span class="cover-placeholder">🎵</span>`;
+  }
+}
+
+async function p4OpenEditor(id) {
+  const song = p4GetSongById(id);
+  if (!song) return;
+
+  p4EditingSongId = id;
+  p4PendingCoverBlob = undefined;
+
+  document.getElementById("metadataTitle").value = song.title || song.name || "";
+  document.getElementById("metadataArtist").value = song.artist || "";
+  document.getElementById("metadataAlbum").value = song.album || "";
+  document.getElementById("metadataFileName").textContent = song.fileName || song.name || "Local song";
+
+  const preview = document.getElementById("metadataCoverPreview");
+  if (p4PendingCoverUrl) { try { URL.revokeObjectURL(p4PendingCoverUrl); } catch (_) {} }
+  p4PendingCoverUrl = await p4BuildCoverUrl(song);
+  preview.innerHTML = p4PendingCoverUrl
+    ? `<img src="${p4PendingCoverUrl}" alt="Cover preview">`
+    : `<span class="cover-placeholder">🎵</span>`;
+
+  const modal = document.getElementById("metadataModal");
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden", "false");
+  document.getElementById("metadataTitle").focus();
+}
+
+function p4CloseEditor() {
+  const modal = document.getElementById("metadataModal");
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden", "true");
+  if (p4PendingCoverUrl) {
+    try { URL.revokeObjectURL(p4PendingCoverUrl); } catch (_) {}
+    p4PendingCoverUrl = null;
+  }
+  p4EditingSongId = null;
+  p4PendingCoverBlob = undefined;
+}
+
+async function p4SaveEditor() {
+  const song = p4GetSongById(p4EditingSongId);
+  if (!song) return;
+
+  const title = document.getElementById("metadataTitle").value.trim() || song.fileName || song.name || "Untitled";
+  const artist = document.getElementById("metadataArtist").value.trim();
+  const album = document.getElementById("metadataAlbum").value.trim();
+
+  const record = await p4ReadSong(song.id);
+  if (!record) {
+    p4CloseEditor();
+    return;
+  }
+
+  record.title = title;
+  record.artist = artist;
+  record.album = album;
+
+  if (p4PendingCoverBlob !== undefined) {
+    record.coverBlob = p4PendingCoverBlob;
+  }
+
+  await p4WriteSong(record);
+
+  const oldCoverUrl = song.coverUrl;
+  song.title = title;
+  song.artist = artist;
+  song.album = album;
+
+  if (p4PendingCoverBlob !== undefined) {
+    if (oldCoverUrl) {
+      try { URL.revokeObjectURL(oldCoverUrl); } catch (_) {}
+    }
+    song.coverUrl = p4PendingCoverBlob ? URL.createObjectURL(p4PendingCoverBlob) : null;
+  }
+
+  if (typeof saveLibrary === "function") saveLibrary();
+  if (typeof renderLibraryViews === "function") renderLibraryViews();
+  if (typeof updateStats === "function") updateStats();
+
+  if (typeof currentSongId !== "undefined" && currentSongId === song.id) {
+    p4RenderPlayerIdentity(song);
+  }
+
+  p4CloseEditor();
+}
+
+async function p4AttachCover(file) {
+  if (!file || !file.type.startsWith("image/")) return;
+  p4PendingCoverBlob = file;
+  if (p4PendingCoverUrl) {
+    try { URL.revokeObjectURL(p4PendingCoverUrl); } catch (_) {}
+  }
+  p4PendingCoverUrl = URL.createObjectURL(file);
+  document.getElementById("metadataCoverPreview").innerHTML =
+    `<img src="${p4PendingCoverUrl}" alt="Cover preview">`;
+}
+
+function p4WireModal() {
+  document.getElementById("metadataCoverPick").addEventListener("click", () =>
+    document.getElementById("metadataCoverInput").click()
+  );
+  document.getElementById("metadataCoverInput").addEventListener("change", e =>
+    p4AttachCover(e.target.files && e.target.files[0])
+  );
+  document.getElementById("metadataCoverRemove").addEventListener("click", () => {
+    p4PendingCoverBlob = null;
+    if (p4PendingCoverUrl) {
+      try { URL.revokeObjectURL(p4PendingCoverUrl); } catch (_) {}
+      p4PendingCoverUrl = null;
+    }
+    document.getElementById("metadataCoverPreview").innerHTML =
+      `<span class="cover-placeholder">🎵</span>`;
+  });
+  document.getElementById("metadataCancel").addEventListener("click", p4CloseEditor);
+  document.getElementById("metadataSave").addEventListener("click", () => p4SaveEditor().catch(console.error));
+
+  document.getElementById("metadataModal").addEventListener("click", e => {
+    if (e.target.id === "metadataModal") p4CloseEditor();
+  });
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && document.getElementById("metadataModal").classList.contains("open")) {
+      p4CloseEditor();
+    }
+  });
+}
+
+function p4PatchCards() {
+  const cards = document.querySelectorAll(".song-card");
+  cards.forEach(card => {
+    const id = card.dataset.id || card.getAttribute("data-song-id");
+    const song = id ? p4GetSongById(id) : null;
+    if (!song) return;
+
+    let main = card.querySelector(".song-main");
+    if (!main) {
+      const children = Array.from(card.children);
+      main = document.createElement("div");
+      main.className = "song-main";
+      while (children.length) main.appendChild(children.shift());
+      card.insertBefore(main, card.firstChild);
+    }
+
+    let cover = card.querySelector(".song-cover");
+    if (!cover) {
+      cover = document.createElement("div");
+      cover.className = "song-cover";
+      card.insertBefore(cover, main);
+    }
+    cover.innerHTML = song.coverUrl
+      ? `<img src="${song.coverUrl}" alt="${p4Escape(song.title || "Song")} cover" loading="lazy">`
+      : `<span class="cover-placeholder">🎵</span>`;
+
+    let album = card.querySelector(".song-album");
+    if (!album) {
+      album = document.createElement("div");
+      album.className = "song-album";
+      const meta = main.querySelector(".song-meta");
+      main.insertBefore(album, meta ? meta.nextSibling : null);
+    }
+    album.textContent = song.album || "No album";
+
+    if (!card.querySelector(".p4-edit-btn")) {
+      const actions = card.querySelector(".song-actions") || card;
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "p4-edit-btn";
+      btn.title = "Edit metadata";
+      btn.textContent = "✎";
+      btn.addEventListener("click", ev => {
+        ev.stopPropagation();
+        p4OpenEditor(song.id);
+      });
+      actions.appendChild(btn);
+    }
+  });
+}
+
+function p4PatchLibraryRendering() {
+  const observer = new MutationObserver(() => {
+    clearTimeout(window.__p4RenderTimer);
+    window.__p4RenderTimer = setTimeout(p4PatchCards, 30);
+  });
+  const root = document.querySelector("main") || document.body;
+  observer.observe(root, { childList:true, subtree:true });
+  p4PatchCards();
+}
+
+async function p4Initialize() {
+  try {
+    await p4RefreshCoverUrls();
+
+    const songs = typeof library !== "undefined" ? library : [];
+    songs.forEach(song => {
+      if (song.title == null) song.title = song.name || song.fileName || "Untitled";
+      if (song.artist == null) song.artist = "";
+      if (song.album == null) song.album = "";
+    });
+
+    if (typeof saveLibrary === "function") saveLibrary();
+    p4WireModal();
+    p4PatchLibraryRendering();
+  } catch (err) {
+    console.warn("Phase 4 metadata initialization failed:", err);
+  }
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", p4Initialize);
+} else {
+  p4Initialize();
+}
+
+
+const P5_DB_NAME = "canopus-karaoke-db";
+const P5_DB_VERSION = 3;
+let p5MicStream = null;
+let p5MicContext = null;
+let p5MicAnalyser = null;
+let p5MicSource = null;
+let p5MicAnimation = null;
+let p5MicGain = null;
+let p5Recorder = null;
+let p5RecordingChunks = [];
+let p5RecordingStartedAt = 0;
+let p5RecordTimer = null;
+let p5RecordingSongId = null;
+let p5RecordMime = "";
+let p5RecordingDbReady = false;
+
+function p5OpenDB() {
+  return new Promise((resolve,reject) => {
+    const req = indexedDB.open(P5_DB_NAME, P5_DB_VERSION);
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if (!db.objectStoreNames.contains("songs")) db.createObjectStore("songs",{keyPath:"id"});
+      if (!db.objectStoreNames.contains("recordings")) {
+        const store = db.createObjectStore("recordings",{keyPath:"id"});
+        store.createIndex("songId","songId",{unique:false});
+        store.createIndex("createdAt","createdAt",{unique:false});
+      }
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+async function p5RecordingStore(record) {
+  const db = await p5OpenDB();
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction("recordings","readwrite");
+    tx.objectStore("recordings").put(record);
+    tx.oncomplete=resolve; tx.onerror=()=>reject(tx.error);
+  });
+}
+async function p5GetRecordings() {
+  const db=await p5OpenDB();
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction("recordings","readonly");
+    const req=tx.objectStore("recordings").getAll();
+    req.onsuccess=()=>resolve(req.result||[]);
+    req.onerror=()=>reject(req.error);
+  });
+}
+async function p5DeleteRecording(id) {
+  const db=await p5OpenDB();
+  return new Promise((resolve,reject)=>{
+    const tx=db.transaction("recordings","readwrite");
+    tx.objectStore("recordings").delete(id);
+    tx.oncomplete=resolve; tx.onerror=()=>reject(tx.error);
+  });
+}
+function p5FormatTime(seconds) {
+  seconds=Math.max(0,Number(seconds)||0);
+  const m=Math.floor(seconds/60);
+  const s=Math.floor(seconds%60).toString().padStart(2,"0");
+  return `${m}:${s}`;
+}
+function p5CurrentSong() {
+  if (typeof currentSongId !== "undefined" && currentSongId) {
+    const s=p4GetSongById(currentSongId); if(s) return s;
+  }
+  if (typeof library !== "undefined" && library.length) return library[0];
+  return null;
+}
+function p5Audio() {
+  return document.querySelector("audio");
+}
+function p5GetOffset() {
+  if (typeof lyricsOffset !== "undefined") return Number(lyricsOffset)||0;
+  if (typeof currentOffset !== "undefined") return Number(currentOffset)||0;
+  return 0;
+}
+function p5SetOffset(v) {
+  v=Math.max(-3000,Math.min(3000,Number(v)||0));
+  if (typeof lyricsOffset !== "undefined") lyricsOffset=v;
+  if (typeof currentOffset !== "undefined") currentOffset=v;
+  const input = document.querySelector("#offsetInput, #lyricsOffset, input[type=range][data-offset]");
+  if(input) input.value=v;
+  if(typeof renderLyrics==="function") renderLyrics();
+  if(typeof updateLyrics==="function") updateLyrics();
+}
+function p5GetLyrics() {
+  if (typeof lyrics !== "undefined" && Array.isArray(lyrics)) return lyrics;
+  if (typeof parsedLyrics !== "undefined" && Array.isArray(parsedLyrics)) return parsedLyrics;
+  if (typeof entries !== "undefined" && Array.isArray(entries)) {
+    return entries.map(e => ({ text: e.text, time: e.t, start: e.t }));
+  }
+  return [];
+}
+function p5OpenStage() {
+  const song=p5CurrentSong();
+  if(!song) { (window.showToast ? window.showToast("Select or load a song first.") : alert("Select or load a song first.")); return; }
+  const stage=document.getElementById("karaokeStage");
+  stage.classList.add("open"); stage.setAttribute("aria-hidden","false");
+  document.body.style.overflow="hidden";
+  p5RenderStageSong(song);
+  p5RenderStageLyrics();
+  p5SyncControls();
+}
+function p5CloseStage() {
+  document.getElementById("karaokeStage").classList.remove("open");
+  document.getElementById("karaokeStage").setAttribute("aria-hidden","true");
+  document.body.style.overflow="";
+  document.getElementById("p5MicPanel").classList.remove("open");
+  document.getElementById("p5RecordingPanel").classList.remove("open");
+}
+function p5RenderStageSong(song) {
+  document.getElementById("p5StageTitle").textContent=song.title||song.name||"Untitled";
+  document.getElementById("p5StageArtist").textContent=song.artist||"Unknown artist";
+  const cover=document.getElementById("p5StageCover");
+  cover.innerHTML=song.coverUrl ? `<img src="${song.coverUrl}" alt="">` : "<span>🎤</span>";
+}
+function p5RenderStageLyrics() {
+  const root=document.getElementById("p5LyricsStage");
+  const list=p5GetLyrics();
+  if(!list.length) {
+    root.innerHTML='<div class="p5-lyric-empty">No synchronized lyrics loaded for this song.</div>';
+    return;
+  }
+  root.innerHTML=list.map((line,i)=>`<div class="p5-lyric-line" data-p5-index="${i}">${p4Escape(line.text||"")}</div>`).join("");
+  root.querySelectorAll(".p5-lyric-line").forEach(el=>{
+    el.addEventListener("click",()=>{
+      const a=p5Audio(), l=list[Number(el.dataset.p5Index)];
+      if(a && l) { a.currentTime=Math.max(0,Number(l.time||l.start||0)); a.play().catch(()=>{}); }
+    });
+  });
+}
+function p5UpdateLyrics() {
+  if(!document.getElementById("karaokeStage").classList.contains("open")) return;
+  const a=p5Audio(), list=p5GetLyrics();
+  if(!a || !list.length) return;
+  const t=a.currentTime*1000-p5GetOffset();
+  let active=-1;
+  for(let i=0;i<list.length;i++) {
+    const ms=Number(list[i].time ?? list[i].start ?? 0)*1000;
+    if(ms<=t) active=i; else break;
+  }
+  const els=document.querySelectorAll(".p5-lyric-line");
+  els.forEach((el,i)=>{
+    el.classList.toggle("active",i===active);
+    el.classList.toggle("near",Math.abs(i-active)<=1 && i!==active);
+  });
+  if(active>=0) {
+    const el=els[active];
+    const root=document.getElementById("p5LyricsStage");
+    const target=el.offsetTop-root.clientHeight*.38;
+    if(Math.abs(root.scrollTop-target)>120) root.scrollTo({top:Math.max(0,target),behavior:"smooth"});
+  }
+}
+function p5SyncControls() {
+  const a=p5Audio(); if(!a) return;
+  const seek=document.getElementById("p5Seek");
+  const duration=a.duration||0;
+  seek.value=duration ? Math.round((a.currentTime/duration)*1000) : 0;
+  document.getElementById("p5CurrentTime").textContent=p5FormatTime(a.currentTime);
+  document.getElementById("p5Duration").textContent=p5FormatTime(duration);
+  document.getElementById("p5Play").textContent=a.paused?"▶":"⏸";
+}
+function p5BindAudioEvents() {
+  const a=p5Audio(); if(!a || a.__p5Bound) return;
+  a.__p5Bound=true;
+  ["timeupdate","loadedmetadata","durationchange","play","pause","ended"].forEach(ev=>a.addEventListener(ev,()=>{
+    p5SyncControls(); p5UpdateLyrics();
+  }));
+  a.addEventListener("timeupdate",p5UpdateLyrics);
+}
+async function p5StartMic() {
+  if(p5MicStream) return;
+  try {
+    p5MicStream=await navigator.mediaDevices.getUserMedia({audio:true});
+    p5MicContext=new AudioContext();
+    p5MicSource=p5MicContext.createMediaStreamSource(p5MicStream);
+    p5MicGain=p5MicContext.createGain();
+    p5MicAnalyser=p5MicContext.createAnalyser();
+    p5MicAnalyser.fftSize=256;
+    p5MicSource.connect(p5MicGain);
+    p5MicGain.connect(p5MicAnalyser);
+    p5MicGain.gain.value=Number(document.getElementById("p5MicVolume").value);
+    await p5MicContext.resume();
+    await p5PopulateDevices();
+    p5AnimateMeter();
+    document.getElementById("p5MicPanel").classList.add("open");
+    document.getElementById("p5MicBtn").textContent="🎙 Mic ✓";
+  } catch(err) {
+    console.error(err);
+    alert("Microphone access was not granted or is unavailable in this browser.");
+  }
+}
+function p5StopMic() {
+  if(p5MicAnimation) cancelAnimationFrame(p5MicAnimation);
+  p5MicAnimation=null;
+  if(p5MicStream) p5MicStream.getTracks().forEach(t=>t.stop());
+  p5MicStream=null;
+  if(p5MicContext) p5MicContext.close().catch(()=>{});
+  p5MicContext=p5MicSource=p5MicGain=p5MicAnalyser=null;
+  document.getElementById("p5MicMeter").style.width="0%";
+  document.getElementById("p5MicPanel").classList.remove("open");
+  document.getElementById("p5MicBtn").textContent="🎙 Mic";
+}
+function p5AnimateMeter() {
+  if(!p5MicAnalyser) return;
+  const data=new Uint8Array(p5MicAnalyser.fftSize);
+  const tick=()=>{
+    if(!p5MicAnalyser) return;
+    p5MicAnalyser.getByteTimeDomainData(data);
+    let sum=0;
+    for(const x of data){ const n=(x-128)/128; sum+=n*n; }
+    const rms=Math.sqrt(sum/data.length);
+    document.getElementById("p5MicMeter").style.width=Math.min(100,Math.round(rms*260))+"%";
+    p5MicAnimation=requestAnimationFrame(tick);
+  };
+  tick();
+}
+async function p5PopulateDevices() {
+  if(!navigator.mediaDevices?.enumerateDevices) return;
+  const devices=await navigator.mediaDevices.enumerateDevices();
+  const select=document.getElementById("p5MicDevice");
+  const inputs=devices.filter(d=>d.kind==="audioinput");
+  select.innerHTML=inputs.map((d,i)=>`<option value="${d.deviceId}">${p4Escape(d.label||`Microphone ${i+1}`)}</option>`).join("");
+}
+async function p5ChangeMicDevice(deviceId) {
+  if(!deviceId || !p5MicStream) return;
+  const old=p5MicStream;
+  try {
+    p5MicStream=await navigator.mediaDevices.getUserMedia({audio:{deviceId:{exact:deviceId}}});
+    old.getTracks().forEach(t=>t.stop());
+    if(p5MicSource) p5MicSource.disconnect();
+    p5MicSource=p5MicContext.createMediaStreamSource(p5MicStream);
+    p5MicSource.connect(p5MicGain);
+  } catch(err) { console.error(err); }
+}
+async function p5StartRecording() {
+  if(p5Recorder && p5Recorder.state==="recording") return;
+  if(!p5MicStream) await p5StartMic();
+  if(!p5MicStream) return;
+  if(!window.MediaRecorder) { alert("MediaRecorder is not supported by this browser."); return; }
+
+  const optionsList=["audio/webm;codecs=opus","audio/webm","audio/ogg;codecs=opus"];
+  p5RecordMime=optionsList.find(x=>MediaRecorder.isTypeSupported(x))||"";
+  try {
+    p5Recorder=p5RecordMime ? new MediaRecorder(p5MicStream,{mimeType:p5RecordMime}) : new MediaRecorder(p5MicStream);
+  } catch(err) {
+    alert("This browser cannot create an audio recording."); return;
+  }
+
+  p5RecordingChunks=[];
+  p5RecordingSongId=(p5CurrentSong()||{}).id||null;
+  p5RecordingStartedAt=Date.now();
+  p5Recorder.ondataavailable=e=>{if(e.data?.size)p5RecordingChunks.push(e.data);};
+  p5Recorder.onstop=p5FinishRecording;
+  p5Recorder.start(250);
+  document.getElementById("p5RecordBtn").classList.add("recording");
+  document.getElementById("p5RecordBtn").textContent="⏹ Stop";
+  document.getElementById("p5RecordingPanel").classList.add("open");
+  p5RecordTimer=setInterval(()=>{
+    const sec=(Date.now()-p5RecordingStartedAt)/1000;
+    document.getElementById("p5RecordingStatus").textContent=`Recording… ${p5FormatTime(sec)}`;
+  },250);
+}
+function p5StopRecording() {
+  if(!p5Recorder || p5Recorder.state!=="recording") return;
+  p5Recorder.stop();
+  clearInterval(p5RecordTimer);
+  p5RecordTimer=null;
+  document.getElementById("p5RecordBtn").classList.remove("recording");
+  document.getElementById("p5RecordBtn").textContent="⏺ Record";
+}
+async function p5FinishRecording() {
+  const blob=new Blob(p5RecordingChunks,{type:p5RecordMime||"audio/webm"});
+  const song=p5GetSongById ? p5GetSongById(p5RecordingSongId) : p4GetSongById(p5RecordingSongId);
+  const title=(song?.title||song?.name||"Karaoke")+" — My Cover";
+  const id=`rec_${Date.now()}_${Math.random().toString(36).slice(2,8)}`;
+  await p5RecordingStore({
+    id,title,songId:p5RecordingSongId,
+    createdAt:Date.now(),duration:(Date.now()-p5RecordingStartedAt)/1000,
+    blob,mime:blob.type
+  });
+  document.getElementById("p5RecordingStatus").textContent="Recording saved locally.";
+  await p5RenderRecordings();
+  p5RecordingChunks=[];
+}
+async function p5RenderRecordings() {
+  const root=document.getElementById("p5RecordingList");
+  if(!root) return;
+  const list=(await p5GetRecordings()).sort((a,b)=>b.createdAt-a.createdAt);
+  if(!list.length){root.innerHTML='<div style="opacity:.45;font-size:.8rem;">No recordings yet.</div>';return;}
+  root.innerHTML=list.map(r=>`
+    <div class="p5-recording-item" data-rec-id="${p4Escape(r.id)}">
+      <div class="p5-rec-dot"></div>
+      <div class="info"><strong>${p4Escape(r.title)}</strong><span>${new Date(r.createdAt).toLocaleString()} · ${p5FormatTime(r.duration)}</span></div>
+      <button title="Play recording" data-p5-play="${p4Escape(r.id)}">▶</button>
+      <button title="Download recording" data-p5-download="${p4Escape(r.id)}">⇩</button>
+      <button title="Delete recording" data-p5-delete="${p4Escape(r.id)}">🗑</button>
+    </div>`).join("");
+  root.querySelectorAll("[data-p5-play]").forEach(b=>b.onclick=async()=>{
+    const rec=(await p5GetRecordings()).find(x=>x.id===b.dataset.p5Play);
+    if(!rec)return; const url=URL.createObjectURL(rec.blob);
+    const a=p5Audio(); if(a){a.src=url;a.play().catch(()=>{});a.__p5RecordingUrl=url;}
+  });
+  root.querySelectorAll("[data-p5-download]").forEach(b=>b.onclick=async()=>{
+    const rec=(await p5GetRecordings()).find(x=>x.id===b.dataset.p5Download);
+    if(!rec)return; const url=URL.createObjectURL(rec.blob);
+    const a=document.createElement("a");a.href=url;a.download=(rec.title||"karaoke-recording").replace(/[^\w\- ]+/g,"")+".webm";a.click();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+  });
+  root.querySelectorAll("[data-p5-delete]").forEach(b=>b.onclick=async()=>{
+    if(!confirm("Delete this local recording?"))return;
+    await p5DeleteRecording(b.dataset.p5Delete);p5RenderRecordings();
+  });
+}
+function p5Wire() {
+  const stage=document.getElementById("karaokeStage");
+  document.getElementById("p5StageClose").onclick=p5CloseStage;
+  document.getElementById("p5Play").onclick=()=>{const a=p5Audio();if(a){a.paused?a.play():a.pause();}};
+  document.getElementById("p5Back").onclick=()=>{const a=p5Audio();if(a)a.currentTime=Math.max(0,a.currentTime-5);};
+  document.getElementById("p5Forward").onclick=()=>{const a=p5Audio();if(a)a.currentTime=Math.min(a.duration||Infinity,a.currentTime+5);};
+  document.getElementById("p5Seek").oninput=e=>{const a=p5Audio();if(a&&a.duration)a.currentTime=(Number(e.target.value)/1000)*a.duration;};
+  document.getElementById("p5OffsetDown").onclick=()=>p5SetOffset(p5GetOffset()-50);
+  document.getElementById("p5OffsetUp").onclick=()=>p5SetOffset(p5GetOffset()+50);
+  document.getElementById("p5OffsetReset").onclick=()=>p5SetOffset(0);
+  document.getElementById("p5MicBtn").onclick=async()=>{if(p5MicStream)document.getElementById("p5MicPanel").classList.toggle("open");else await p5StartMic();};
+  document.getElementById("p5MicStop").onclick=p5StopMic;
+  document.getElementById("p5MicVolume").oninput=e=>{if(p5MicGain)p5MicGain.gain.value=Number(e.target.value);};
+  document.getElementById("p5MicDevice").onchange=e=>p5ChangeMicDevice(e.target.value);
+  document.getElementById("p5RecordBtn").onclick=()=>p5Recorder?.state==="recording"?p5StopRecording():p5StartRecording();
+  document.addEventListener("keydown",e=>{
+    if(e.key==="Escape" && stage.classList.contains("open")) p5CloseStage();
+  });
+  p5BindAudioEvents();
+  p5RenderRecordings().catch(console.error);
+}
+async function p5Init() {
+  try {
+    await p5OpenDB(); p5RecordingDbReady=true;
+  } catch(e) { console.warn("Recording storage unavailable",e); }
+  p5Wire();
+}
+
+window.openKaraokeMode = p5OpenStage;
+
+if(document.readyState==="loading") document.addEventListener("DOMContentLoaded",p5Init);
+else p5Init();
+
+
+
+document.addEventListener("DOMContentLoaded",()=>{
+  const b=document.getElementById("p5OpenKaraoke");
+  if(b) b.addEventListener("click",()=>window.openKaraokeMode());
+});
+
+
+
+
+let p51AudioContext = null;
+let p51Destination = null;
+let p51MicInput = null;
+let p51SongInput = null;
+let p51SongGain = null;
+let p51MicMixGain = null;
+let p51MixerReadyForAudio = null;
+
+async function p51SetupMixer() {
+  const audio = p5Audio();
+  if (!audio || !p5MicStream) return false;
+
+  try {
+    if (!p51AudioContext) {
+      p51AudioContext = new (window.AudioContext || window.webkitAudioContext)();
+      p51Destination = p51AudioContext.createMediaStreamDestination();
+      p51SongGain = p51AudioContext.createGain();
+      p51MicMixGain = p51AudioContext.createGain();
+      p51SongGain.gain.value = Math.min(1.2, Math.max(0, Number(audio.volume ?? 1)));
+      p51MicMixGain.gain.value = Number(document.getElementById("p5MicVolume")?.value ?? 1);
+      p51SongGain.connect(p51Destination);
+      p51MicMixGain.connect(p51Destination);
+    }
+
+    if (!audio.__p51MediaSource) {
+      audio.__p51MediaSource = p51AudioContext.createMediaElementSource(audio);
+      audio.__p51MediaSource.connect(p51SongGain);
+      // Keep normal browser playback audible.
+      audio.__p51MediaSource.connect(p51AudioContext.destination);
+    }
+
+    if (!p51MicInput || p51MicInput.mediaStream !== p5MicStream) {
+      if (p51MicInput) {
+        try { p51MicInput.disconnect(); } catch (_) {}
+      }
+      p51MicInput = p51AudioContext.createMediaStreamSource(p5MicStream);
+      p51MicInput.mediaStream = p5MicStream;
+      p51MicInput.connect(p51MicMixGain);
+    }
+
+    await p51AudioContext.resume();
+    return true;
+  } catch (err) {
+    console.warn("Could not initialize karaoke mixer:", err);
+    return false;
+  }
+}
+
+function p51UpdateSongGain() {
+  const audio = p5Audio();
+  if (p51SongGain && audio) p51SongGain.gain.value = Math.min(1.2, Math.max(0, Number(audio.volume)));
+}
+function p51UpdateMicGain() {
+  const v = Number(document.getElementById("p5MicVolume")?.value ?? 1);
+  if (p51MicMixGain) p51MicMixGain.gain.value = v;
+}
+
+async function p51StartMixedRecording() {
+  if (!window.MediaRecorder) {
+    alert("MediaRecorder is not supported by this browser.");
+    return;
+  }
+
+  if (!p5MicStream) await p5StartMic();
+  if (!p5MicStream) return;
+
+  const ready = await p51SetupMixer();
+  if (!ready || !p51Destination?.stream) {
+    alert("The browser could not initialize the karaoke audio mixer. Please try again.");
+    return;
+  }
+
+  const optionsList = [
+    "audio/webm;codecs=opus",
+    "audio/webm",
+    "audio/ogg;codecs=opus"
+  ];
+  p5RecordMime = optionsList.find(x => MediaRecorder.isTypeSupported(x)) || "";
+
+  try {
+    p5Recorder = p5RecordMime
+      ? new MediaRecorder(p51Destination.stream, { mimeType: p5RecordMime })
+      : new MediaRecorder(p51Destination.stream);
+  } catch (err) {
+    console.error(err);
+    alert("This browser cannot create a mixed karaoke recording.");
+    return;
+  }
+
+  p5RecordingChunks = [];
+  const song = p5CurrentSong();
+  p5RecordingSongId = song?.id || null;
+  p5RecordingStartedAt = Date.now();
+
+  p5Recorder.ondataavailable = e => {
+    if (e.data?.size) p5RecordingChunks.push(e.data);
+  };
+  p5Recorder.onerror = e => console.warn("Recording error:", e.error || e);
+  p5Recorder.onstop = p5FinishRecording;
+
+  p5Recorder.start(250);
+
+  const audio = p5Audio();
+  if (audio && audio.paused) {
+    try { await audio.play(); } catch (_) {}
+  }
+
+  document.getElementById("p5RecordBtn").classList.add("recording");
+  document.getElementById("p5RecordBtn").textContent = "⏹ Stop";
+  document.getElementById("p5RecordingPanel").classList.add("open");
+  document.getElementById("p5RecordingStatus").textContent =
+    "Recording mixed song + microphone… 0:00";
+
+  p5RecordTimer = setInterval(() => {
+    const sec = (Date.now() - p5RecordingStartedAt) / 1000;
+    document.getElementById("p5RecordingStatus").textContent =
+      `Recording mixed song + microphone… ${p5FormatTime(sec)}`;
+  }, 250);
+}
+
+function p51StopMixedRecording() {
+  if (!p5Recorder || p5Recorder.state !== "recording") return;
+  p5Recorder.stop();
+  clearInterval(p5RecordTimer);
+  p5RecordTimer = null;
+  document.getElementById("p5RecordBtn").classList.remove("recording");
+  document.getElementById("p5RecordBtn").textContent = "⏺ Record";
+}
+
+function p51PatchRecordingHandlers() {
+  document.getElementById("p5RecordBtn").onclick = () => {
+    if (p5Recorder?.state === "recording") p51StopMixedRecording();
+    else p51StartMixedRecording();
+  };
+
+  const micVolume = document.getElementById("p5MicVolume");
+  if (micVolume) {
+    micVolume.addEventListener("input", p51UpdateMicGain);
+  }
+
+  const audio = p5Audio();
+  if (audio) {
+    audio.addEventListener("volumechange", p51UpdateSongGain);
+  }
+}
+
+async function p51Init() {
+  try {
+    p51PatchRecordingHandlers();
+  } catch (err) {
+    console.warn("Phase 5.1 initialization failed:", err);
+  }
+}
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", p51Init);
+else p51Init();
+
+
+
+(() => {
+    const toast = (msg) => (window.showToast ? window.showToast(msg) : console.log(msg));
+    const esc = (v) => (typeof p4Escape === "function" ? p4Escape(v) : String(v ?? ""));
+
+    let p6User = null;          
+    let p6StoreMode = "local";  
+    let p6Firestore = null;
+    let p6SaveTimer = null;
+    let p6Settings = { micVolume: 1, defaultOffsetMs: 0 };
+    let p6AccountData = { favorites: {}, settings: {}, stats: {} };
+
+
+    async function p6ResolveIdentity() {
+        const parentWin = window.parent;
+        const sameWindow = !parentWin || parentWin === window;
+
+        try {
+            if (!sameWindow && parentWin.auth && parentWin.auth.currentUser && parentWin.db) {
+                const pUser = parentWin.auth.currentUser;
+                p6User = {
+                    uid: pUser.uid,
+                    displayName: pUser.displayName || (pUser.email ? pUser.email.split("@")[0] : "Explorer"),
+                    email: pUser.email || null,
+                    verified: !!pUser.emailVerified
+                };
+                p6Firestore = parentWin.db;
+                p6StoreMode = "cloud";
+                return;
+            }
+        } catch (err) {
+            console.warn("Karaoke: direct parent access unavailable, trying postMessage handshake.", err);
+        }
+
+        if (!sameWindow) {
+            const realmUser = await p6RequestRealmUserInfo();
+            if (realmUser && realmUser.email) {
+                p6User = {
+                    uid: "realm-" + p6SlugifyEmail(realmUser.email),
+                    displayName: realmUser.name || realmUser.email.split("@")[0],
+                    email: realmUser.email,
+                    verified: !!realmUser.verified
+                };
+                p6StoreMode = "realm";
+                return;
+            }
+        }
+
+        const guestId = p6GetOrCreateGuestId();
+        p6User = { uid: guestId, displayName: "Guest Singer", email: null, verified: false };
+        p6StoreMode = "local";
+    }
+
+    function p6RequestRealmUserInfo(timeoutMs = 1500) {
+        return new Promise((resolve) => {
+            let settled = false;
+
+            function handleMessage(e) {
+                if (settled) return;
+
+                if (!e.data || e.data.source !== "canopus-realm" || e.data.type !== "canopus-user-info") return;
+                settled = true;
+                window.removeEventListener("message", handleMessage);
+                resolve(e.data.user || null);
+            }
+            window.addEventListener("message", handleMessage);
+
+            try {
+                window.parent.postMessage({ source: "karaoke-app", type: "canopus-request-user-info" }, "*");
+            } catch (err) {
+                console.warn("Karaoke: could not request user info from parent.", err);
+            }
+
+            setTimeout(() => {
+                if (settled) return;
+                settled = true;
+                window.removeEventListener("message", handleMessage);
+                resolve(undefined);
+            }, timeoutMs);
+        });
+    }
+
+    function p6SlugifyEmail(email) {
+        return email.trim().toLowerCase().replace(/[^a-z0-9]+/g, "_");
+    }
+
+    function p6GetOrCreateGuestId() {
+        let id = localStorage.getItem("karaoke_guest_id");
+        if (!id) {
+            id = "guest-" + Math.random().toString(36).slice(2, 10);
+            localStorage.setItem("karaoke_guest_id", id);
+        }
+        return id;
+    }
+
+
+    function p6RenderIdentity() {
+        const nameEl = document.getElementById("p6UserName");
+        const modeEl = document.getElementById("p6UserMode");
+        const avatarEl = document.getElementById("p6Avatar");
+        const banner = document.getElementById("p6GuestBanner");
+        if (!nameEl) return;
+
+        const initials = (p6User.displayName || "U").trim().slice(0, 2).toUpperCase();
+        avatarEl.textContent = initials;
+        nameEl.textContent = p6User.displayName;           
+        nameEl.title = p6User.email || p6User.displayName;
+
+        const modeLabels = { cloud: "Cloud synced", realm: "Realm account", local: "Local guest" };
+        modeEl.textContent = modeLabels[p6StoreMode] || "Local guest";
+        modeEl.className = "p6-user-mode" + (p6StoreMode !== "local" ? " cloud" : " guest");
+
+        if (banner) banner.hidden = p6StoreMode !== "local";
+    }
+
+    function p6RequestLogin() {
+        if (window.parent && window.parent !== window) {
+            try {
+                window.parent.postMessage({ source: "karaoke-app", type: "canopus-request-login" }, "*");
+                toast("Opening sign-in on Canopus Realm…");
+            } catch (_) {}
+        } else {
+            toast("Open Karaoke from Canopus Realm to sign in.");
+        }
+    }
+
+    function p6WireTopbar() {
+        const chip = document.getElementById("p6UserChip");
+        if (chip) {
+            chip.addEventListener("click", () => {
+                if (p6StoreMode === "local") p6RequestLogin();
+                else toast(`Signed in as ${p6User.displayName}`);
+            });
+        }
+        const signInBtn = document.getElementById("p6SignInBtn");
+        if (signInBtn) signInBtn.addEventListener("click", p6RequestLogin);
+
+        const backBtn = document.getElementById("p6BackToRealm");
+        if (backBtn) {
+            backBtn.addEventListener("click", (e) => {
+                if (window.parent && window.parent !== window) {
+                    e.preventDefault();
+                    try {
+                        window.parent.postMessage({ source: "karaoke-app", type: "canopus-close-project" }, "*");
+                    } catch (_) {}
+                }
+            });
+        }
+    }
+
+    function p6LocalKey() { return `karaoke_account_data_${p6User.uid}`; }
+
+    function p6LoadLocalAccountData() {
+        try {
+            return JSON.parse(localStorage.getItem(p6LocalKey()) || "null") || { favorites: {}, settings: {}, stats: {} };
+        } catch {
+            return { favorites: {}, settings: {}, stats: {} };
+        }
+    }
+
+    function p6SaveLocalAccountData() {
+        try { localStorage.setItem(p6LocalKey(), JSON.stringify(p6AccountData)); } catch (_) {}
+    }
+
+    async function p6LoadAccountData() {
+        if (p6StoreMode === "cloud" && p6Firestore) {
+            try {
+                const doc = await p6Firestore.collection("users").doc(p6User.uid).get();
+                const data = doc.exists ? doc.data()?.karaokeData : null;
+                if (data) { p6AccountData = data; if (data.settings) p6Settings = { ...p6Settings, ...data.settings }; return; }
+            } catch (err) {
+                console.warn("Karaoke: cloud account read failed, using local cache.", err);
+            }
+        }
+        p6AccountData = p6LoadLocalAccountData();
+        if (p6AccountData.settings) p6Settings = { ...p6Settings, ...p6AccountData.settings };
+    }
+
+    function p6ScheduleSaveAccountData() {
+        p6SaveLocalAccountData();
+        if (p6StoreMode !== "cloud" || !p6Firestore) return;
+        clearTimeout(p6SaveTimer);
+        p6SaveTimer = setTimeout(() => {
+            p6Firestore.collection("users").doc(p6User.uid)
+                .set({ karaokeData: p6AccountData }, { merge: true })
+                .catch(err => console.warn("Karaoke: cloud save failed, kept locally.", err));
+        }, 500);
+    }
+
+    function p6WrapFavorites() {
+        if (typeof window.toggleFavorite !== "function") return;
+        const originalToggle = window.toggleFavorite;
+        window.toggleFavorite = async function (id) {
+            originalToggle(id);
+            const song = typeof window.getSongById === "function" ? window.getSongById(id) : null;
+            if (!song) return;
+            if (song.favorite) {
+                p6AccountData.favorites[id] = { title: song.title || "", artist: song.artist || "", updatedAt: Date.now() };
+            } else {
+                delete p6AccountData.favorites[id];
+            }
+            p6ScheduleSaveAccountData();
+            p6RefreshStats();
+        };
+    }
+
+
+    function p6WrapRecordings() {
+        if (typeof window.p5FinishRecording !== "function") return;
+
+        const originalFinish = window.p5FinishRecording;
+        window.p5FinishRecording = async function () {
+            const originalStore = window.p5RecordingStore;
+            window.p5RecordingStore = async (record) => {
+                record.ownerUid = p6User.uid;
+                record.ownerName = p6User.displayName;
+                return originalStore(record);
+            };
+            try { await originalFinish(); }
+            finally { window.p5RecordingStore = originalStore; }
+            p6RefreshStats();
+        };
+
+        if (typeof window.p5GetRecordings === "function") {
+            window.p5RenderRecordings = async function () {
+                const root = document.getElementById("p5RecordingList");
+                if (!root) return;
+                const all = await window.p5GetRecordings();
+                const mine = all
+                    .filter(r => !r.ownerUid || r.ownerUid === p6User.uid)
+                    .sort((a, b) => b.createdAt - a.createdAt);
+
+                if (!mine.length) {
+                    root.innerHTML = '<div style="opacity:.45;font-size:.8rem;">No recordings yet for this account.</div>';
+                    return;
+                }
+
+                root.innerHTML = mine.map(r => `
+                    <div class="p5-recording-item" data-rec-id="${esc(r.id)}">
+                        <div class="p5-rec-dot"></div>
+                        <div class="info"><strong>${esc(r.title)}</strong><span>${esc(new Date(r.createdAt).toLocaleString())} · ${esc(window.p5FormatTime ? window.p5FormatTime(r.duration) : "")}</span></div>
+                        <button title="Play recording" data-p5-play="${esc(r.id)}">▶</button>
+                        <button title="Download recording" data-p5-download="${esc(r.id)}">⇩</button>
+                        <button title="Delete recording" data-p5-delete="${esc(r.id)}">🗑</button>
+                    </div>`).join("");
+
+                root.querySelectorAll("[data-p5-play]").forEach(b => b.onclick = async () => {
+                    const rec = mine.find(x => x.id === b.dataset.p5Play);
+                    if (!rec) return;
+                    const url = URL.createObjectURL(rec.blob);
+                    const a = document.querySelector("audio");
+                    if (a) { a.src = url; a.play().catch(() => {}); }
+                });
+                root.querySelectorAll("[data-p5-download]").forEach(b => b.onclick = async () => {
+                    const rec = mine.find(x => x.id === b.dataset.p5Download);
+                    if (!rec) return;
+                    const url = URL.createObjectURL(rec.blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = (rec.title || "karaoke-recording").replace(/[^\w\- ]+/g, "") + ".webm";
+                    a.click();
+                    setTimeout(() => URL.revokeObjectURL(url), 1000);
+                });
+                root.querySelectorAll("[data-p5-delete]").forEach(b => b.onclick = async () => {
+                    if (!confirm("Delete this local recording?")) return;
+                    await window.p5DeleteRecording(b.dataset.p5Delete);
+                    window.p5RenderRecordings();
+                    p6RefreshStats();
+                });
+            };
+        }
+    }
+
+
+    async function p6RefreshStats() {
+        const songsEl = document.getElementById("p6StatSongs");
+        const favEl = document.getElementById("p6StatFavorites");
+        const recEl = document.getElementById("p6StatRecordings");
+        if (!songsEl) return;
+
+        const lib = Array.isArray(window.library) ? window.library : [];
+        const songs = lib.length;
+        const favorites = lib.filter(s => s.favorite).length;
+
+        let recordings = 0;
+        if (typeof window.p5GetRecordings === "function") {
+            try {
+                const all = await window.p5GetRecordings();
+                recordings = all.filter(r => !r.ownerUid || r.ownerUid === p6User.uid).length;
+            } catch (_) {}
+        }
+
+        songsEl.textContent = songs;
+        favEl.textContent = favorites;
+        recEl.textContent = recordings;
+
+        p6AccountData.stats = { songs, favorites, recordings, updatedAt: Date.now() };
+        p6ScheduleSaveAccountData();
+    }
+
+
+  
+    function p6ApplySettingsToStage() {
+        const micVolumeInput = document.getElementById("p5MicVolume");
+        if (micVolumeInput && p6Settings.micVolume != null) micVolumeInput.value = p6Settings.micVolume;
+        if (typeof window.p5SetOffset === "function" && p6Settings.defaultOffsetMs) {
+            window.p5SetOffset(p6Settings.defaultOffsetMs);
+        }
+    }
+
+    function p6WireSettingsPersistence() {
+        const micVolumeInput = document.getElementById("p5MicVolume");
+        if (micVolumeInput) {
+            micVolumeInput.addEventListener("change", () => {
+                p6Settings.micVolume = Number(micVolumeInput.value);
+                p6AccountData.settings = p6Settings;
+                p6ScheduleSaveAccountData();
+            });
+        }
+    }
+
+
+    async function p6Init() {
+        await p6ResolveIdentity();
+        p6RenderIdentity();
+        p6WireTopbar();
+        await p6LoadAccountData();
+        p6WrapFavorites();
+        p6WrapRecordings();
+        p6WireSettingsPersistence();
+
+        if (Array.isArray(window.library)) {
+            let changed = false;
+            window.library.forEach(song => {
+                const acctFav = p6AccountData.favorites && p6AccountData.favorites[song.id];
+                if (acctFav && !song.favorite) { song.favorite = true; changed = true; }
+            });
+            if (changed && typeof window.saveLibrary === "function") window.saveLibrary();
+            if (changed && typeof window.renderLibraryViews === "function") window.renderLibraryViews();
+        }
+
+        await p6RefreshStats();
+        setTimeout(p6ApplySettingsToStage, 50);
+
+        try {
+            if (window.parent && window.parent !== window) {
+                window.parent.postMessage({ source: "karaoke-app", type: "canopus-app-ready", app: "karaoke" }, "*");
+            }
+        } catch (_) {}
+    }
+
+    window.addEventListener("message", (e) => {
+        if (!e.data || e.data.source !== "canopus-realm") return;
+        if (e.data.type === "canopus-user-info" && e.data.user) {
+            p6ResolveIdentity().then(async () => {
+                p6RenderIdentity();
+                await p6LoadAccountData();
+                await p6RefreshStats();
+            });
+        }
+    });
+
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", p6Init);
+    } else {
+        p6Init();
+    }
+
+    window.CanopusKaraokeAccount = {
+        getUser: () => p6User,
+        getMode: () => p6StoreMode,
+        refreshStats: p6RefreshStats
+    };
+})();
+</script>
+
+<div class="p4-modal-backdrop" id="metadataModal" aria-hidden="true">
+  <div class="p4-modal" role="dialog" aria-modal="true" aria-labelledby="metadataModalTitle">
+    <h3 id="metadataModalTitle">Edit song</h3>
+    <div class="p4-modal-subtitle">Customize the title, artist, album and cover stored in your local Karaoke Library.</div>
+
+    <div class="p4-cover-editor">
+      <div class="p4-cover-preview" id="metadataCoverPreview"><span class="cover-placeholder">🎵</span></div>
+      <div>
+        <div style="font-weight:700;margin-bottom:5px;" id="metadataFileName">Local song</div>
+        <div style="opacity:.58;font-size:.82rem;margin-bottom:12px;">Cover images are kept locally in this browser.</div>
+        <div class="p4-cover-tools">
+          <button type="button" class="p4-cover-btn" id="metadataCoverPick">🖼️ Change cover</button>
+          <button type="button" class="p4-cover-btn" id="metadataCoverRemove">Remove cover</button>
+          <input id="metadataCoverInput" class="p4-hidden" type="file" accept="image/*">
+        </div>
+      </div>
+    </div>
+
+    <div class="p4-form-grid">
+      <div class="p4-field">
+        <label for="metadataTitle">Title</label>
+        <input id="metadataTitle" maxlength="180" autocomplete="off">
+      </div>
+      <div class="p4-field">
+        <label for="metadataArtist">Artist</label>
+        <input id="metadataArtist" maxlength="180" autocomplete="off">
+      </div>
+      <div class="p4-field full">
+        <label for="metadataAlbum">Album</label>
+        <input id="metadataAlbum" maxlength="180" autocomplete="off">
+      </div>
+    </div>
+
+    <div class="p4-modal-actions">
+      <button type="button" id="metadataCancel">Cancel</button>
+      <button type="button" class="primary" id="metadataSave">Save changes</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="p5-stage" id="karaokeStage" aria-hidden="true">
+  <div class="p5-stage-top">
+    <div class="p5-stage-cover" id="p5StageCover"><span>🎤</span></div>
+    <div class="p5-stage-title">
+      <strong id="p5StageTitle">Karaoke</strong>
+      <span id="p5StageArtist">Select a song to begin</span>
+    </div>
+    <button class="p5-stage-btn" id="p5MicBtn">🎙 Mic</button>
+    <button class="p5-stage-btn" id="p5RecordBtn">⏺ Record</button>
+    <button class="p5-stage-close" id="p5StageClose">✕</button>
+  </div>
+
+  <div class="p5-lyrics-stage" id="p5LyricsStage">
+    <div class="p5-lyric-empty">Load an LRC lyric file to enter karaoke mode.</div>
+  </div>
+
+  <div class="p5-bottom">
+    <div class="p5-progress-row">
+      <span class="p5-time" id="p5CurrentTime">0:00</span>
+      <input class="p5-range" id="p5Seek" type="range" min="0" max="1000" value="0">
+      <span class="p5-time" id="p5Duration">0:00</span>
+    </div>
+    <div class="p5-controls">
+      <button class="p5-control" id="p5Prev">⏮</button>
+      <button class="p5-control" id="p5Back">↶ 5s</button>
+      <button class="p5-control primary" id="p5Play">▶</button>
+      <button class="p5-control" id="p5Forward">5s ↷</button>
+      <button class="p5-control" id="p5Next">⏭</button>
+      <button class="p5-control" id="p5OffsetDown">−50ms</button>
+      <button class="p5-control" id="p5OffsetUp">+50ms</button>
+      <button class="p5-control" id="p5OffsetReset">Offset 0</button>
+    </div>
+  </div>
+</div>
+
+<div class="p5-panel" id="p5MicPanel">
+  <h4>🎙 Microphone</h4>
+  <div class="p5-meter"><div class="p5-meter-fill" id="p5MicMeter"></div></div>
+  <div class="p5-panel-row"><label>Mic volume</label><input id="p5MicVolume" type="range" min="0" max="1" step=".01" value="1"></div>
+  <div class="p5-panel-row"><label>Input</label></div>
+  <select class="p5-select" id="p5MicDevice"></select>
+  <div class="p5-panel-row"><button class="p5-stage-btn" id="p5MicStop">Stop microphone</button></div>
+</div>
+
+<div class="p5-panel" id="p5RecordingPanel">
+  <h4>🎤 My Karaoke Recordings</h4>
+  <div id="p5RecordingStatus" style="opacity:.6;font-size:.82rem;">No active recording.</div><div class="p51-record-source">The recording captures <strong>song audio + microphone</strong> together through the browser audio mixer.<div class="p51-recording-badge">● Local recording · IndexedDB</div></div>
+  <div class="p5-recording-list" id="p5RecordingList"></div>
+</div>
+
+<input id="p5RecordingNameInput" class="p4-hidden" type="text">
+
+</body>
+</html>
