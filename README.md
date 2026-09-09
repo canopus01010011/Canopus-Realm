@@ -48,14 +48,17 @@ Open `index.html` to land on the realm's home page — a starfield-backed landin
 
 Canopus Realm currently bundles **13 individual applications**, grouped into four categories:
 
-###  Games
+### Games
+
 | Project | Description | Highlights |
 |---|---|---|
 | **Anime Tracker** | Search, rate, and review anime using the Jikan (MyAnimeList) API | Firebase auth, personal watch-lists, star ratings, community reviews |
 | **Rock Paper Scissors** *(Orbit Duel)* | A polished RPS game against an adaptive bot | Bot reads your last 6 moves and counters your habits, streak tracking, sound effects |
 | **Tic Tac Toe** | Classic 3×3 with a twist | Normal 1v1 mode + a full bracket-style Competition/Tournament mode for 2–8 players |
-| **Quiz Master** *(CanQuiz)* | Trivia across 9 categories | Math, History, Geography, Physics, Astronomy, Medicine, Sports, Celebrities, Culture — 20 questions each | **Signing Stars** | A personal karoake website load your fav songs and their lyrics and begin the fun | Firebase auth, local Storage, recoding, add to fav list |
+| **Quiz Master** *(CanQuiz)* | Trivia across 9 categories | Math, History, Geography, Physics, Astronomy, Medicine, Sports, Celebrities, Culture — 20 questions each |
+| **Signing Stars** | A personal karaoke website where you load your favorite songs and their lyrics and begin the fun | Firebase Auth, local storage, recording, favorites |
 
+### Utilities
 ###  Utilities
 | Project | Description | Highlights |
 |---|---|---|
