@@ -1,4 +1,4 @@
-# 🌌 Canopus Realm
+#  Canopus Realm
 
 **One hub. Endless creations.**
 
@@ -6,7 +6,7 @@ Canopus Realm is a personal project hub — a single, cohesive web app that hous
 
 > This repo *used to be* 13–14 completely separate projects, each with its own repo, its own README, and its own inconsistent styling. It's now one realm. See [A note on the "100+ Commits" stat](#a-note-on-the-100-commits-stat) if you're wondering why the numbers don't quite add up.
 
-13 projects built with 69 source files and over 26,000 lines of HTML, CSS, and JavaScript.
+14 projects built with 70vs source files and over 28,000 lines of HTML, CSS, and JavaScript.
 ---
 
 ## Table of Contents
@@ -33,10 +33,10 @@ Canopus Realm is a personal project hub — a single, cohesive web app that hous
 
 | | | |
 |---|---|---|
-| 🎮 **Games** | 🧰 **Utilities** | 💚 **Personal** |
-| Anime Tracker, Rock Paper Scissors, Tic Tac Toe, Quiz Master | Calculator, Currency Converter, Weather | Fitness Tracker, Note Web, To-Do List, Epic Page |
+|  **Games** |  **Utilities** |  **Personal** |
+| Anime Tracker, Rock Paper Scissors, Tic Tac Toe, Quiz Master, Signing Stars | Calculator, Currency Converter, Weather | Fitness Tracker, Note Web, To-Do List, Epic Page |
 
-| 🎉 **Special Days** |
+|  **Special Days** |
 |---|
 | Valentine, Eid Sa3id |
 
@@ -48,22 +48,23 @@ Open `index.html` to land on the realm's home page — a starfield-backed landin
 
 Canopus Realm currently bundles **13 individual applications**, grouped into four categories:
 
-### 🎮 Games
+###  Games
 | Project | Description | Highlights |
 |---|---|---|
 | **Anime Tracker** | Search, rate, and review anime using the Jikan (MyAnimeList) API | Firebase auth, personal watch-lists, star ratings, community reviews |
 | **Rock Paper Scissors** *(Orbit Duel)* | A polished RPS game against an adaptive bot | Bot reads your last 6 moves and counters your habits, streak tracking, sound effects |
 | **Tic Tac Toe** | Classic 3×3 with a twist | Normal 1v1 mode + a full bracket-style Competition/Tournament mode for 2–8 players |
-| **Quiz Master** *(CanQuiz)* | Trivia across 9 categories | Math, History, Geography, Physics, Astronomy, Medicine, Sports, Celebrities, Culture — 20 questions each |
+| **Quiz Master** *(CanQuiz)* | Trivia across 9 categories | Math, History, Geography, Physics, Astronomy, Medicine, Sports, Celebrities, Culture — 20 questions each | **Signing Stars** | A personal karoake website load your fav songs and their lyrics and begin the fun 
+|
 
-### 🧰 Utilities
+###  Utilities
 | Project | Description | Highlights |
 |---|---|---|
 | **Calculator** | Basic + scientific calculator | Full scientific function set, calculation history, and a bundled mental-math quiz mode |
 | **Currency Converter** | Real-time exchange rates for 30 currencies | Live conversion, favorites, history log, and a rate-trend chart (Chart.js) |
 | **Weather** | Live weather lookup by city or geolocation | Powered by the OpenWeatherMap API, with sunrise/sunset, humidity, and feels-like data |
 
-### 💚 Personal
+###  Personal
 | Project | Description | Highlights |
 |---|---|---|
 | **Fitness Tracker** | Daily activity dashboard | Steps, calories, water, sleep, weight, BMI calculator, weekly trend charts, streaks & badges |
@@ -71,7 +72,7 @@ Canopus Realm currently bundles **13 individual applications**, grouped into fou
 | **To-Do List** *(Orbit)* | Task manager with priorities | Due dates, tags, priority levels, progress ring, undo-on-delete |
 | **Epic Page** | Fan site for *Epic: The Musical* | Full 30-track audio player, saga-by-saga story breakdown, cast bios |
 
-### 🎉 Special Days
+###  Special Days
 | Project | Description | Highlights |
 |---|---|---|
 | **Valentine** | An interactive "will you be my Valentine" page | 10-step date planner with a generated PDF invitation |
@@ -181,6 +182,7 @@ canopus-realm/
 ├── Epic-Page-main/
 ├── ValentineLOL-main/
 └── Eid-main/
+└── karaoke/
 ```
 
 Each project folder is fully self-contained (its own `index.html`, `style.css`, `script.js`) so it can be extracted, opened standalone, or dropped into another hub without modification.
@@ -254,7 +256,7 @@ A few conventions make the multi-project setup work smoothly:
 
 ## A Note on the "100+ Commits" Stat
 
-If you look at the hero section on the home page, you'll notice a stat that reads **"100+ Commits."** That number is a leftover from before this consolidation — when these 13 (now 14, counting the in-progress Epic Music Player) projects were separate, individually-committed repositories. The 100+ is the **combined commit count across every one of those original repos**, added up when they were still independent, plus the commits made after merging them into this single realm.
+If you look at the hero section on the home page, you'll notice a stat that reads **"100+ Commits."** That number is a leftover from before this consolidation — when these 14  projects were separate, individually-committed repositories. The 100+ is the **combined commit count across every one of those original repos**, added up when they were still independent, plus the commits made after merging them into this single realm.
 
 It's not a live GitHub API call — it's a static number I've kept as a bit of history. If you fork this and start committing to the unified repo, feel free to update `data-count="100"` in `index.html` to reflect your own numbers. I'm leaving mine as-is because it's an honest record of the work that went into building each piece before they had a shared home.
 
