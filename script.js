@@ -18,7 +18,7 @@ const projectPaths = {
     'Eid-main': 'Eid-main/index.html',
        // Karaoke
     'karaoke': 'karaoke/index.html',
-
+    'drums': 'drums/index.html',
 };
 
 // Featured project rotation dATA
@@ -1905,6 +1905,7 @@ projectModal.classList.add('active');
     projectIframe.onload = () => {
         projectLoader.style.display = 'none';
         projectIframe.style.display = 'block';
+            projectIframe.focus(); 
         try {
             projectIframe.contentWindow.postMessage({
                 source: 'canopus-realm',
