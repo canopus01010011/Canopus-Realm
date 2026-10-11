@@ -6,7 +6,7 @@ Canopus Realm is a personal project hub — a single, cohesive web app that hous
 
 > This repo *used to be* 13–14 completely separate projects, each with its own repo, its own README, and its own inconsistent styling. It's now one realm. See [A note on the "100+ Commits" stat](#a-note-on-the-100-commits-stat) if you're wondering why the numbers don't quite add up.
 
-14 projects built with 70vs source files and over 28,000 lines of HTML, CSS, and JavaScript.
+15 projects built with 70vs source files and over 28,000 lines of HTML, CSS, and JavaScript.
 ---
 
 ## Table of Contents
@@ -34,7 +34,7 @@ Canopus Realm is a personal project hub — a single, cohesive web app that hous
 | | | |
 |---|---|---|
 |  **Games** |  **Utilities** |  **Personal** |
-| Anime Tracker, Rock Paper Scissors, Tic Tac Toe, Quiz Master, Signing Stars | Calculator, Currency Converter, Weather | Fitness Tracker, Note Web, To-Do List, Epic Page |
+| Anime Tracker, Rock Paper Scissors, Tic Tac Toe, Quiz Master, Signing Stars, Cosmic Drums | Calculator, Currency Converter, Weather | Fitness Tracker, Note Web, To-Do List, Epic Page |
 
 |  **Special Days** |
 |---|
@@ -46,7 +46,7 @@ Open `index.html` to land on the realm's home page — a starfield-backed landin
 
 ## What's Inside
 
-Canopus Realm currently bundles **13 individual applications**, grouped into four categories:
+Canopus Realm currently bundles **15 individual applications**, grouped into four categories:
 
 ### Games
 
@@ -57,16 +57,38 @@ Canopus Realm currently bundles **13 individual applications**, grouped into fou
 | **Tic Tac Toe** | Classic 3×3 with a twist | Normal 1v1 mode + a full bracket-style Competition/Tournament mode for 2–8 players |
 | **Quiz Master** *(CanQuiz)* | Trivia across 9 categories | Math, History, Geography, Physics, Astronomy, Medicine, Sports, Celebrities, Culture — 20 questions each |
 | **Signing Stars** | A personal karaoke website where you load your favorite songs and their lyrics and begin the fun | Firebase Auth, local storage, recording, favorites |
+| **Cosmic Drums** | A drum game with a 3D-style kit, an animated galaxy background, and training songs that light up the right drum | 8 drums on their own keys, 7 original songs, four play modes, scoring with combos and grades, best scores synced to your account |
+
+#### Cosmic Drums at a glance
+
+| Drum | Key | | Drum | Key |
+|---|---|---|---|---|
+| Crash | `Q` | | Snare | `S` |
+| Hi-Hat | `W` | | Floor Tom | `D` |
+| Tom 1 | `E` | | Kick | `Space` |
+| Tom 2 | `R` | | Ride | `T` |
+
+You can also tap or click the drums. Every sound is synthesized with the Web Audio API, so there are no audio files to load.
+
+| Mode | What it does |
+|---|---|
+| **Free play** | Hit the drums freely; your hits stream across the lane view so you can see your rhythm |
+| **Watch** | The kit plays the song and lights each drum as it is struck |
+| **Practice** | The song waits for you: hit the glowing drum or drums to move on, with no timing pressure |
+| **Challenge** | Hit each glowing drum as the ring closes in; Perfect / Great / Good / Miss timing builds combos, a score, a grade, and up to 3 stars |
+
+The 7 songs are original beats, ordered from beginner to expert: First Steps, Disco Fever, Ride Cruise, Tom Cascade, Rock Anthem, Funk Groove, and Galaxy Finale. Tempo can be set from 50% to 125%, with an optional metronome.
 
 ### Utilities
-###  Utilities
+
 | Project | Description | Highlights |
 |---|---|---|
 | **Calculator** | Basic + scientific calculator | Full scientific function set, calculation history, and a bundled mental-math quiz mode |
 | **Currency Converter** | Real-time exchange rates for 30 currencies | Live conversion, favorites, history log, and a rate-trend chart (Chart.js) |
 | **Weather** | Live weather lookup by city or geolocation | Powered by the OpenWeatherMap API, with sunrise/sunset, humidity, and feels-like data |
 
-###  Personal
+### Personal
+
 | Project | Description | Highlights |
 |---|---|---|
 | **Fitness Tracker** | Daily activity dashboard | Steps, calories, water, sleep, weight, BMI calculator, weekly trend charts, streaks & badges |
@@ -74,7 +96,8 @@ Canopus Realm currently bundles **13 individual applications**, grouped into fou
 | **To-Do List** *(Orbit)* | Task manager with priorities | Due dates, tags, priority levels, progress ring, undo-on-delete |
 | **Epic Page** | Fan site for *Epic: The Musical* | Full 30-track audio player, saga-by-saga story breakdown, cast bios |
 
-###  Special Days
+### Special Days
+
 | Project | Description | Highlights |
 |---|---|---|
 | **Valentine** | An interactive "will you be my Valentine" page | 10-step date planner with a generated PDF invitation |
@@ -103,6 +126,7 @@ flowchart TD
     G --> H5[Calculator / Currency / Weather]
     G --> H6[Quiz / RPS / Tic-Tac-Toe]
     G --> H7[Epic Page / Valentine / Eid]
+    G --> H8[Cosmic Drums]
 
     E -->|onAuthStateChanged| A
     A -.postMessage: canopus-user-info.-> G
@@ -112,6 +136,7 @@ flowchart TD
     H2 -->|Firestore + localStorage fallback| I
     H3 -->|Firestore + localStorage fallback| I
     H4 -->|postMessage handshake or guest mode| I
+    H8 -->|Firestore best scores + localStorage fallback| I
 ```
 
 ### Identity handshake (why this matters)
@@ -123,6 +148,8 @@ Sub-projects don't share the hub's JavaScript scope — an `<iframe>` is its own
 3. If neither works (opened standalone, outside the hub), the app quietly drops into **guest mode** and persists data to `localStorage` instead.
 
 This is why apps like the Fitness Tracker and To-Do List work perfectly fine even if you open their `index.html` directly — they were designed to degrade gracefully.
+
+**Cosmic Drums** follows the same idea. It loads the hub's `firebase-config.js` (so it uses the same Firebase project and the same signed-in session on the same origin) and also listens for the hub's `canopus-user-info` message to show who is signed in. Logged-in players get their best score and stars per song synced to `users/{uid}/projects/cosmic-drums`; guests keep them in `localStorage`, and the two are merged (highest score wins) the first time a guest logs in.
 
 ```mermaid
 sequenceDiagram
@@ -154,7 +181,8 @@ Everything here is deliberately **framework-free** — vanilla HTML, CSS, and Ja
 | Logic | Vanilla JavaScript (ES6+), no frameworks |
 | Auth & Database | Firebase Authentication (compat SDK) + Cloud Firestore |
 | Charts | Chart.js |
-| Fonts | Google Fonts — Space Grotesk, Manrope, JetBrains Mono, Cinzel, Spectral (per-project theming) |
+| Audio & Graphics | Web Audio API (synthesized drum sounds), Canvas 2D (galaxy background, note lanes), layered SVG (drum kit) — Cosmic Drums |
+| Fonts | Google Fonts — Space Grotesk, Manrope, JetBrains Mono, Cinzel, Spectral, Orbitron (per-project theming) |
 | Icons | Font Awesome 6 |
 | External APIs | Jikan v4 (MyAnimeList), OpenWeatherMap, ExchangeRate-API |
 | PDF Generation | jsPDF (Valentine planner) |
@@ -183,11 +211,12 @@ canopus-realm/
 ├── To-Do-List-main/
 ├── Epic-Page-main/
 ├── ValentineLOL-main/
-└── Eid-main/
-└── karaoke/
+├── Eid-main/
+├── karaoke/
+└── drums/                     # Cosmic Drums (single self-contained index.html)
 ```
 
-Each project folder is fully self-contained (its own `index.html`, `style.css`, `script.js`) so it can be extracted, opened standalone, or dropped into another hub without modification.
+Each project folder is fully self-contained (its own `index.html`, `style.css`, `script.js`) so it can be extracted, opened standalone, or dropped into another hub without modification. Cosmic Drums keeps everything in one `index.html`; the only thing it reads from outside its folder is the hub's `../firebase-config.js`, and it runs in guest mode without it.
 
 ---
 
@@ -209,7 +238,7 @@ python3 -m http.server 8000
 open http://localhost:8000
 ```
 
-That's it. The hub and every sub-project will run immediately. Some features (weather, currency rates, anime search) call public APIs directly from the browser and need internet access; login/registration and the account-linked apps (Anime Tracker, To-Do List, Note Web) need a Firebase project — see below.
+That's it. The hub and every sub-project will run immediately. Some features (weather, currency rates, anime search) call public APIs directly from the browser and need internet access; login/registration and the account-linked apps (Anime Tracker, To-Do List, Note Web, Cosmic Drums) need a Firebase project — see below.
 
 ---
 
@@ -240,6 +269,13 @@ To wire up your own Firebase project:
    ```
 
 5. Deploy the included Firestore security rules (`Anime-Tracker-main/firestore.rules`) — they scope every read/write to the authenticated user's own document tree, with a public, rate-limited path for anime ratings and reviews.
+6. For Cosmic Drums, make sure your rules also let a signed-in user read and write their own project data:
+
+   ```
+   match /users/{uid}/projects/{doc} {
+     allow read, write: if request.auth != null && request.auth.uid == uid;
+   }
+   ```
 
 `firebase-config.js` is intentionally `.gitignore`d. Never commit real API keys — even though Firebase web keys aren't secret in the traditional sense, your Firestore rules are what actually protect your data, so make sure those are deployed correctly before going live.
 
@@ -249,9 +285,10 @@ To wire up your own Firebase project:
 
 A few conventions make the multi-project setup work smoothly:
 
-- **`projectPaths`** in `script.js` maps a short project key (e.g. `'Calculator-main'`) to its `index.html` path. Add a new project by dropping it in a folder and adding one line here.
+- **`projectPaths`** in `script.js` maps a short project key (e.g. `'Calculator-main'`) to its `index.html` path. Add a new project by dropping it in a folder and adding one line here (for example `'drums': 'drums/index.html'`).
 - **Deep links** — `index.html?open=Calculator-main` will auto-launch a project on page load, which is what the in-app "Share" button generates.
 - **The Share system** builds a shareable URL, then offers native share, WhatsApp, Telegram, Facebook, X, email, or copy-link — all from one reusable menu component (`.canopus-share-menu`) rather than duplicating share UI per project.
+- **Iframe focus** — after a project loads, the hub focuses the iframe so keyboard-driven apps like Cosmic Drums respond to key presses immediately.
 - **Theming per project** — each sub-project keeps its own `style.css` and CSS custom properties, so an anime tracker with a teal/violet palette and an Epic Musical fan page with a bronze/parchment palette can coexist without visual bleed, while still sharing the same *structural* patterns (starfield hero, glass cards, pill filters).
 
 ---
@@ -266,11 +303,11 @@ It's not a live GitHub API call — it's a static number I've kept as a bit of h
 
 ## Design Philosophy
 
-A few decisions were made consistently across all 13 projects, worth calling out for anyone extending this:
+A few decisions were made consistently across all 15 projects, worth calling out for anyone extending this:
 
 - **No frameworks, on purpose.** Every project is plain HTML/CSS/JS. It keeps the barrier to entry near zero — clone, open, edit, refresh.
-- **Guest mode is a first-class citizen, not an afterthought.** Every data-driven app (To-Do, Notes, Fitness Tracker) works fully without an account, using `localStorage`, and upgrades to cloud sync transparently the moment you log in.
-- **Consistent visual language, distinct personalities.** Every project shares the same structural DNA — a starfield backdrop, glassmorphic cards, pill-shaped filters, gradient CTAs — but each has its own accent palette and typography so it doesn't feel like fourteen clones of the same template.
+- **Guest mode is a first-class citizen, not an afterthought.** Every data-driven app (To-Do, Notes, Fitness Tracker, Cosmic Drums) works fully without an account, using `localStorage`, and upgrades to cloud sync transparently the moment you log in.
+- **Consistent visual language, distinct personalities.** Every project shares the same structural DNA — a starfield backdrop, glassmorphic cards, pill-shaped filters, gradient CTAs — but each has its own accent palette and typography so it doesn't feel like fifteen clones of the same template.
 - **Accessibility basics aren't optional.** Focus-visible outlines, `prefers-reduced-motion` handling, and semantic markup are baked into the shared CSS patterns across projects.
 - **Fail gracefully.** API calls (Jikan, OpenWeatherMap, ExchangeRate-API) are all wrapped with clear loading and error states rather than silent failures.
 
@@ -283,6 +320,8 @@ Being transparent about the current state of things:
 - The Firestore aggregate-rating logic in `firestore.rules` protects against casual tampering but isn't fully tamper-proof against a client hitting the REST API directly — a Cloud Function trigger would close that gap properly, and it's on the roadmap.
 - The Weather and Currency Converter API keys are client-side and unauthenticated by design (both services are meant to be used this way), but that also means they're rate-limited by the provider, not by this app.
 - Firebase config must be supplied per-deployment; there's no hosted "official" instance you can log into out of the box.
+- Cosmic Drums scores are saved from the browser, so like any client-side game score they can be edited by a determined user; treat them as personal bests, not a competitive leaderboard.
+- Cosmic Drums timing is measured against the browser's audio clock. Bluetooth headphones add delay that the browser can only partly report, so Challenge timing may feel slightly off with them.
 
 ---
 
